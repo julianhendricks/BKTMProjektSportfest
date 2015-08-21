@@ -10,16 +10,16 @@ using System.Windows.Forms;
 
 namespace Sportfest_Verwaltung
 {
-    public partial class StudentsAndClassesGUI : MetroFramework.Forms.MetroForm
+    public partial class NewSportsFestivalGUI : MetroFramework.Forms.MetroForm
     {
-        public StudentsAndClassesGUI()
+        public NewSportsFestivalGUI()
         {
             InitializeComponent();
 
             this.StyleManager = metroStyleManager;
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
