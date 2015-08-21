@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace Sportfest_Verwaltung
 {
-    public partial class Form1 : Form
+    public partial class StudentsAndClassesGUI : MetroFramework.Forms.MetroForm
     {
-        public Form1()
+        public StudentsAndClassesGUI()
         {
             InitializeComponent();
+
+            this.StyleManager = metroStyleManager;
         }
     }
 }
