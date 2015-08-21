@@ -61,7 +61,7 @@
             this.pnlClient.HorizontalScrollbarSize = 10;
             this.pnlClient.Location = new System.Drawing.Point(20, 60);
             this.pnlClient.Name = "pnlClient";
-            this.pnlClient.Size = new System.Drawing.Size(984, 784);
+            this.pnlClient.Size = new System.Drawing.Size(984, 470);
             this.pnlClient.TabIndex = 0;
             this.pnlClient.VerticalScrollbarBarColor = true;
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
@@ -75,7 +75,7 @@
             this.pnlControls.HorizontalScrollbarBarColor = true;
             this.pnlControls.HorizontalScrollbarHighlightOnWheel = false;
             this.pnlControls.HorizontalScrollbarSize = 10;
-            this.pnlControls.Location = new System.Drawing.Point(0, 734);
+            this.pnlControls.Location = new System.Drawing.Point(0, 420);
             this.pnlControls.Name = "pnlControls";
             this.pnlControls.Size = new System.Drawing.Size(984, 50);
             this.pnlControls.TabIndex = 2;
@@ -125,7 +125,7 @@
             "Diszi2"});
             this.lbActiveDisciplines.Location = new System.Drawing.Point(0, 0);
             this.lbActiveDisciplines.Name = "lbActiveDisciplines";
-            this.lbActiveDisciplines.Size = new System.Drawing.Size(400, 734);
+            this.lbActiveDisciplines.Size = new System.Drawing.Size(400, 420);
             this.lbActiveDisciplines.TabIndex = 3;
             // 
             // pnlShiftControls
@@ -138,7 +138,7 @@
             this.pnlShiftControls.HorizontalScrollbarSize = 10;
             this.pnlShiftControls.Location = new System.Drawing.Point(400, 0);
             this.pnlShiftControls.Name = "pnlShiftControls";
-            this.pnlShiftControls.Size = new System.Drawing.Size(174, 734);
+            this.pnlShiftControls.Size = new System.Drawing.Size(174, 420);
             this.pnlShiftControls.TabIndex = 5;
             this.pnlShiftControls.VerticalScrollbarBarColor = true;
             this.pnlShiftControls.VerticalScrollbarHighlightOnWheel = false;
@@ -153,16 +153,16 @@
             "Available2"});
             this.lbAvailableDisciplines.Location = new System.Drawing.Point(574, 0);
             this.lbAvailableDisciplines.Name = "lbAvailableDisciplines";
-            this.lbAvailableDisciplines.Size = new System.Drawing.Size(410, 734);
+            this.lbAvailableDisciplines.Size = new System.Drawing.Size(410, 420);
             this.lbAvailableDisciplines.TabIndex = 7;
             // 
             // btnLeft
             // 
             this.btnLeft.ActiveControl = null;
             this.btnLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLeft.Location = new System.Drawing.Point(100, 215);
+            this.btnLeft.Location = new System.Drawing.Point(50, 58);
             this.btnLeft.Name = "btnLeft";
-            this.btnLeft.Size = new System.Drawing.Size(0, 23);
+            this.btnLeft.Size = new System.Drawing.Size(74, 23);
             this.btnLeft.TabIndex = 2;
             this.btnLeft.Text = "<<";
             this.btnLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -172,9 +172,9 @@
             // 
             this.btnRight.ActiveControl = null;
             this.btnRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRight.Location = new System.Drawing.Point(100, 284);
+            this.btnRight.Location = new System.Drawing.Point(50, 127);
             this.btnRight.Name = "btnRight";
-            this.btnRight.Size = new System.Drawing.Size(0, 23);
+            this.btnRight.Size = new System.Drawing.Size(74, 23);
             this.btnRight.TabIndex = 3;
             this.btnRight.Text = ">>";
             this.btnRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -184,7 +184,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 864);
+            this.ClientSize = new System.Drawing.Size(1024, 550);
             this.Controls.Add(this.pnlClient);
             this.Name = "NewSportsFestivalGUI";
             this.Text = "Neues Sportfest";
