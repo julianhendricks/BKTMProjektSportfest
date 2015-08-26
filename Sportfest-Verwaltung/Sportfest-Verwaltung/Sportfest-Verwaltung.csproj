@@ -31,6 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MetroFramework, Version=1.3.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.3.0.0\lib\net\MetroFramework.dll</HintPath>
@@ -70,6 +74,20 @@
     <Compile Include="NewSportsFestivalGUI.Designer.cs">
       <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResultsController.cs" />
+    <Compile Include="ResultsGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResultsGUI.Designer.cs">
+      <DependentUpon>ResultsGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SportCertificateController.cs" />
+    <Compile Include="SportCertificateGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SportCertificateGUI.Designer.cs">
+      <DependentUpon>SportCertificateGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sportsfestival.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +118,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ResultsGUI.resx">
+      <DependentUpon>ResultsGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SportCertificateGUI.resx">
+      <DependentUpon>SportCertificateGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sportsfestival.resx">
       <DependentUpon>Sportsfestival.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,6 +182,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1440590615_icon-16-medal.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

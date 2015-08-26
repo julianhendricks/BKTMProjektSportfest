@@ -38,5 +38,10 @@ namespace Sportfest_Verwaltung
         {
 
         }
+
+        private void btnResults_Click(object sender, EventArgs e)
+        {
+            ResultsController.OpenResultsGUI();
+        }
     }
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Sportfest_Verwaltung
 {
-    public partial class DisciplinesGUI : MetroFramework.Forms.MetroForm
+    public partial class SportCertificateGUI : MetroFramework.Forms.MetroForm
     {
-        public DisciplinesGUI()
+        public SportCertificateGUI()
         {
             InitializeComponent();
         }
@@ -20,11 +20,6 @@ namespace Sportfest_Verwaltung
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void btnSportCertificate_Click(object sender, EventArgs e)
-        {
-            SportCertificateController.OpenSportCertificateGUI();
         }
     }
 }
