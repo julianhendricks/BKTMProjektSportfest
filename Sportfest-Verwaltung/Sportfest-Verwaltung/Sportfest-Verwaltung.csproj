@@ -11,6 +11,21 @@
     <AssemblyName>Sportfest-Verwaltung</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,53 +75,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisciplinesController.cs" />
-    <Compile Include="DisciplinesGUI.cs">
+    <Compile Include="Classes.cs" />
+    <Compile Include="Configuration\DisciplinesController.cs" />
+    <Compile Include="Configuration\DisciplinesGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisciplinesGUI.Designer.cs">
+    <Compile Include="Configuration\DisciplinesGUI.Designer.cs">
       <DependentUpon>DisciplinesGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewSportsFestivalController.cs" />
-    <Compile Include="NewSportsFestivalGUI.cs">
+    <Compile Include="MainScreen\NewSportsFestivalController.cs" />
+    <Compile Include="MainScreen\NewSportsFestivalGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewSportsFestivalGUI.Designer.cs">
+    <Compile Include="MainScreen\NewSportsFestivalGUI.Designer.cs">
       <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="ResultsController.cs" />
-    <Compile Include="ResultsGUI.cs">
+    <Compile Include="Results\ResultsController.cs" />
+    <Compile Include="Results\ResultsGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ResultsGUI.Designer.cs">
+    <Compile Include="Results\ResultsGUI.Designer.cs">
       <DependentUpon>ResultsGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="SportCertificateController.cs" />
-    <Compile Include="SportCertificateGUI.cs">
+    <Compile Include="Configuration\SportCertificateController.cs" />
+    <Compile Include="Configuration\SportCertificateGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SportCertificateGUI.Designer.cs">
+    <Compile Include="Configuration\SportCertificateGUI.Designer.cs">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sportsfestival.cs">
+    <Compile Include="MainScreen\Sportsfestival.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sportsfestival.Designer.cs">
+    <Compile Include="MainScreen\Sportsfestival.Designer.cs">
       <DependentUpon>Sportsfestival.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentsAndClassesController.cs" />
-    <Compile Include="StudentsAndClassesGUI.cs">
+    <Compile Include="Configuration\StudentsAndClassesController.cs" />
+    <Compile Include="Configuration\StudentsAndClassesGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentsAndClassesGUI.Designer.cs">
+    <Compile Include="Configuration\StudentsAndClassesGUI.Designer.cs">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DisciplinesGUI.resx">
+    <Compile Include="MainScreen\SportsfestivalController.cs" />
+    <Compile Include="SQL.cs" />
+    <EmbeddedResource Include="Configuration\DisciplinesGUI.resx">
       <DependentUpon>DisciplinesGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewSportsFestivalGUI.resx">
+    <EmbeddedResource Include="MainScreen\NewSportsFestivalGUI.resx">
       <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -118,16 +136,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ResultsGUI.resx">
+    <EmbeddedResource Include="Results\ResultsGUI.resx">
       <DependentUpon>ResultsGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SportCertificateGUI.resx">
+    <EmbeddedResource Include="Configuration\SportCertificateGUI.resx">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sportsfestival.resx">
+    <EmbeddedResource Include="MainScreen\Sportsfestival.resx">
       <DependentUpon>Sportsfestival.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StudentsAndClassesGUI.resx">
+    <EmbeddedResource Include="Configuration\StudentsAndClassesGUI.resx">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -185,6 +203,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1440590615_icon-16-medal.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

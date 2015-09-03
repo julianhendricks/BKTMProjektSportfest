@@ -12,6 +12,7 @@ namespace Sportfest_Verwaltung
 {
     public partial class Sportsfestival : MetroFramework.Forms.MetroForm
     {
+        SportsfestivalController MyController;
         public Sportsfestival()
         {
             InitializeComponent();
@@ -42,6 +43,12 @@ namespace Sportfest_Verwaltung
         private void btnResults_Click(object sender, EventArgs e)
         {
             ResultsController.OpenResultsGUI();
+        }
+
+        private void Sportsfestival_Load(object sender, EventArgs e)
+        {
+            MyController = new SportsfestivalController();
+            MyController.LoadSportsFestivalListView(lvSportsfestivals);
         }
     }
 }

@@ -29,23 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sportsfestival));
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
+            this.lvSportsfestivals = new System.Windows.Forms.ListView();
+            this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SportsfestivalName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
+            this.btnResults = new MetroFramework.Controls.MetroButton();
             this.btnDelete = new MetroFramework.Controls.MetroButton();
             this.btnNew = new MetroFramework.Controls.MetroButton();
             this.btnDisciplines = new MetroFramework.Controls.MetroButton();
             this.btnStudentsAndClasses = new MetroFramework.Controls.MetroButton();
-            this.btnResults = new MetroFramework.Controls.MetroButton();
-            this.GridSportsFestival = new MetroFramework.Controls.MetroGrid();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             this.pnlClient.SuspendLayout();
             this.pnlControls.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GridSportsFestival)).BeginInit();
             this.SuspendLayout();
             // 
             // metroStyleManager
@@ -54,7 +52,7 @@
             // 
             // pnlClient
             // 
-            this.pnlClient.Controls.Add(this.GridSportsFestival);
+            this.pnlClient.Controls.Add(this.lvSportsfestivals);
             this.pnlClient.Controls.Add(this.pnlControls);
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.HorizontalScrollbarBarColor = true;
@@ -67,6 +65,34 @@
             this.pnlClient.VerticalScrollbarBarColor = true;
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClient.VerticalScrollbarSize = 10;
+            // 
+            // lvSportsfestivals
+            // 
+            this.lvSportsfestivals.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Id,
+            this.SportsfestivalName});
+            this.lvSportsfestivals.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSportsfestivals.FullRowSelect = true;
+            this.lvSportsfestivals.GridLines = true;
+            this.lvSportsfestivals.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvSportsfestivals.LabelEdit = true;
+            this.lvSportsfestivals.Location = new System.Drawing.Point(150, 0);
+            this.lvSportsfestivals.MultiSelect = false;
+            this.lvSportsfestivals.Name = "lvSportsfestivals";
+            this.lvSportsfestivals.Size = new System.Drawing.Size(594, 482);
+            this.lvSportsfestivals.TabIndex = 4;
+            this.lvSportsfestivals.UseCompatibleStateImageBehavior = false;
+            this.lvSportsfestivals.View = System.Windows.Forms.View.Details;
+            // 
+            // Id
+            // 
+            this.Id.Text = "Id";
+            this.Id.Width = 0;
+            // 
+            // SportsfestivalName
+            // 
+            this.SportsfestivalName.Text = "Sportfest";
+            this.SportsfestivalName.Width = 500;
             // 
             // pnlControls
             // 
@@ -90,6 +116,20 @@
             this.pnlControls.VerticalScrollbarBarColor = true;
             this.pnlControls.VerticalScrollbarHighlightOnWheel = false;
             this.pnlControls.VerticalScrollbarSize = 10;
+            // 
+            // btnResults
+            // 
+            this.btnResults.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnResults.Location = new System.Drawing.Point(0, 80);
+            this.btnResults.Name = "btnResults";
+            this.btnResults.Size = new System.Drawing.Size(150, 40);
+            this.btnResults.TabIndex = 6;
+            this.btnResults.Text = "Ergebnisse";
+            this.btnResults.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnResults.UseCustomBackColor = true;
+            this.btnResults.UseCustomForeColor = true;
+            this.btnResults.UseSelectable = true;
+            this.btnResults.Click += new System.EventHandler(this.btnResults_Click);
             // 
             // btnDelete
             // 
@@ -147,66 +187,6 @@
             this.btnStudentsAndClasses.UseSelectable = true;
             this.btnStudentsAndClasses.Click += new System.EventHandler(this.btnStudentsAndClasses_Click_1);
             // 
-            // btnResults
-            // 
-            this.btnResults.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnResults.Location = new System.Drawing.Point(0, 80);
-            this.btnResults.Name = "btnResults";
-            this.btnResults.Size = new System.Drawing.Size(150, 40);
-            this.btnResults.TabIndex = 6;
-            this.btnResults.Text = "Ergebnisse";
-            this.btnResults.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnResults.UseCustomBackColor = true;
-            this.btnResults.UseCustomForeColor = true;
-            this.btnResults.UseSelectable = true;
-            this.btnResults.Click += new System.EventHandler(this.btnResults_Click);
-            // 
-            // GridSportsFestival
-            // 
-            this.GridSportsFestival.AllowUserToAddRows = false;
-            this.GridSportsFestival.AllowUserToResizeRows = false;
-            this.GridSportsFestival.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridSportsFestival.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GridSportsFestival.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.GridSportsFestival.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridSportsFestival.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.GridSportsFestival.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridSportsFestival.DefaultCellStyle = dataGridViewCellStyle5;
-            this.GridSportsFestival.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GridSportsFestival.EnableHeadersVisualStyles = false;
-            this.GridSportsFestival.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.GridSportsFestival.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridSportsFestival.Location = new System.Drawing.Point(150, 0);
-            this.GridSportsFestival.Name = "GridSportsFestival";
-            this.GridSportsFestival.ReadOnly = true;
-            this.GridSportsFestival.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridSportsFestival.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.GridSportsFestival.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.GridSportsFestival.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridSportsFestival.Size = new System.Drawing.Size(594, 482);
-            this.GridSportsFestival.TabIndex = 3;
-            // 
             // Sportsfestival
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,10 +197,10 @@
             this.Name = "Sportsfestival";
             this.Text = "Sportfeste";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Sportsfestival_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
             this.pnlClient.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.GridSportsFestival)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -235,7 +215,9 @@
         private MetroFramework.Controls.MetroButton btnDelete;
         private MetroFramework.Controls.MetroButton btnNew;
         private MetroFramework.Controls.MetroButton btnResults;
-        private MetroFramework.Controls.MetroGrid GridSportsFestival;
+        private System.Windows.Forms.ListView lvSportsfestivals;
+        private System.Windows.Forms.ColumnHeader Id;
+        private System.Windows.Forms.ColumnHeader SportsfestivalName;
     }
 }
 
