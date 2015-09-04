@@ -32,8 +32,8 @@ namespace Sportfest_Verwaltung
                 SportsFestivalCollection.Add(CurrentItem);
             }*/
 
-            SQL sqlInstance = new SQL();
-            sqlInstance.connect();
+            MySQL sqlInstance = new MySQL();
+            sqlInstance.connect("localhost", "root", "", "sportsfestival");
 
         }
 

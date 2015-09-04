@@ -10,26 +10,37 @@ using System.Windows.Forms;
 
 namespace Sportfest_Verwaltung
 {
-    class SQL
+    class MySQL
     {
         private MySqlConnection instance;
 
-        public void connect()
-        {
-            /** TODO: Konfigurationsdatei */
-            String connectionString = "SERVER=localhost;DATABASE=sportsfsestival;UID=root;PASSWORD=;";
+        public void connect(
+            string host,
+            string username,
+            string password,
+            string database,
+            int port = 3306
+        ) {
+            /** TODO: Konfigurationsdatei anlegen */
+            string connectionString = ""
+                + "SERVER=" + host + ";"
+                + "UID=" + username + ";"
+                + "PASSWORD=" + password + ";"
+                + "DATABASE=" + database + ";"
+                + "PORT=" + port + ";"
+            ;
             this.instance = new MySqlConnection(connectionString);
 
             try
             {
                 this.instance.Open();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 MessageBox.Show(
-                    "Es trat ein Fehler beim Herstellen einer Datenbankverbindung auf!\n"
+                    "Es trat ein Fehler beim Herstellen der Datenbankverbindung auf!\n"
                         + "Ausgabe der Datenbank:\n\n"
-                        + ex.Message + "\n\n"
+                        + e.Message + "\n\n"
                         + "Bitte korrigieren Sie die Verbindungsinformationen in der Konfigurationsdatei!",
                     "Datenbankfehler",
                     MessageBoxButtons.OK,
@@ -46,11 +57,44 @@ namespace Sportfest_Verwaltung
             {
                 this.instance.Close();
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(
+                    "Es trat ein Fehler beim Schließen der Datenbankverbindung auf!\n"
+                        + "Ausgabe der Datenbank:\n\n"
+                        + e.Message,
+                    "Datenbankfehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
 
+                Application.Exit();
             }
             
+        }
+
+        public MySqlDataReader query(string sql)
+        {
+            try
+            {
+                MySqlCommand command = this.instance.CreateCommand();
+                command.CommandText = sql;
+
+                return command.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    "Es trat ein Fehler beim Ausführen einer Datenbankabfrage auf!\n"
+                        + "Ausgabe der Datenbank:\n\n"
+                        + e.Message,
+                    "Datenbankfehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+            return null;
         }
 
 
