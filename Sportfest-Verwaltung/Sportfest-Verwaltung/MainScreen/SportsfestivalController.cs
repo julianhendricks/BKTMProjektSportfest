@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Sportfest_Verwaltung
 {
@@ -15,8 +16,7 @@ namespace Sportfest_Verwaltung
         public SportsfestivalController()
         {
             int currentSportsFestivalId;
-            DateTime currentSportsFestivalDate;
-            SqlDataReader SportsFestivalsDS;
+            string currentSportsFestivalDate;
 
             SportsFestivalCollection = new List<SportsFestival>();
 
@@ -34,6 +34,18 @@ namespace Sportfest_Verwaltung
 
             MySQL sqlInstance = new MySQL();
             sqlInstance.connect("localhost", "root", "", "sportsfestival");
+            MySqlDataReader reader = sqlInstance.query("SELECT * FROM `variant`");
+            while(reader.Read())
+            {
+                currentSportsFestivalId = Convert.ToInt32(reader["variantId"]);
+                currentSportsFestivalDate = Convert.ToString(reader["variantName"]);
+
+                MessageBox.Show(currentSportsFestivalId + " " + currentSportsFestivalDate);
+
+                //SportsFestival CurrentItem = new SportsFestival(currentSportsFestivalId, currentSportsFestivalDate);
+                //SportsFestivalCollection.Add(CurrentItem);
+            }
+
 
         }
 
