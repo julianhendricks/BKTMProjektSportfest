@@ -12,17 +12,19 @@ namespace Sportfest_Verwaltung
     {
         static public SqlConnection GetConnection()
         {
-            string ConnectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Berufsschule;Data Source=FUP021";
+            string ConnectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=sportsfestival;Data Source=FUP021";
             SqlConnection Conn = new SqlConnection(ConnectionString);
             return Conn;
         }
 
-        static public SqlDataReader GetReader(string iCommandText)
+        static public SqlDataReader GetReader(string iCommandText, SqlConnection iConnection)
         {
-            SqlConnection Connection = GetConnection();
-            Connection.Open();
+            if (iConnection.State == ConnectionState.Closed)
+            {
+                iConnection.Open();
+            }
 
-            SqlCommand cmd = new SqlCommand(iCommandText, Connection);
+            SqlCommand cmd = new SqlCommand(iCommandText, iConnection);
             SqlDataReader rdr = cmd.ExecuteReader();
             return rdr;
         }
