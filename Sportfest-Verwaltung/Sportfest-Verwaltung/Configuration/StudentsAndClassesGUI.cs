@@ -50,5 +50,19 @@ namespace Sportfest_Verwaltung
             int ClassId = Convert.ToInt32(lvClasses.SelectedItems[0].Text);
             MyController.UpdateClassShortcut(edtShortcut.Text, ClassId, lvClasses);
         }
+
+        private void StudentsAndClassesGUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MyController.UpdateClassTable();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (tcStudentsAndClasses.SelectedTab == pagClasses)
+            {
+                int ClassId = Convert.ToInt32(lvClasses.SelectedItems[0].Text);
+                MyController.DeleteClass(ClassId, lvClasses);
+            }
+        }
     }
 }

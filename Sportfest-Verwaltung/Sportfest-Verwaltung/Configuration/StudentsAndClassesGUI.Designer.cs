@@ -217,6 +217,7 @@
             this.btnDelete.UseCustomBackColor = true;
             this.btnDelete.UseCustomForeColor = true;
             this.btnDelete.UseSelectable = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNew
             // 
@@ -246,6 +247,7 @@
             this.lvClasses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvClasses.FullRowSelect = true;
             this.lvClasses.GridLines = true;
+            this.lvClasses.HideSelection = false;
             this.lvClasses.Location = new System.Drawing.Point(0, 0);
             this.lvClasses.Name = "lvClasses";
             this.lvClasses.Size = new System.Drawing.Size(586, 440);
@@ -311,6 +313,7 @@
             this.Controls.Add(this.pnlClient);
             this.Name = "StudentsAndClassesGUI";
             this.Text = "Schüler und Klassen";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StudentsAndClassesGUI_FormClosing);
             this.Load += new System.EventHandler(this.StudentsAndClassesGUI_Load);
             this.pnlClient.ResumeLayout(false);
             this.tcStudentsAndClasses.ResumeLayout(false);

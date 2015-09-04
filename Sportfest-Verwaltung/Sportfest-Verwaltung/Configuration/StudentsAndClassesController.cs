@@ -74,5 +74,45 @@ namespace Sportfest_Verwaltung
             int Index = iListView.FindItemWithText(Convert.ToString(iClassID)).Index;
             iListView.Items[Index].SubItems[1].Text = iNewShortCut;
         }
+
+        public void DeleteClass(int iClassId, ListView iListView)
+        {
+            Classes DeletedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassId);
+            DeletedClass.deletedFlag = true;
+
+            int Index = iListView.FindItemWithText(Convert.ToString(iClassId)).Index;
+            iListView.Items[Index].Remove();
+        }
+
+        public void UpdateClassTable()
+        {
+            string SQLStatement;
+            foreach (Classes Class in ClassesCollection)
+            {
+                SQLStatement = "";
+                if (Class.newFlag == true)
+                {
+                    SQLStatement = "INSERT INTO class (classId, shortcut) VALUES (" + Convert.ToString(Class.ClassId)
+                        + ", '" + Class.getShortcut() + "')";
+                }
+                else if (Class.changedFlag == true)
+                {
+                    SQLStatement = "UPDATE class SET shortcut = '" + Class.getShortcut() + "' WHERE classId = "
+                        + Convert.ToString(Class.ClassId);
+                }
+                if (Class.deletedFlag == true)
+                {
+                    SQLStatement = "DELETE FROM class WHERE classId = " + Convert.ToString(Class.ClassId);
+                }
+
+                if (SQLStatement != "")
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = SQLStatement;
+                    cmd.Connection = StudentsAndClassesConnection;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
