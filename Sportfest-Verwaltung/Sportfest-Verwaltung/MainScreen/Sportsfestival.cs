@@ -15,6 +15,8 @@ namespace Sportfest_Verwaltung
         SportsfestivalController MyController;
         public Sportsfestival()
         {
+            System.Console.WriteLine("Debug hier");
+
             InitializeComponent();
 
             this.StyleManager = metroStyleManager;

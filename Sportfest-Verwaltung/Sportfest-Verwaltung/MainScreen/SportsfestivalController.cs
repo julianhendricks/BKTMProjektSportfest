@@ -21,16 +21,20 @@ namespace Sportfest_Verwaltung
             SportsFestivalCollection = new List<SportsFestival>();
 
             //Reader erstellen und durchlaufen
-            String SQLStatement = "SELECT * FROM SportsFestival";
-            SportsFestivalsDS = SQL.GetReader(SQLStatement);
-            while (SportsFestivalsDS.Read())
+            //String SQLStatement = "SELECT * FROM SportsFestival";
+            //SportsFestivalsDS = SQL.GetReader(SQLStatement);
+            /*while (SportsFestivalsDS.Read())
             {
                 currentSportsFestivalId = Convert.ToInt32(SportsFestivalsDS["SportsFestivalId"]);
                 currentSportsFestivalDate = Convert.ToDateTime(SportsFestivalsDS["date"]);
 
                 SportsFestival CurrentItem = new SportsFestival(currentSportsFestivalId, currentSportsFestivalDate);
                 SportsFestivalCollection.Add(CurrentItem);
-            }            
+            }*/
+
+            MySQL sqlInstance = new MySQL();
+            sqlInstance.connect("localhost", "root", "", "sportsfestival");
+
         }
 
         public void LoadSportsFestivalListView(ListView iListView)
