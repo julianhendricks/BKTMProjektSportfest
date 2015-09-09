@@ -12,6 +12,7 @@ namespace Sportfest_Verwaltung
     class SportsfestivalController
     {
         List<SportsFestival> SportsFestivalCollection;
+        SqlConnection SportsFestivalConnection;
 
         public SportsfestivalController()
         {
@@ -19,18 +20,7 @@ namespace Sportfest_Verwaltung
             string currentSportsFestivalDate;
 
             SportsFestivalCollection = new List<SportsFestival>();
-
-            //Reader erstellen und durchlaufen
-            //String SQLStatement = "SELECT * FROM SportsFestival";
-            //SportsFestivalsDS = SQL.GetReader(SQLStatement);
-            /*while (SportsFestivalsDS.Read())
-            {
-                currentSportsFestivalId = Convert.ToInt32(SportsFestivalsDS["SportsFestivalId"]);
-                currentSportsFestivalDate = Convert.ToDateTime(SportsFestivalsDS["date"]);
-
-                SportsFestival CurrentItem = new SportsFestival(currentSportsFestivalId, currentSportsFestivalDate);
-                SportsFestivalCollection.Add(CurrentItem);
-            }*/
+            SportsFestivalConnection = SQL.GetConnection();
 
             MySQL sqlInstance = new MySQL();
             sqlInstance.connect("localhost", "root", "", "sportsfestival");
@@ -48,6 +38,14 @@ namespace Sportfest_Verwaltung
 
 
         }
+
+       /* ~SportsfestivalController()
+        {
+            if (SportsFestivalConnection.State == System.Data.ConnectionState.Open)
+            {
+                SportsFestivalConnection.Close();
+            }
+        }*/
 
         public void LoadSportsFestivalListView(ListView iListView)
         {

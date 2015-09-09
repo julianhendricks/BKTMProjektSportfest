@@ -31,4 +31,38 @@ namespace Sportfest_Verwaltung
             return date;
         }
     }
+
+    class Classes
+    {
+        private int classId;
+        private string shortcut;
+        public bool deletedFlag;
+        public bool newFlag;
+        public bool changedFlag;
+
+        public Classes(int iclassId, string ishortcut)
+        {
+            classId = iclassId;
+            shortcut = ishortcut;
+            deletedFlag = false;
+            newFlag = false;
+            changedFlag = false;
+        }
+
+        public int ClassId
+        {
+            get { return classId; }
+        }
+
+
+        public string getShortcut()
+        {
+            return shortcut;
+        }
+
+        public void setShortcut(string ishortcut)
+        {
+            shortcut = ishortcut;
+        }
+    }
 }

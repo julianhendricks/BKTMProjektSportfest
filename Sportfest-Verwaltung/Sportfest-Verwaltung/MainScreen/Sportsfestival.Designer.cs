@@ -72,7 +72,6 @@
             this.Id,
             this.SportsfestivalName});
             this.lvSportsfestivals.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvSportsfestivals.FullRowSelect = true;
             this.lvSportsfestivals.GridLines = true;
             this.lvSportsfestivals.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvSportsfestivals.LabelEdit = true;

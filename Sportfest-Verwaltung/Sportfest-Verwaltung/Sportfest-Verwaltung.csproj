@@ -87,6 +87,19 @@
     <Compile Include="Configuration\DisciplinesGUI.Designer.cs">
       <DependentUpon>DisciplinesGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Benchmark.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Class.cs" />
+    <Compile Include="Entities\Competition.cs" />
+    <Compile Include="Entities\Discipline.cs" />
+    <Compile Include="Entities\DisciplineSet.cs" />
+    <Compile Include="Entities\DisciplineSetDisciplineMapping.cs" />
+    <Compile Include="Entities\DisciplineVariantMapping.cs" />
+    <Compile Include="Entities\SportsFestival.cs" />
+    <Compile Include="Entities\SportsFestivalSubscription.cs" />
+    <Compile Include="Entities\Student.cs" />
+    <Compile Include="Entities\Subscription.cs" />
+    <Compile Include="Entities\Variant.cs" />
     <Compile Include="MainScreen\NewSportsFestivalController.cs" />
     <Compile Include="MainScreen\NewSportsFestivalGUI.cs">
       <SubType>Form</SubType>

@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
             this.tcStudentsAndClasses = new MetroFramework.Controls.MetroTabControl();
             this.pagStudents = new System.Windows.Forms.TabPage();
@@ -48,18 +42,20 @@
             this.btnDelete = new MetroFramework.Controls.MetroButton();
             this.btnNew = new MetroFramework.Controls.MetroButton();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
-            this.GridClasses = new MetroFramework.Controls.MetroGrid();
-            this.GridStudents = new MetroFramework.Controls.MetroGrid();
+            this.lvClasses = new System.Windows.Forms.ListView();
+            this.ClassId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.classAbbreviation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pnlClassesControl = new MetroFramework.Controls.MetroPanel();
+            this.edtShortcut = new MetroFramework.Controls.MetroTextBox();
+            this.lblShortcut = new MetroFramework.Controls.MetroLabel();
             this.pnlClient.SuspendLayout();
             this.tcStudentsAndClasses.SuspendLayout();
             this.pagStudents.SuspendLayout();
-            this.pnlStudents.SuspendLayout();
             this.pagClasses.SuspendLayout();
             this.pnlClasses.SuspendLayout();
             this.pnlControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GridClasses)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GridStudents)).BeginInit();
+            this.pnlClassesControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlClient
@@ -86,7 +82,7 @@
             this.tcStudentsAndClasses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcStudentsAndClasses.Location = new System.Drawing.Point(150, 0);
             this.tcStudentsAndClasses.Name = "tcStudentsAndClasses";
-            this.tcStudentsAndClasses.SelectedIndex = 0;
+            this.tcStudentsAndClasses.SelectedIndex = 1;
             this.tcStudentsAndClasses.Size = new System.Drawing.Size(594, 482);
             this.tcStudentsAndClasses.TabIndex = 3;
             this.tcStudentsAndClasses.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -103,7 +99,6 @@
             // 
             // pnlStudents
             // 
-            this.pnlStudents.Controls.Add(this.GridStudents);
             this.pnlStudents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlStudents.HorizontalScrollbarBarColor = true;
             this.pnlStudents.HorizontalScrollbarHighlightOnWheel = false;
@@ -128,7 +123,8 @@
             // 
             // pnlClasses
             // 
-            this.pnlClasses.Controls.Add(this.GridClasses);
+            this.pnlClasses.Controls.Add(this.pnlClassesControl);
+            this.pnlClasses.Controls.Add(this.lvClasses);
             this.pnlClasses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClasses.HorizontalScrollbarBarColor = true;
             this.pnlClasses.HorizontalScrollbarHighlightOnWheel = false;
@@ -221,6 +217,7 @@
             this.btnDelete.UseCustomBackColor = true;
             this.btnDelete.UseCustomForeColor = true;
             this.btnDelete.UseSelectable = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNew
             // 
@@ -235,98 +232,78 @@
             this.btnNew.UseCustomBackColor = true;
             this.btnNew.UseCustomForeColor = true;
             this.btnNew.UseSelectable = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // metroStyleManager
             // 
             this.metroStyleManager.Owner = this;
             // 
-            // GridClasses
+            // lvClasses
             // 
-            this.GridClasses.AllowUserToResizeRows = false;
-            this.GridClasses.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridClasses.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GridClasses.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.GridClasses.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridClasses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.GridClasses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridClasses.DefaultCellStyle = dataGridViewCellStyle5;
-            this.GridClasses.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GridClasses.EnableHeadersVisualStyles = false;
-            this.GridClasses.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.GridClasses.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridClasses.Location = new System.Drawing.Point(0, 0);
-            this.GridClasses.Name = "GridClasses";
-            this.GridClasses.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridClasses.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.GridClasses.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.GridClasses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.GridClasses.Size = new System.Drawing.Size(586, 440);
-            this.GridClasses.TabIndex = 2;
+            this.lvClasses.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lvClasses.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ClassId,
+            this.classAbbreviation});
+            this.lvClasses.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvClasses.FullRowSelect = true;
+            this.lvClasses.GridLines = true;
+            this.lvClasses.HideSelection = false;
+            this.lvClasses.Location = new System.Drawing.Point(0, 0);
+            this.lvClasses.Name = "lvClasses";
+            this.lvClasses.Size = new System.Drawing.Size(586, 440);
+            this.lvClasses.TabIndex = 2;
+            this.lvClasses.UseCompatibleStateImageBehavior = false;
+            this.lvClasses.View = System.Windows.Forms.View.Details;
+            this.lvClasses.Click += new System.EventHandler(this.lvClasses_Click);
             // 
-            // GridStudents
+            // ClassId
             // 
-            this.GridStudents.AllowUserToResizeRows = false;
-            this.GridStudents.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridStudents.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GridStudents.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.GridStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.GridStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridStudents.DefaultCellStyle = dataGridViewCellStyle2;
-            this.GridStudents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GridStudents.EnableHeadersVisualStyles = false;
-            this.GridStudents.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.GridStudents.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridStudents.Location = new System.Drawing.Point(0, 0);
-            this.GridStudents.Name = "GridStudents";
-            this.GridStudents.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridStudents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.GridStudents.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.GridStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.GridStudents.Size = new System.Drawing.Size(586, 440);
-            this.GridStudents.TabIndex = 2;
+            this.ClassId.Text = "Id";
+            this.ClassId.Width = 0;
+            // 
+            // classAbbreviation
+            // 
+            this.classAbbreviation.Text = "Kürzel";
+            this.classAbbreviation.Width = 300;
+            // 
+            // pnlClassesControl
+            // 
+            this.pnlClassesControl.Controls.Add(this.lblShortcut);
+            this.pnlClassesControl.Controls.Add(this.edtShortcut);
+            this.pnlClassesControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlClassesControl.HorizontalScrollbarBarColor = true;
+            this.pnlClassesControl.HorizontalScrollbarHighlightOnWheel = false;
+            this.pnlClassesControl.HorizontalScrollbarSize = 10;
+            this.pnlClassesControl.Location = new System.Drawing.Point(0, 340);
+            this.pnlClassesControl.Name = "pnlClassesControl";
+            this.pnlClassesControl.Size = new System.Drawing.Size(586, 100);
+            this.pnlClassesControl.TabIndex = 3;
+            this.pnlClassesControl.VerticalScrollbarBarColor = true;
+            this.pnlClassesControl.VerticalScrollbarHighlightOnWheel = false;
+            this.pnlClassesControl.VerticalScrollbarSize = 10;
+            // 
+            // edtShortcut
+            // 
+            this.edtShortcut.Lines = new string[0];
+            this.edtShortcut.Location = new System.Drawing.Point(58, 12);
+            this.edtShortcut.MaxLength = 32767;
+            this.edtShortcut.Name = "edtShortcut";
+            this.edtShortcut.PasswordChar = '\0';
+            this.edtShortcut.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.edtShortcut.SelectedText = "";
+            this.edtShortcut.Size = new System.Drawing.Size(119, 23);
+            this.edtShortcut.TabIndex = 3;
+            this.edtShortcut.UseSelectable = true;
+            this.edtShortcut.TextChanged += new System.EventHandler(this.edtShortcut_TextChanged);
+            // 
+            // lblShortcut
+            // 
+            this.lblShortcut.AutoSize = true;
+            this.lblShortcut.Location = new System.Drawing.Point(5, 12);
+            this.lblShortcut.Name = "lblShortcut";
+            this.lblShortcut.Size = new System.Drawing.Size(47, 19);
+            this.lblShortcut.TabIndex = 4;
+            this.lblShortcut.Text = "Kürzel:";
             // 
             // StudentsAndClassesGUI
             // 
@@ -336,16 +313,17 @@
             this.Controls.Add(this.pnlClient);
             this.Name = "StudentsAndClassesGUI";
             this.Text = "Schüler und Klassen";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StudentsAndClassesGUI_FormClosing);
+            this.Load += new System.EventHandler(this.StudentsAndClassesGUI_Load);
             this.pnlClient.ResumeLayout(false);
             this.tcStudentsAndClasses.ResumeLayout(false);
             this.pagStudents.ResumeLayout(false);
-            this.pnlStudents.ResumeLayout(false);
             this.pagClasses.ResumeLayout(false);
             this.pnlClasses.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GridClasses)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GridStudents)).EndInit();
+            this.pnlClassesControl.ResumeLayout(false);
+            this.pnlClassesControl.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -365,7 +343,11 @@
         private MetroFramework.Controls.MetroButton btnDelete;
         private MetroFramework.Controls.MetroButton btnNew;
         public MetroFramework.Components.MetroStyleManager metroStyleManager;
-        private MetroFramework.Controls.MetroGrid GridStudents;
-        private MetroFramework.Controls.MetroGrid GridClasses;
+        private System.Windows.Forms.ListView lvClasses;
+        private System.Windows.Forms.ColumnHeader ClassId;
+        private System.Windows.Forms.ColumnHeader classAbbreviation;
+        private MetroFramework.Controls.MetroPanel pnlClassesControl;
+        private MetroFramework.Controls.MetroLabel lblShortcut;
+        private MetroFramework.Controls.MetroTextBox edtShortcut;
     }
 }
