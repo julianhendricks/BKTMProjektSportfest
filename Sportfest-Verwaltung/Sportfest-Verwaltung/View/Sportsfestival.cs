@@ -8,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sportfest_Verwaltung
+namespace SportsfestivalManagement
 {
     public partial class Sportsfestival : MetroFramework.Forms.MetroForm
     {
         SportsfestivalController MyController;
         public Sportsfestival()
         {
-            System.Console.WriteLine("Debug hier");
-
             InitializeComponent();
 
             this.StyleManager = metroStyleManager;
@@ -34,7 +32,7 @@ namespace Sportfest_Verwaltung
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            NewSportsFestivalController.OpenNewSportsFestivalGUI();
+            //NewSportsFestivalController.OpenNewSportsFestivalGUI();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

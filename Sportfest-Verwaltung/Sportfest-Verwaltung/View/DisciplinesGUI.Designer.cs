@@ -1,4 +1,4 @@
-﻿namespace Sportfest_Verwaltung
+﻿namespace SportsfestivalManagement
 {
     partial class DisciplinesGUI
     {

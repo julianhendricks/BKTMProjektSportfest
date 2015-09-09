@@ -1,33 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
-namespace Sportfest_Verwaltung
+namespace SportsfestivalManagement.Entities
 {
     class MySQL
     {
+        private string host;
+        private string username;
+        private string password;
+        private string database;
+        private int port;
+
         private MySqlConnection instance;
 
-        public void connect(
+        public MySQL(
             string host,
             string username,
             string password,
             string database,
             int port = 3306
         ) {
-            /** TODO: Konfigurationsdatei anlegen */
+            this.host = host;
+            this.username = username;
+            this.password = password;
+            this.database = database;
+            this.port = port;
+        }
+
+        public void connect() {
             string connectionString = ""
-                + "SERVER=" + host + ";"
-                + "UID=" + username + ";"
-                + "PASSWORD=" + password + ";"
-                + "DATABASE=" + database + ";"
-                + "PORT=" + port + ";"
+                + "SERVER=" + this.host + ";"
+                + "UID=" + this.username + ";"
+                + "PASSWORD=" + this.password + ";"
+                + "DATABASE=" + this.database + ";"
+                + "PORT=" + this.port + ";"
             ;
             this.instance = new MySqlConnection(connectionString);
 

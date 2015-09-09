@@ -7,7 +7,7 @@
     <ProjectGuid>{87A339F0-EAEE-49D3-8AD9-631894672F15}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sportfest_Verwaltung</RootNamespace>
+    <RootNamespace>SportsfestivalManagement</RootNamespace>
     <AssemblyName>Sportfest-Verwaltung</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -47,8 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\ApplicationLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MetroFramework, Version=1.3.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
@@ -68,6 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -79,12 +79,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes.cs" />
-    <Compile Include="Configuration\DisciplinesController.cs" />
-    <Compile Include="Configuration\DisciplinesGUI.cs">
+    <Compile Include="Controller\DisciplinesController.cs" />
+    <Compile Include="Controller\NewSportsFestivalController.cs" />
+    <Compile Include="Provider\BenchmarkProvider.cs" />
+    <Compile Include="View\DisciplinesGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuration\DisciplinesGUI.Designer.cs">
+    <Compile Include="View\DisciplinesGUI.Designer.cs">
       <DependentUpon>DisciplinesGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\Benchmark.cs" />
@@ -100,49 +101,47 @@
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\Subscription.cs" />
     <Compile Include="Entities\Variant.cs" />
-    <Compile Include="MainScreen\NewSportsFestivalController.cs" />
-    <Compile Include="MainScreen\NewSportsFestivalGUI.cs">
+    <Compile Include="Provider\ConfigurationProvider.cs" />
+    <Compile Include="Provider\MySQLProvider.cs" />
+    <Compile Include="Controller\ResultsController.cs" />
+    <Compile Include="View\NewSportsFestivalGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainScreen\NewSportsFestivalGUI.Designer.cs">
+    <Compile Include="View\NewSportsFestivalGUI.Designer.cs">
       <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Results\ResultsController.cs" />
-    <Compile Include="Results\ResultsGUI.cs">
+    <Compile Include="View\ResultsGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Results\ResultsGUI.Designer.cs">
+    <Compile Include="View\ResultsGUI.Designer.cs">
       <DependentUpon>ResultsGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\SportCertificateController.cs" />
-    <Compile Include="Configuration\SportCertificateGUI.cs">
+    <Compile Include="Controller\SportCertificateController.cs" />
+    <Compile Include="View\SportCertificateGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuration\SportCertificateGUI.Designer.cs">
+    <Compile Include="View\SportCertificateGUI.Designer.cs">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainScreen\Sportsfestival.cs">
+    <Compile Include="View\Sportsfestival.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainScreen\Sportsfestival.Designer.cs">
+    <Compile Include="View\Sportsfestival.Designer.cs">
       <DependentUpon>Sportsfestival.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configuration\StudentsAndClassesController.cs" />
-    <Compile Include="Configuration\StudentsAndClassesGUI.cs">
+    <Compile Include="Controller\StudentsAndClassesController.cs" />
+    <Compile Include="View\StudentsAndClassesGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuration\StudentsAndClassesGUI.Designer.cs">
+    <Compile Include="View\StudentsAndClassesGUI.Designer.cs">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainScreen\SportsfestivalController.cs" />
-    <Compile Include="SQL.cs" />
-    <EmbeddedResource Include="Configuration\DisciplinesGUI.resx">
+    <Compile Include="Controller\SportsfestivalController.cs" />
+    <Compile Include="Entities\MySQL.cs" />
+    <EmbeddedResource Include="View\DisciplinesGUI.resx">
       <DependentUpon>DisciplinesGUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainScreen\NewSportsFestivalGUI.resx">
-      <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -152,19 +151,26 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Results\ResultsGUI.resx">
+    <EmbeddedResource Include="View\NewSportsFestivalGUI.resx">
+      <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ResultsGUI.resx">
       <DependentUpon>ResultsGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\SportCertificateGUI.resx">
+    <EmbeddedResource Include="View\SportCertificateGUI.resx">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainScreen\Sportsfestival.resx">
+    <EmbeddedResource Include="View\Sportsfestival.resx">
       <DependentUpon>Sportsfestival.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\StudentsAndClassesGUI.resx">
+    <EmbeddedResource Include="View\StudentsAndClassesGUI.resx">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Configuration\App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -219,7 +225,7 @@
     <None Include="Resources\Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1440590615_icon-16-medal.ico" />
+    <Content Include="Resources\ApplicationLogo.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -233,6 +239,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

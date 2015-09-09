@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using SportsfestivalManagement.Entities;
+using SportsfestivalManagement.Provider;
 
-namespace Sportfest_Verwaltung
+namespace SportsfestivalManagement
 {
     class SportsfestivalController
     {
@@ -19,7 +18,7 @@ namespace Sportfest_Verwaltung
             int currentSportsFestivalId;
             string currentSportsFestivalDate;
 
-            SportsFestivalCollection = new List<SportsFestival>();
+            /*SportsFestivalCollection = new List<SportsFestival>();
             SportsFestivalConnection = SQL.GetConnection();
 
             MySQL sqlInstance = new MySQL();
@@ -34,7 +33,7 @@ namespace Sportfest_Verwaltung
 
                 //SportsFestival CurrentItem = new SportsFestival(currentSportsFestivalId, currentSportsFestivalDate);
                 //SportsFestivalCollection.Add(CurrentItem);
-            }
+            }*/
 
 
         }
@@ -49,10 +48,10 @@ namespace Sportfest_Verwaltung
 
         public void LoadSportsFestivalListView(ListView iListView)
         {
-            foreach (SportsFestival Sportsfest in SportsFestivalCollection){
+            /*foreach (SportsFestival Sportsfest in SportsFestivalCollection){
                 string[] row = { Sportsfest.GetSportsFestivalId().ToString(), "Sportfest " + Sportsfest.GetSportsFestivalDate().Year.ToString() };
                 iListView.Items.Add(new ListViewItem(row));
-            }
+            }*/
         }
     }
 }

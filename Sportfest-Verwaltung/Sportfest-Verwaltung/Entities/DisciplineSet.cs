@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sportfest_Verwaltung.Entities
+namespace SportsfestivalManagement.Entities
 {
     class DisciplineSet
     {

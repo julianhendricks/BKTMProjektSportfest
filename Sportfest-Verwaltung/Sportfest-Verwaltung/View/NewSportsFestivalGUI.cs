@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sportfest_Verwaltung
+namespace SportsfestivalManagement
 {
     public partial class NewSportsFestivalGUI : MetroFramework.Forms.MetroForm
     {

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sportfest_Verwaltung.Entities
+namespace SportsfestivalManagement.Entities
 {
     class Subscription
     {
         private int sportsFestivalSubscriptionId;
         private int competitionId;
         private int disciplineId;
-        private float result;
+        private double result;
 
         public int SportsFestivalSubscriptionId
         {
@@ -49,7 +49,7 @@ namespace Sportfest_Verwaltung.Entities
             }
         }
 
-        public float Result
+        public double Result
         {
             get
             {

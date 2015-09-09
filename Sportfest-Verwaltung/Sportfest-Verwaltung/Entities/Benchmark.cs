@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sportfest_Verwaltung.Entities
+﻿namespace SportsfestivalManagement.Entities
 {
     class Benchmark
     {
         private int disciplineId;
-        private int age;
+        private int ageFrom;
+        private int ageUntil;
         private char gender;
-        private float benchmark;
+        private string rank;
+        private double benchmark;
+
+        public Benchmark(
+            int disciplineId,
+            int ageFrom,
+            int ageUntil,
+            char gender,
+            string rank,
+            double benchmark
+        ) {
+            this.disciplineId = disciplineId;
+            this.ageFrom = ageFrom;
+            this.ageUntil = ageUntil;
+            this.gender = gender;
+            this.rank = rank;
+            this.benchmark = benchmark;
+        }
 
         public int DisciplineId
         {
@@ -21,15 +33,19 @@ namespace Sportfest_Verwaltung.Entities
             }
         }
 
-        public int Age
+        public int AgeFrom
         {
             get
             {
-                return age;
+                return ageFrom;
             }
-            set
+        }
+
+        public int AgeUntil
+        {
+            get
             {
-                age = value;
+                return ageUntil;
             }
         }
 
@@ -39,13 +55,17 @@ namespace Sportfest_Verwaltung.Entities
             {
                 return gender;
             }
-            set
+        }
+
+        public string Rank
+        {
+            get
             {
-                gender = value;
+                return rank;
             }
         }
 
-        public float BenchmarkValue
+        public double BenchmarkValue
         {
             get
             {

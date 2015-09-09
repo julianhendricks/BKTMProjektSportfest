@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sportfest_Verwaltung;
+using SportsfestivalManagement;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace Sportfest_Verwaltung
+namespace SportsfestivalManagement
 {
     class StudentsAndClassesController
     {
-        List<Classes> ClassesCollection;
         SqlConnection StudentsAndClassesConnection;
 
         public static void OpenStudentsAndClassesGUI()
@@ -23,7 +22,7 @@ namespace Sportfest_Verwaltung
 
         public StudentsAndClassesController()
         {
-            int currentClassId;
+            /*int currentClassId;
             string currentClassName;
             SqlDataReader ClassDS;
 
@@ -41,52 +40,52 @@ namespace Sportfest_Verwaltung
                 Classes CurrentItem = new Classes(currentClassId, currentClassName);
                 ClassesCollection.Add(CurrentItem);
             }
-            ClassDS.Close();
+            ClassDS.Close();*/
         }
 
         public void LoadClassesListView(ListView iListView)
         {
-            foreach (Classes CurrentClass in ClassesCollection)
+            /*foreach (Classes CurrentClass in ClassesCollection)
             {
                 string[] row = { CurrentClass.ClassId.ToString(), CurrentClass.getShortcut().ToString() };
                 iListView.Items.Add(new ListViewItem(row));
-            }
+            }*/
         }
 
         public void AddNewClass(ListView iListView)
         {
-            Classes newClass;            
+            /*Classes newClass;            
 
             newClass = new Classes(iListView.Items.Count + 1, "Kürzel");
             newClass.newFlag = true;
             ClassesCollection.Add(newClass);
 
             string[] row = { Convert.ToString(iListView.Items.Count + 1), "Kürzel" };
-            iListView.Items.Add(new ListViewItem(row));
+            iListView.Items.Add(new ListViewItem(row));*/
         }
 
         public void UpdateClassShortcut(string iNewShortCut, int iClassID, ListView iListView)
         {
-            Classes ChangedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassID);
+            /*Classes ChangedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassID);
             ChangedClass.setShortcut(iNewShortCut);
             ChangedClass.changedFlag = true;
 
             int Index = iListView.FindItemWithText(Convert.ToString(iClassID)).Index;
-            iListView.Items[Index].SubItems[1].Text = iNewShortCut;
+            iListView.Items[Index].SubItems[1].Text = iNewShortCut;*/
         }
 
         public void DeleteClass(int iClassId, ListView iListView)
         {
-            Classes DeletedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassId);
+            /*Classes DeletedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassId);
             DeletedClass.deletedFlag = true;
 
             int Index = iListView.FindItemWithText(Convert.ToString(iClassId)).Index;
-            iListView.Items[Index].Remove();
+            iListView.Items[Index].Remove();*/
         }
 
         public void UpdateClassTable()
         {
-            string SQLStatement;
+            /*string SQLStatement;
             foreach (Classes Class in ClassesCollection)
             {
                 SQLStatement = "";
@@ -112,7 +111,7 @@ namespace Sportfest_Verwaltung
                     cmd.Connection = StudentsAndClassesConnection;
                     cmd.ExecuteNonQuery();
                 }
-            }
+            }*/
         }
     }
 }

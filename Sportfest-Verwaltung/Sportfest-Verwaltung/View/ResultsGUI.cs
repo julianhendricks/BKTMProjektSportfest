@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sportfest_Verwaltung
+namespace SportsfestivalManagement
 {
-    public partial class SportCertificateGUI : MetroFramework.Forms.MetroForm
+    public partial class ResultsGUI : MetroFramework.Forms.MetroForm
     {
-        public SportCertificateGUI()
+        public ResultsGUI()
         {
             InitializeComponent();
         }
