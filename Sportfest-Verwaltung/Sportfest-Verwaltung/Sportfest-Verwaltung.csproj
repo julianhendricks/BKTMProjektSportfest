@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Controller\DisciplinesController.cs" />
     <Compile Include="Controller\NewSportsFestivalController.cs" />
+    <Compile Include="Provider\AbstractEntityProvider.cs" />
     <Compile Include="Provider\BenchmarkProvider.cs" />
     <Compile Include="View\DisciplinesGUI.cs">
       <SubType>Form</SubType>
