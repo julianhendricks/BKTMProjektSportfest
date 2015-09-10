@@ -25,10 +25,6 @@ namespace SportsfestivalManagement.Entities
             {
                 return sportsFestivalId;
             }
-            set
-            {
-                sportsFestivalId = value;
-            }
         }
 
         public DateTime Date

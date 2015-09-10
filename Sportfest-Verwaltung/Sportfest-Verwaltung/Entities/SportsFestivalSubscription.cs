@@ -31,10 +31,6 @@ namespace SportsfestivalManagement.Entities
             {
                 return sportsFestivalSubscriptionId;
             }
-            set
-            {
-                sportsFestivalSubscriptionId = value;
-            }
         }
 
         public int SportsFestivalId

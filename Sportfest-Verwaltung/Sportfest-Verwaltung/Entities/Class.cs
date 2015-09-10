@@ -25,10 +25,6 @@ namespace SportsfestivalManagement.Entities
             {
                 return classId;
             }
-            set
-            {
-                classId = value;
-            }
         }
 
         public string Shortcut

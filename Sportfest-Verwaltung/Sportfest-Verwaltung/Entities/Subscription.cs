@@ -18,8 +18,7 @@ namespace SportsfestivalManagement.Entities
             int competitionId,
             int disciplineId,
             double result
-        )
-        {
+        ) {
             this.sportsFestivalSubscriptionId = sportsFestivalSubscriptionId;
             this.competitionId = competitionId;
             this.disciplineId = disciplineId;

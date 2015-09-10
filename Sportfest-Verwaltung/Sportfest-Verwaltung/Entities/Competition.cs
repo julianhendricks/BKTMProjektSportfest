@@ -25,10 +25,6 @@ namespace SportsfestivalManagement.Entities
             {
                 return competitionId;
             }
-            set
-            {
-                competitionId = value;
-            }
         }
 
         public string CompetitionName
