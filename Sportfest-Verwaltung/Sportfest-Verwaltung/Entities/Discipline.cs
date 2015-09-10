@@ -12,6 +12,16 @@ namespace SportsfestivalManagement.Entities
         private string measure;
         private int categoryId;
 
+        public Discipline(
+            int disciplineId,
+            string measure,
+            int categoryId
+        ) {
+            this.disciplineId = disciplineId;
+            this.measure = measure;
+            this.categoryId = categoryId;
+        }
+
         public int DisciplineId
         {
             get

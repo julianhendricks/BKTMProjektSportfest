@@ -11,15 +11,19 @@ namespace SportsfestivalManagement.Entities
         private int classId;
         private string shortcut;
 
+        public Class(
+            int classId,
+            string shortcut
+        ) {
+            this.classId = classId;
+            this.shortcut = shortcut;
+        }
+
         public int ClassId
         {
             get
             {
                 return classId;
-            }
-            set
-            {
-                classId = value;
             }
         }
 

@@ -11,15 +11,19 @@ namespace SportsfestivalManagement.Entities
         private int competitionId;
         private string competitionName;
 
+        public Competition(
+            int competitionId,
+            string competitionName
+        ) {
+            this.competitionId = competitionId;
+            this.competitionName = competitionName;
+        }
+
         public int CompetitionId
         {
             get
             {
                 return competitionId;
-            }
-            set
-            {
-                competitionId = value;
             }
         }
 

@@ -13,6 +13,18 @@ namespace SportsfestivalManagement.Entities
         private int disciplineId;
         private double result;
 
+        public Subscription(
+            int sportsFestivalSubscriptionId,
+            int competitionId,
+            int disciplineId,
+            double result
+        ) {
+            this.sportsFestivalSubscriptionId = sportsFestivalSubscriptionId;
+            this.competitionId = competitionId;
+            this.disciplineId = disciplineId;
+            this.result = result;
+        }
+
         public int SportsFestivalSubscriptionId
         {
             get

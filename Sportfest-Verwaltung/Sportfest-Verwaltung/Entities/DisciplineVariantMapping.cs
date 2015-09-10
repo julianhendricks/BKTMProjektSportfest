@@ -13,6 +13,18 @@ namespace SportsfestivalManagement.Entities
         private int ageUntil;
         private int variantId;
 
+        public DisciplineVariantMapping(
+            int disciplineId,
+            int ageFrom,
+            int ageUntil,
+            int variantId
+        ) {
+            this.disciplineId = disciplineId;
+            this.ageFrom = ageFrom;
+            this.ageUntil = ageUntil;
+            this.variantId = variantId;
+        }
+
         public int DisciplineId
         {
             get
