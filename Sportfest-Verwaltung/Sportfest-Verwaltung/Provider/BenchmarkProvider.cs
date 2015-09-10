@@ -41,7 +41,7 @@ namespace SportsfestivalManagement.Provider
         }
 
         public Benchmark getBenchmarkByPrimaryKey(
-            int benchmarkId,
+            int disciplineId,
             int ageFrom,
             int ageUntil,
             char gender,
@@ -51,7 +51,7 @@ namespace SportsfestivalManagement.Provider
                 + "SELECT * "
                 + "FROM `" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_disciplineId + "` = " + benchmarkId
+                    + "`" + field_disciplineId + "` = " + disciplineId
                     + "AND `" + field_ageFrom + "` = " + ageFrom
                     + "AND `" + field_ageUntil + "` = " + ageUntil
                     + "AND `" + field_gender + "` = '" + ageFrom + "'"
@@ -77,8 +77,7 @@ namespace SportsfestivalManagement.Provider
             char gender,
             string rank,
             double benchmark
-        )
-        {
+        ) {
             MySqlDataReader reader = this.executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
