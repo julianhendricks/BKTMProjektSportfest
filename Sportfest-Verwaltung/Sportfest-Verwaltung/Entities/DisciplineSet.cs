@@ -11,6 +11,14 @@ namespace SportsfestivalManagement.Entities
         private int disciplineSetId;
         private List<Discipline> disciplines;
 
+        public DisciplineSet(
+            int disciplineSetId,
+            List<Discipline> disciplines
+        ) {
+            this.disciplineSetId = disciplineSetId;
+            this.disciplines = disciplines;
+        }
+
         public int DisciplineSetId
         {
             get

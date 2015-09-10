@@ -11,6 +11,14 @@ namespace SportsfestivalManagement.Entities
         private int sportsFestivalId;
         private DateTime date;
 
+        public SportsFestival(
+            int sportsFestivalId,
+            DateTime date
+        ) {
+            this.sportsFestivalId = sportsFestivalId;
+            this.date = date;
+        }
+
         public int SportsFestivalId
         {
             get

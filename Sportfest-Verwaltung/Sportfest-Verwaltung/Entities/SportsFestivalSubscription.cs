@@ -13,6 +13,18 @@ namespace SportsfestivalManagement.Entities
         private int studentId;
         private string classShortcut;
 
+        public SportsFestivalSubscription(
+            int sportsFestivalSubscriptionId,
+            int sportsFestivalId,
+            int studentId,
+            string classShortcut
+        ) {
+            this.sportsFestivalSubscriptionId = sportsFestivalSubscriptionId;
+            this.sportsFestivalId = sportsFestivalId;
+            this.studentId = studentId;
+            this.classShortcut = classShortcut;
+        }
+
         public int SportsFestivalSubscriptionId
         {
             get

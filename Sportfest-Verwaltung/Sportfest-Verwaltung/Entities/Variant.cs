@@ -11,6 +11,14 @@ namespace SportsfestivalManagement.Entities
         private int variantId;
         private string variantName;
 
+        public Variant(
+            int variantId,
+            string variantName
+        ) {
+            this.variantId = variantId;
+            this.variantName = variantName;
+        }
+
         public int VariantId
         {
             get
