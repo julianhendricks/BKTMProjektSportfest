@@ -71,7 +71,8 @@ namespace SportsfestivalManagement.Provider
             return benchmark;
         }
 
-        public int createBenchmark(
+        public void createBenchmark(
+            int disciplineId,
             int ageFrom,
             int ageUntil,
             char gender,
@@ -82,12 +83,14 @@ namespace SportsfestivalManagement.Provider
             MySqlDataReader reader = this.executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
+                    + "`" + field_disciplineId + "`, "
                     + "`" + field_ageFrom + "`, "
                     + "`" + field_ageUntil + "`, "
                     + "`" + field_gender + "`, "
                     + "`" + field_rank + "`, "
                     + "`" + field_benchmark + "`"
                 + ") VALUES ("
+                    + disciplineId + ", "
                     + ageFrom + ", "
                     + ageUntil + ", "
                     + "'" + gender + "', "
@@ -95,10 +98,6 @@ namespace SportsfestivalManagement.Provider
                     + benchmark
                 + ")"
             );
-
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
-
-            return reader.GetInt32("insertionId");
         }
 
         public void updateBenchmark(Benchmark benchmark)

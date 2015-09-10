@@ -11,6 +11,14 @@ namespace SportsfestivalManagement.Entities
         private int categoryId;
         private string categoryName;
 
+        public Category(
+            int categoryId,
+            string categoryName
+        ) {
+            this.categoryId = categoryId;
+            this.categoryName = categoryName;
+        }
+
         public int CategoryId
         {
             get
