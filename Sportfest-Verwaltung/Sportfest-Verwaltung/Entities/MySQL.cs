@@ -45,6 +45,7 @@ namespace SportsfestivalManagement.Entities
             catch (Exception e)
             {
                 Controller.SetupConnectionController.OpenSetupConnectionGUI();
+                connect();
             }
         }
 
