@@ -85,12 +85,13 @@
     <Compile Include="Controller\SetupConnectionController.cs" />
     <Compile Include="Provider\AbstractEntityProvider.cs" />
     <Compile Include="Provider\BenchmarkProvider.cs" />
+    <Compile Include="Provider\StudentProvider.cs" />
+    <Compile Include="Provider\MeasureProvider.cs" />
+    <Compile Include="Provider\CompetitionProvider.cs" />
     <Compile Include="Provider\DisciplineProvider.cs" />
     <Compile Include="Provider\CategoryProvider.cs" />
     <Compile Include="Provider\ClassProvider.cs" />
-    <Compile Include="Provider\CompetitionProvider.cs" />
     <Compile Include="Provider\DisciplineSetDisciplineMappingProvider.cs" />
-    <Compile Include="Provider\DisciplineVariantMappingProvider.cs" />
     <Compile Include="View\DisciplinesGUI.cs">
       <SubType>Form</SubType>
     </Compile>
