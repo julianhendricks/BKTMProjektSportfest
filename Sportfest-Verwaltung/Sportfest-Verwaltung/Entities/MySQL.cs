@@ -44,17 +44,7 @@ namespace SportsfestivalManagement.Entities
             }
             catch (Exception e)
             {
-                MessageBox.Show(
-                    "Es trat ein Fehler beim Herstellen der Datenbankverbindung auf!\n"
-                        + "Ausgabe der Datenbank:\n\n"
-                        + e.Message + "\n\n"
-                        + "Bitte korrigieren Sie die Verbindungsinformationen in der Konfigurationsdatei!",
-                    "Datenbankfehler",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-
-                Application.Exit();
+                Controller.SetupConnectionController.OpenSetupConnectionGUI();
             }
         }
 

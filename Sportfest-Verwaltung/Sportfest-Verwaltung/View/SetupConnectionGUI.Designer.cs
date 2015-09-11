@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
-            this.pnlControls = new MetroFramework.Controls.MetroPanel();
-            this.btnTestConnection = new MetroFramework.Controls.MetroButton();
-            this.btnSave = new MetroFramework.Controls.MetroButton();
-            this.btnTerminate = new MetroFramework.Controls.MetroButton();
-            this.lblDescription = new MetroFramework.Controls.MetroLabel();
-            this.lblHost = new MetroFramework.Controls.MetroLabel();
-            this.lblPort = new MetroFramework.Controls.MetroLabel();
-            this.lblDatabase = new MetroFramework.Controls.MetroLabel();
-            this.lblUsername = new MetroFramework.Controls.MetroLabel();
-            this.lblPassword = new MetroFramework.Controls.MetroLabel();
-            this.edtUsername = new MetroFramework.Controls.MetroTextBox();
-            this.edtDatabase = new MetroFramework.Controls.MetroTextBox();
-            this.edtPassword = new MetroFramework.Controls.MetroTextBox();
-            this.edtHost = new MetroFramework.Controls.MetroTextBox();
             this.edtPort = new System.Windows.Forms.NumericUpDown();
+            this.edtHost = new MetroFramework.Controls.MetroTextBox();
+            this.edtPassword = new MetroFramework.Controls.MetroTextBox();
+            this.edtDatabase = new MetroFramework.Controls.MetroTextBox();
+            this.edtUsername = new MetroFramework.Controls.MetroTextBox();
+            this.lblPassword = new MetroFramework.Controls.MetroLabel();
+            this.lblUsername = new MetroFramework.Controls.MetroLabel();
+            this.lblDatabase = new MetroFramework.Controls.MetroLabel();
+            this.lblPort = new MetroFramework.Controls.MetroLabel();
+            this.lblHost = new MetroFramework.Controls.MetroLabel();
+            this.lblDescription = new MetroFramework.Controls.MetroLabel();
+            this.pnlControls = new MetroFramework.Controls.MetroPanel();
+            this.btnTerminate = new MetroFramework.Controls.MetroButton();
+            this.btnSave = new MetroFramework.Controls.MetroButton();
+            this.btnTestConnection = new MetroFramework.Controls.MetroButton();
             this.pnlClient.SuspendLayout();
-            this.pnlControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPort)).BeginInit();
+            this.pnlControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlClient
@@ -75,6 +75,120 @@
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClient.VerticalScrollbarSize = 10;
             // 
+            // edtPort
+            // 
+            this.edtPort.Location = new System.Drawing.Point(260, 87);
+            this.edtPort.Name = "edtPort";
+            this.edtPort.Size = new System.Drawing.Size(150, 20);
+            this.edtPort.TabIndex = 1;
+            // 
+            // edtHost
+            // 
+            this.edtHost.Lines = new string[0];
+            this.edtHost.Location = new System.Drawing.Point(260, 49);
+            this.edtHost.MaxLength = 32767;
+            this.edtHost.Name = "edtHost";
+            this.edtHost.PasswordChar = '\0';
+            this.edtHost.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.edtHost.SelectedText = "";
+            this.edtHost.Size = new System.Drawing.Size(150, 23);
+            this.edtHost.TabIndex = 0;
+            this.edtHost.UseSelectable = true;
+            // 
+            // edtPassword
+            // 
+            this.edtPassword.Lines = new string[0];
+            this.edtPassword.Location = new System.Drawing.Point(260, 204);
+            this.edtPassword.MaxLength = 32767;
+            this.edtPassword.Name = "edtPassword";
+            this.edtPassword.PasswordChar = '*';
+            this.edtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.edtPassword.SelectedText = "";
+            this.edtPassword.Size = new System.Drawing.Size(150, 23);
+            this.edtPassword.TabIndex = 4;
+            this.edtPassword.UseSelectable = true;
+            // 
+            // edtDatabase
+            // 
+            this.edtDatabase.Lines = new string[0];
+            this.edtDatabase.Location = new System.Drawing.Point(260, 122);
+            this.edtDatabase.MaxLength = 32767;
+            this.edtDatabase.Name = "edtDatabase";
+            this.edtDatabase.PasswordChar = '\0';
+            this.edtDatabase.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.edtDatabase.SelectedText = "";
+            this.edtDatabase.Size = new System.Drawing.Size(150, 23);
+            this.edtDatabase.TabIndex = 2;
+            this.edtDatabase.UseSelectable = true;
+            // 
+            // edtUsername
+            // 
+            this.edtUsername.Lines = new string[0];
+            this.edtUsername.Location = new System.Drawing.Point(260, 165);
+            this.edtUsername.MaxLength = 32767;
+            this.edtUsername.Name = "edtUsername";
+            this.edtUsername.PasswordChar = '\0';
+            this.edtUsername.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.edtUsername.SelectedText = "";
+            this.edtUsername.Size = new System.Drawing.Size(150, 23);
+            this.edtUsername.TabIndex = 3;
+            this.edtUsername.UseSelectable = true;
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(157, 204);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(63, 19);
+            this.lblPassword.TabIndex = 8;
+            this.lblPassword.Text = "Passwort:";
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Location = new System.Drawing.Point(157, 165);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(96, 19);
+            this.lblUsername.TabIndex = 7;
+            this.lblUsername.Text = "Benutzername:";
+            // 
+            // lblDatabase
+            // 
+            this.lblDatabase.AutoSize = true;
+            this.lblDatabase.Location = new System.Drawing.Point(157, 126);
+            this.lblDatabase.Name = "lblDatabase";
+            this.lblDatabase.Size = new System.Drawing.Size(74, 19);
+            this.lblDatabase.TabIndex = 6;
+            this.lblDatabase.Text = "Datenbank:";
+            // 
+            // lblPort
+            // 
+            this.lblPort.AutoSize = true;
+            this.lblPort.Location = new System.Drawing.Point(157, 87);
+            this.lblPort.Name = "lblPort";
+            this.lblPort.Size = new System.Drawing.Size(37, 19);
+            this.lblPort.TabIndex = 5;
+            this.lblPort.Text = "Port:";
+            // 
+            // lblHost
+            // 
+            this.lblHost.AutoSize = true;
+            this.lblHost.Location = new System.Drawing.Point(156, 49);
+            this.lblHost.Name = "lblHost";
+            this.lblHost.Size = new System.Drawing.Size(38, 19);
+            this.lblHost.TabIndex = 4;
+            this.lblHost.Text = "Host:";
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(156, 11);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(532, 19);
+            this.lblDescription.TabIndex = 3;
+            this.lblDescription.Text = "Die Verbindung zur Datenbank ist gescheitert. Bitte geben Sie eine gültige Verbin" +
+    "dung an!";
+            // 
             // pnlControls
             // 
             this.pnlControls.BackColor = System.Drawing.Color.RoyalBlue;
@@ -97,18 +211,19 @@
             this.pnlControls.VerticalScrollbarHighlightOnWheel = false;
             this.pnlControls.VerticalScrollbarSize = 10;
             // 
-            // btnTestConnection
+            // btnTerminate
             // 
-            this.btnTestConnection.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTestConnection.Location = new System.Drawing.Point(0, 0);
-            this.btnTestConnection.Name = "btnTestConnection";
-            this.btnTestConnection.Size = new System.Drawing.Size(150, 40);
-            this.btnTestConnection.TabIndex = 0;
-            this.btnTestConnection.Text = "Verbindung testen";
-            this.btnTestConnection.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnTestConnection.UseCustomBackColor = true;
-            this.btnTestConnection.UseCustomForeColor = true;
-            this.btnTestConnection.UseSelectable = true;
+            this.btnTerminate.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnTerminate.Location = new System.Drawing.Point(0, 380);
+            this.btnTerminate.Name = "btnTerminate";
+            this.btnTerminate.Size = new System.Drawing.Size(150, 40);
+            this.btnTerminate.TabIndex = 2;
+            this.btnTerminate.Text = "Programm beenden";
+            this.btnTerminate.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnTerminate.UseCustomBackColor = true;
+            this.btnTerminate.UseCustomForeColor = true;
+            this.btnTerminate.UseSelectable = true;
+            this.btnTerminate.Click += new System.EventHandler(this.btnTerminate_Click);
             // 
             // btnSave
             // 
@@ -122,133 +237,21 @@
             this.btnSave.UseCustomBackColor = true;
             this.btnSave.UseCustomForeColor = true;
             this.btnSave.UseSelectable = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnTerminate
+            // btnTestConnection
             // 
-            this.btnTerminate.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnTerminate.Location = new System.Drawing.Point(0, 380);
-            this.btnTerminate.Name = "btnTerminate";
-            this.btnTerminate.Size = new System.Drawing.Size(150, 40);
-            this.btnTerminate.TabIndex = 2;
-            this.btnTerminate.Text = "Programm beenden";
-            this.btnTerminate.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnTerminate.UseCustomBackColor = true;
-            this.btnTerminate.UseCustomForeColor = true;
-            this.btnTerminate.UseSelectable = true;
-            // 
-            // lblDescription
-            // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(156, 11);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(532, 19);
-            this.lblDescription.TabIndex = 3;
-            this.lblDescription.Text = "Die Verbindung zur Datenbank ist gescheitert. Bitte geben Sie eine gültige Verbin" +
-    "dung an!";
-            // 
-            // lblHost
-            // 
-            this.lblHost.AutoSize = true;
-            this.lblHost.Location = new System.Drawing.Point(156, 49);
-            this.lblHost.Name = "lblHost";
-            this.lblHost.Size = new System.Drawing.Size(38, 19);
-            this.lblHost.TabIndex = 4;
-            this.lblHost.Text = "Host:";
-            // 
-            // lblPort
-            // 
-            this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(157, 87);
-            this.lblPort.Name = "lblPort";
-            this.lblPort.Size = new System.Drawing.Size(37, 19);
-            this.lblPort.TabIndex = 5;
-            this.lblPort.Text = "Port:";
-            // 
-            // lblDatabase
-            // 
-            this.lblDatabase.AutoSize = true;
-            this.lblDatabase.Location = new System.Drawing.Point(157, 126);
-            this.lblDatabase.Name = "lblDatabase";
-            this.lblDatabase.Size = new System.Drawing.Size(74, 19);
-            this.lblDatabase.TabIndex = 6;
-            this.lblDatabase.Text = "Datenbank:";
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(157, 165);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(96, 19);
-            this.lblUsername.TabIndex = 7;
-            this.lblUsername.Text = "Benutzername:";
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(157, 204);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(63, 19);
-            this.lblPassword.TabIndex = 8;
-            this.lblPassword.Text = "Passwort:";
-            // 
-            // edtUsername
-            // 
-            this.edtUsername.Lines = new string[0];
-            this.edtUsername.Location = new System.Drawing.Point(260, 165);
-            this.edtUsername.MaxLength = 32767;
-            this.edtUsername.Name = "edtUsername";
-            this.edtUsername.PasswordChar = '\0';
-            this.edtUsername.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.edtUsername.SelectedText = "";
-            this.edtUsername.Size = new System.Drawing.Size(150, 23);
-            this.edtUsername.TabIndex = 3;
-            this.edtUsername.UseSelectable = true;
-            // 
-            // edtDatabase
-            // 
-            this.edtDatabase.Lines = new string[0];
-            this.edtDatabase.Location = new System.Drawing.Point(260, 122);
-            this.edtDatabase.MaxLength = 32767;
-            this.edtDatabase.Name = "edtDatabase";
-            this.edtDatabase.PasswordChar = '\0';
-            this.edtDatabase.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.edtDatabase.SelectedText = "";
-            this.edtDatabase.Size = new System.Drawing.Size(150, 23);
-            this.edtDatabase.TabIndex = 2;
-            this.edtDatabase.UseSelectable = true;
-            // 
-            // edtPassword
-            // 
-            this.edtPassword.Lines = new string[0];
-            this.edtPassword.Location = new System.Drawing.Point(260, 204);
-            this.edtPassword.MaxLength = 32767;
-            this.edtPassword.Name = "edtPassword";
-            this.edtPassword.PasswordChar = '*';
-            this.edtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.edtPassword.SelectedText = "";
-            this.edtPassword.Size = new System.Drawing.Size(150, 23);
-            this.edtPassword.TabIndex = 4;
-            this.edtPassword.UseSelectable = true;
-            // 
-            // edtHost
-            // 
-            this.edtHost.Lines = new string[0];
-            this.edtHost.Location = new System.Drawing.Point(260, 49);
-            this.edtHost.MaxLength = 32767;
-            this.edtHost.Name = "edtHost";
-            this.edtHost.PasswordChar = '\0';
-            this.edtHost.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.edtHost.SelectedText = "";
-            this.edtHost.Size = new System.Drawing.Size(150, 23);
-            this.edtHost.TabIndex = 0;
-            this.edtHost.UseSelectable = true;
-            // 
-            // edtPort
-            // 
-            this.edtPort.Location = new System.Drawing.Point(260, 87);
-            this.edtPort.Name = "edtPort";
-            this.edtPort.Size = new System.Drawing.Size(150, 20);
-            this.edtPort.TabIndex = 1;
+            this.btnTestConnection.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTestConnection.Location = new System.Drawing.Point(0, 0);
+            this.btnTestConnection.Name = "btnTestConnection";
+            this.btnTestConnection.Size = new System.Drawing.Size(150, 40);
+            this.btnTestConnection.TabIndex = 0;
+            this.btnTestConnection.Text = "Verbindung testen";
+            this.btnTestConnection.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnTestConnection.UseCustomBackColor = true;
+            this.btnTestConnection.UseCustomForeColor = true;
+            this.btnTestConnection.UseSelectable = true;
+            this.btnTestConnection.Click += new System.EventHandler(this.btnTestConnection_Click);
             // 
             // SetupConnectionGUI
             // 
@@ -262,8 +265,8 @@
             this.Text = "Datenbankverbindung bearbeiten";
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
-            this.pnlControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.edtPort)).EndInit();
+            this.pnlControls.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

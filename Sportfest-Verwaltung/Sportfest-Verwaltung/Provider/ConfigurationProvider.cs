@@ -9,7 +9,7 @@ namespace SportsfestivalManagement.Provider
             return ConfigurationManager.AppSettings.Get(configurationKey);
         }
 
-        public void storeConfigurationValue(string configurationKey, string configurationValue)
+        public static void storeConfigurationValue(string configurationKey, string configurationValue)
         {
             KeyValueConfigurationElement configurationElement = new KeyValueConfigurationElement(configurationKey, configurationValue);
 

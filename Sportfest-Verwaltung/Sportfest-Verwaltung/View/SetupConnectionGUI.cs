@@ -16,5 +16,28 @@ namespace SportsfestivalManagement.View
         {
             InitializeComponent();
         }
+
+        private void btnTerminate_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnTestConnection_Click(object sender, EventArgs e)
+        {
+            Controller.SetupConnectionController.TestConnection(edtHost.Text, edtUsername.Text, edtPassword.Text,
+                edtDatabase.Text, Convert.ToInt32(edtPort.Value));
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (Controller.SetupConnectionController.SaveConnection(edtHost.Text, edtUsername.Text, edtPassword.Text,
+                edtDatabase.Text, Convert.ToInt32(edtPort.Value))){
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Es ist ein Fehler beim Speichern der Verbindung aufgetreten!");
+            }
+        }
     }
 }
