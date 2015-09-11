@@ -9,16 +9,20 @@ namespace SportsfestivalManagement.Entities
     class Discipline
     {
         private int disciplineId;
-        private string measure;
+        private string name;
+        private int measureId;
         private int categoryId;
+
 
         public Discipline(
             int disciplineId,
-            string measure,
+            string name,
+            int measureId,
             int categoryId
         ) {
             this.disciplineId = disciplineId;
-            this.measure = measure;
+            this.name = name;
+            this.measureId = measureId;
             this.categoryId = categoryId;
         }
 
@@ -30,15 +34,29 @@ namespace SportsfestivalManagement.Entities
             }
         }
 
-        public string Measure
+        public string Name
         {
             get
             {
-                return measure;
+                return name;
             }
+
             set
             {
-                measure = value;
+                name = value;
+            }
+        }
+
+        public int MeasureId
+        {
+            get
+            {
+                return measureId;
+            }
+
+            set
+            {
+                measureId = value;
             }
         }
 
@@ -48,6 +66,7 @@ namespace SportsfestivalManagement.Entities
             {
                 return categoryId;
             }
+
             set
             {
                 categoryId = value;
