@@ -1,11 +1,17 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using SportsfestivalManagement.Provider;
 
 namespace SportsfestivalManagement.Entities
 {
     class MySQL
     {
+        private const string log_tableName = "sqlLogs";
+        private const string log_field_logId = "logId";
+        private const string log_field_timestamp = "timestamp";
+        private const string log_field_executedSql = "executedSql";
+
         private string host;
         private string username;
         private string password;
@@ -44,8 +50,11 @@ namespace SportsfestivalManagement.Entities
             }
             catch (Exception e)
             {
-                Controller.SetupConnectionController.OpenSetupConnectionGUI();
-                connect();
+                throw new Exception(""
+                    + "Es trat ein Fehler beim Öffnen der Datenbankverbindung auf!\n"
+                    + "Ausgabe der Datenbank:\n\n"
+                    + e.Message
+                );
             }
         }
 
@@ -75,10 +84,30 @@ namespace SportsfestivalManagement.Entities
         {
             try
             {
-                MySqlCommand command = this.instance.CreateCommand();
-                command.CommandText = sql;
+                MySqlCommand sqlCommand = this.instance.CreateCommand();
+                sqlCommand.CommandText = sql;
 
-                return command.ExecuteReader();
+                MySqlDataReader executionResult = sqlCommand.ExecuteReader();
+
+                if (Convert.ToBoolean(ConfigurationProvider.loadConfigurationValue("enable_sql_logger")) == true)
+                {
+                    MySqlCommand logCommand = this.instance.CreateCommand();
+                    logCommand.CommandText = ""
+                        + "INSERT INTO "
+                            + "`" + log_tableName + "` "
+                        + "("
+                            + "`" + log_field_timestamp + "`, "
+                            + "`" + log_field_executedSql + "`"
+                        + ") VALUES ("
+                            + "`" + new DateTime().ToString("yyyy-MM-dd hh:mm:ss")
+                            + "`" + MySqlHelper.EscapeString(sql) + "`"
+                        + ")"
+                    ;
+
+                    logCommand.ExecuteReader();
+                }
+
+                return executionResult;
             }
             catch (Exception e)
             {

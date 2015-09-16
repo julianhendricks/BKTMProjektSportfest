@@ -6,31 +6,31 @@ namespace SportsfestivalManagement.Provider
 {
     class DisciplineSetDisciplineMappingProvider : AbstractEntityProvider
     {
-        const string tableName = "disciplineSetDisciplineMapping";
-        const string field_disciplineSetId = "disciplineSetId";
-        const string field_ageFrom = "ageFrom";
-        const string field_ageUntil = "ageUntil";
-        const string field_disciplineId = "disciplineId";
+        public const string tableName = "disciplineSetDisciplineMapping";
+        public const string field_disciplineSetId = "disciplineSetId";
+        public const string field_ageFrom = "ageFrom";
+        public const string field_ageUntil = "ageUntil";
+        public const string field_disciplineId = "disciplineId";
 
         public List<DisciplineSetDisciplineMapping> getAllDisciplineSetDisciplineMappings()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
             while(reader.Read())
             {
-                DisciplineSetDisciplineMapping disciplineSetDisciplineMapping = new DisciplineSetDisciplineMapping(
+                disciplineSetDisciplineMappings.Add(this.getDisciplineSetDisciplineMappingByPrimaryKey(
                     reader.GetInt32(field_disciplineSetId),
                     reader.GetInt32(field_ageFrom),
                     reader.GetInt32(field_ageUntil),
                     reader.GetInt32(field_disciplineId)
-                );
-
-                disciplineSetDisciplineMappings.Add(disciplineSetDisciplineMapping);
+                ));
             }
 
             return disciplineSetDisciplineMappings;
@@ -43,12 +43,14 @@ namespace SportsfestivalManagement.Provider
             int disciplineId
         ) {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_disciplineSetId + "` = " + disciplineSetId
-                    + "AND `" + field_ageFrom + "` = " + ageFrom
-                    + "AND `" + field_ageUntil + "` = " + ageUntil
+                    + "`" + field_disciplineSetId + "` = " + disciplineSetId + " "
+                    + "AND `" + field_ageFrom + "` = " + ageFrom + " "
+                    + "AND `" + field_ageUntil + "` = " + ageUntil + " "
                     + "AND `" + field_disciplineId + "` = " + disciplineId
             );
 
@@ -62,6 +64,58 @@ namespace SportsfestivalManagement.Provider
             return disciplineSetDisciplineMapping;
         }
 
+        public List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineSetId(int disciplineSetId)
+        {
+            MySqlDataReader reader = this.executeSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineSetId + "` = " + disciplineSetId
+            );
+
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
+
+            while (reader.Read())
+            {
+                disciplineSetDisciplineMappings.Add(this.getDisciplineSetDisciplineMappingByPrimaryKey(
+                    reader.GetInt32(field_disciplineSetId),
+                    reader.GetInt32(field_ageFrom),
+                    reader.GetInt32(field_ageUntil),
+                    reader.GetInt32(field_disciplineId)
+                ));
+            }
+
+            return disciplineSetDisciplineMappings;
+        }
+
+        public List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineId(int disciplineId)
+        {
+            MySqlDataReader reader = this.executeSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineId + "` = " + disciplineId
+            );
+
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
+
+            while (reader.Read())
+            {
+                disciplineSetDisciplineMappings.Add(this.getDisciplineSetDisciplineMappingByPrimaryKey(
+                    reader.GetInt32(field_disciplineSetId),
+                    reader.GetInt32(field_ageFrom),
+                    reader.GetInt32(field_ageUntil),
+                    reader.GetInt32(field_disciplineId)
+                ));
+            }
+
+            return disciplineSetDisciplineMappings;
+        }
+
         public void createDisciplineSetDisciplineMapping(
             int disciplineSetId,
             int ageFrom,
@@ -69,7 +123,8 @@ namespace SportsfestivalManagement.Provider
             int disciplineId
         ) {
             MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_disciplineSetId + "`, "
                     + "`" + field_ageFrom + "`, "
@@ -87,7 +142,8 @@ namespace SportsfestivalManagement.Provider
         public void updateDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_ageFrom + "` = " + disciplineSetDisciplineMapping.AgeFrom + ", "
                     + "`" + field_ageUntil + "` = " + disciplineSetDisciplineMapping.AgeUntil + " "
@@ -102,7 +158,8 @@ namespace SportsfestivalManagement.Provider
         public void deleteDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_disciplineSetId + " = " + disciplineSetDisciplineMapping.DisciplineSetId + " "
                     + "AND `" + field_ageFrom + "` = " + disciplineSetDisciplineMapping.AgeFrom + " "

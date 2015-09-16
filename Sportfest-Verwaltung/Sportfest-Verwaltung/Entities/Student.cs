@@ -15,7 +15,7 @@ namespace SportsfestivalManagement.Entities
         private char gender;
         private int zip;
         private string city;
-        private int classId;
+        private Class classObject;
         private bool active;
 
         public Student(
@@ -26,7 +26,7 @@ namespace SportsfestivalManagement.Entities
             char gender,
             int zip,
             string city,
-            int classId,
+            Class classObject,
             bool active
         ) {
             this.studentId = studentId;
@@ -36,7 +36,7 @@ namespace SportsfestivalManagement.Entities
             this.gender = gender;
             this.zip = zip;
             this.city = city;
-            this.classId = classId;
+            this.classObject = classObject;
             this.active = active;
         }
 
@@ -120,15 +120,15 @@ namespace SportsfestivalManagement.Entities
             }
         }
 
-        public int ClassId
+        public Class ClassObject
         {
             get
             {
-                return classId;
+                return classObject;
             }
             set
             {
-                classId = value;
+                classObject = value;
             }
         }
 

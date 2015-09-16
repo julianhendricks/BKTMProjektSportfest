@@ -1,5 +1,4 @@
 ﻿using SportsfestivalManagement.Entities;
-using System.Configuration;
 using System;
 
 namespace SportsfestivalManagement.Provider
@@ -8,14 +7,12 @@ namespace SportsfestivalManagement.Provider
     {
         public static MySQL getMySQLInstance()
         {
-            ConfigurationProvider provider = new ConfigurationProvider();
-
             return new MySQL(
-                provider.loadConfigurationValue("mySql_host"),
-                provider.loadConfigurationValue("mySql_username"),
-                provider.loadConfigurationValue("mySql_password"),
-                provider.loadConfigurationValue("mySql_database"),
-                Convert.ToInt32(provider.loadConfigurationValue("mySql_port"))
+                ConfigurationProvider.loadConfigurationValue("mySql_host"),
+                ConfigurationProvider.loadConfigurationValue("mySql_username"),
+                ConfigurationProvider.loadConfigurationValue("mySql_password"),
+                ConfigurationProvider.loadConfigurationValue("mySql_database"),
+                Convert.ToInt32(ConfigurationProvider.loadConfigurationValue("mySql_port"))
             );
         }
     }

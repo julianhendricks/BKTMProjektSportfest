@@ -6,31 +6,36 @@ namespace SportsfestivalManagement.Provider
 {
     class SubscriptionProvider : AbstractEntityProvider
     {
-        const string tableName = "subscription";
-        const string field_sportsFestivalSubscriptionId = "sportsFestivalSubscriptionId";
-        const string field_competitionId = "competitionId";
-        const string field_disciplineId = "disciplineId";
-        const string field_result = "result";
+        public const string tableName = "subscription";
+        public const string field_sportsFestivalSubscriptionId = "sportsFestivalSubscriptionId";
+        public const string field_competitionId = "competitionId";
+        public const string field_disciplineId = "disciplineId";
+        public const string field_result = "result";
 
         public List<Subscription> getAllSubscriptions()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Subscription> subscriptions = new List<Subscription>();
 
             while(reader.Read())
             {
-                Subscription subscription = new Subscription(
-                    reader.GetInt32(field_sportsFestivalSubscriptionId),
-                    reader.GetInt32(field_competitionId),
-                    reader.GetInt32(field_disciplineId),
-                    reader.GetDouble(field_result)
-                );
+                CompetitionProvider competitionProvider = new CompetitionProvider();
+                Competition competition = competitionProvider.getCompetitionById(reader.GetInt32(field_competitionId));
 
-                subscriptions.Add(subscription);
+                DisciplineProvider disciplineProvider = new DisciplineProvider();
+                Discipline discipline = disciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+
+                subscriptions.Add(this.getSubscriptionByPrimaryKey(
+                    reader.GetInt32(field_sportsFestivalSubscriptionId),
+                    competition,
+                    discipline
+                ));
             }
 
             return subscriptions;
@@ -38,22 +43,24 @@ namespace SportsfestivalManagement.Provider
 
         public Subscription getSubscriptionByPrimaryKey(
             int sportsFestivalSubscriptionId,
-            int competitionId,
-            int disciplineId
+            Competition competition,
+            Discipline discipline
         ) {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_sportsFestivalSubscriptionId + "` = " + sportsFestivalSubscriptionId
-                    + "AND `" + field_competitionId + "` = " + competitionId
-                    + "AND `" + field_disciplineId + "` = " + disciplineId
+                    + "`" + field_sportsFestivalSubscriptionId + "` = " + sportsFestivalSubscriptionId + " "
+                    + "AND `" + field_competitionId + "` = " + competition.CompetitionId + " "
+                    + "AND `" + field_disciplineId + "` = " + discipline.DisciplineId
             );
 
             Subscription subscription = new Subscription(
                 reader.GetInt32(field_sportsFestivalSubscriptionId),
-                reader.GetInt32(field_competitionId),
-                reader.GetInt32(field_disciplineId),
+                competition,
+                discipline,
                 reader.GetDouble(field_result)
             );
 
@@ -62,12 +69,13 @@ namespace SportsfestivalManagement.Provider
 
         public void createSubscription(
             int sportsFestivalSubscriptionId,
-            int competitionId,
-            int disciplineId,
+            Competition competition,
+            Discipline discipline,
             double result
         ) {
             MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_sportsFestivalSubscriptionId + "`, "
                     + "`" + field_competitionId + "`, "
@@ -75,8 +83,8 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_result + "`"
                 + ") VALUES ("
                     + sportsFestivalSubscriptionId + ", "
-                    + competitionId + ", "
-                    + disciplineId + ", "
+                    + competition.CompetitionId + ", "
+                    + discipline.DisciplineId + ", "
                     + result
                 + ")"
             );
@@ -85,13 +93,14 @@ namespace SportsfestivalManagement.Provider
         public void updateSubscription(Subscription subscription)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_result + "` = " + subscription.Result + " "
                 + "WHERE "
                     + "`" + field_sportsFestivalSubscriptionId + " = " + subscription.SportsFestivalSubscriptionId + " "
-                    + "AND `" + field_competitionId + "` = " + subscription.CompetitionId + " "
-                    + "AND `" + field_disciplineId + "` = " + subscription.DisciplineId
+                    + "AND `" + field_competitionId + "` = " + subscription.Competition.CompetitionId + " "
+                    + "AND `" + field_disciplineId + "` = " + subscription.Discipline.DisciplineId
             );
         }
 
@@ -101,8 +110,8 @@ namespace SportsfestivalManagement.Provider
                 + "DELETE FROM `" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalSubscriptionId + " = " + subscription.SportsFestivalSubscriptionId + " "
-                    + "AND `" + field_competitionId + "` = " + subscription.CompetitionId + " "
-                    + "AND `" + field_disciplineId + "` = " + subscription.DisciplineId + " "
+                    + "AND `" + field_competitionId + "` = " + subscription.Competition.CompetitionId + " "
+                    + "AND `" + field_disciplineId + "` = " + subscription.Discipline.DisciplineId + " "
                 + "LIMIT 1"
             );
         }

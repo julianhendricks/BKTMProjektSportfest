@@ -12,20 +12,20 @@ namespace SportsfestivalManagement.Entities
         private string variantName;
         private int ageFrom;
         private int ageUntil;
-        private int disciplineId;
+        private Discipline discipline;
 
         public Variant(
             int variantId,
             string variantName,
             int ageFrom,
             int ageUntil,
-            int disciplineId
+            Discipline discipline
         ) {
             this.variantId = variantId;
             this.variantName = variantName;
             this.ageFrom = ageFrom;
             this.ageUntil = ageUntil;
-            this.disciplineId = disciplineId;
+            this.discipline = discipline;
         }
 
         public int VariantId
@@ -75,16 +75,16 @@ namespace SportsfestivalManagement.Entities
             }
         }
 
-        public int DisciplineId
+        public Discipline Discipline
         {
             get
             {
-                return disciplineId;
+                return discipline;
             }
 
             set
             {
-                disciplineId = value;
+                discipline = value;
             }
         }
     }

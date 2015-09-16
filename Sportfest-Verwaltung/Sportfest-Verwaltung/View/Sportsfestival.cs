@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SportsfestivalManagement.Controller;
 
 namespace SportsfestivalManagement
 {
@@ -47,6 +48,13 @@ namespace SportsfestivalManagement
 
         private void Sportsfestival_Load(object sender, EventArgs e)
         {
+            ConnectionSetupController connectionSetupController = new ConnectionSetupController();
+
+            while (connectionSetupController.connectionSuccessfullyEstablished() == false)
+            {
+                connectionSetupController.OpenSetupConnectionGUI();
+            }
+
             MyController = new SportsfestivalController();
             MyController.LoadSportsFestivalListView(lvSportsfestivals);
         }

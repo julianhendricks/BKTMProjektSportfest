@@ -6,32 +6,27 @@ namespace SportsfestivalManagement.Provider
 {
     class DisciplineProvider : AbstractEntityProvider
     {
-        const string tableName = "discipline";
-        const string field_disciplineId = "disciplineId";
-        const string field_name = "name";
-        const string field_measureId = "measureId";
-        const string field_categoryId = "categoryId";
+        public const string tableName = "discipline";
+        public const string field_disciplineId = "disciplineId";
+        public const string field_name = "name";
+        public const string field_measureId = "measureId";
+        public const string field_categoryId = "categoryId";
 
 
         public List<Discipline> getAllDisciplines()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Discipline> disciplines = new List<Discipline>();
 
             while(reader.Read())
             {
-                Discipline discipline = new Discipline(
-                    reader.GetInt32(field_disciplineId),
-                    reader.GetString(field_name),
-                    reader.GetInt32(field_measureId),
-                    reader.GetInt32(field_categoryId)
-                );
-
-                disciplines.Add(discipline);
+                disciplines.Add(this.getDisciplineById(reader.GetInt32(field_disciplineId)));
             }
 
             return disciplines;
@@ -39,30 +34,64 @@ namespace SportsfestivalManagement.Provider
 
         public Discipline getDisciplineById(int disciplineId) {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_disciplineId + "` = " + disciplineId
             );
 
+            MeasureProvider measureProvider = new MeasureProvider();
+            Measure measure = measureProvider.getMeasureById(reader.GetInt32(field_measureId));
+
+            CategoryProvider categoryProvider = new CategoryProvider();
+            Category category = categoryProvider.getCategoryById(reader.GetInt32(field_categoryId));
+
+            DisciplineSetDisciplineMappingProvider disciplineSetDisciplineMappingProvider = new DisciplineSetDisciplineMappingProvider();
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = disciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineId(reader.GetInt32(field_disciplineId));
+
             Discipline discipline = new Discipline(
                 reader.GetInt32(field_disciplineId),
                 reader.GetString(field_name),
-                reader.GetInt32(field_measureId),
-                reader.GetInt32(field_categoryId)
+                measure,
+                category,
+                disciplineSetDisciplineMappings
             );
 
             return discipline;
         }
 
-        public int createDiscipline(string name)
+        public List<Discipline> getDisciplinesByDisciplineSetId(int disciplineSetId)
         {
+            DisciplineSetDisciplineMappingProvider disciplineSetDisciplineMappingProvider = new DisciplineSetDisciplineMappingProvider();
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = disciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(disciplineSetId);
+
+            List<Discipline> disciplines = new List<Discipline>();
+
+            foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in disciplineSetDisciplineMappings)
+            {
+                disciplines.Add(this.getDisciplineById(disciplineSetDisciplineMapping.DisciplineId));
+            }
+
+            return disciplines;
+        }
+
+        public int createDiscipline(
+            string name,
+            Measure measure,
+            Category category
+        ) {
             MySqlDataReader reader = this.executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
-                    + "`" + field_name + "`"
+                    + "`" + field_name + "`, "
+                    + "`" + field_measureId + "`, "
+                    + "`" + field_categoryId + "`"
                 + ") VALUES ("
-                    + "'" + name + "'"
+                    + "'" + name + "', "
+                    + measure.MeasureId + ", "
+                    + category.CategoryId
                 + ")"
             );
 
@@ -76,7 +105,9 @@ namespace SportsfestivalManagement.Provider
             MySqlDataReader reader = this.executeSql(""
                 + "UPDATE `" + tableName + "` "
                 + "SET "
-                    + "`" + field_name + "` = " + discipline.Name + " "
+                    + "`" + field_name + "` = " + discipline.Name + ", "
+                    + "`" + field_measureId + "` = " + discipline.Measure.MeasureId + ", "
+                    + "`" + field_categoryId + "` = " + discipline.Category.CategoryId + " "
                 + "WHERE "
                     + "`" + field_disciplineId + " = " + discipline.DisciplineId
             );

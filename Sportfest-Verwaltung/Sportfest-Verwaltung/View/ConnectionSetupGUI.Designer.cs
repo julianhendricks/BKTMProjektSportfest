@@ -1,6 +1,6 @@
 ﻿namespace SportsfestivalManagement.View
 {
-    partial class SetupConnectionGUI
+    partial class ConnectionSetupGUI
     {
         /// <summary>
         /// Required designer variable.
@@ -68,6 +68,7 @@
             this.pnlClient.HorizontalScrollbarHighlightOnWheel = false;
             this.pnlClient.HorizontalScrollbarSize = 10;
             this.pnlClient.Location = new System.Drawing.Point(20, 60);
+            this.pnlClient.Margin = new System.Windows.Forms.Padding(0);
             this.pnlClient.Name = "pnlClient";
             this.pnlClient.Size = new System.Drawing.Size(760, 420);
             this.pnlClient.TabIndex = 0;
@@ -78,14 +79,24 @@
             // edtPort
             // 
             this.edtPort.Location = new System.Drawing.Point(260, 87);
+            this.edtPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
             this.edtPort.Name = "edtPort";
             this.edtPort.Size = new System.Drawing.Size(150, 20);
             this.edtPort.TabIndex = 1;
+            this.edtPort.Value = new decimal(new int[] {
+            3306,
+            0,
+            0,
+            0});
             // 
             // edtHost
             // 
             this.edtHost.Lines = new string[0];
-            this.edtHost.Location = new System.Drawing.Point(260, 49);
+            this.edtHost.Location = new System.Drawing.Point(260, 47);
             this.edtHost.MaxLength = 32767;
             this.edtHost.Name = "edtHost";
             this.edtHost.PasswordChar = '\0';
@@ -111,7 +122,7 @@
             // edtDatabase
             // 
             this.edtDatabase.Lines = new string[0];
-            this.edtDatabase.Location = new System.Drawing.Point(260, 122);
+            this.edtDatabase.Location = new System.Drawing.Point(260, 124);
             this.edtDatabase.MaxLength = 32767;
             this.edtDatabase.Name = "edtDatabase";
             this.edtDatabase.PasswordChar = '\0';
@@ -124,7 +135,7 @@
             // edtUsername
             // 
             this.edtUsername.Lines = new string[0];
-            this.edtUsername.Location = new System.Drawing.Point(260, 165);
+            this.edtUsername.Location = new System.Drawing.Point(260, 164);
             this.edtUsername.MaxLength = 32767;
             this.edtUsername.Name = "edtUsername";
             this.edtUsername.PasswordChar = '\0';
@@ -137,7 +148,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(157, 204);
+            this.lblPassword.Location = new System.Drawing.Point(157, 206);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(63, 19);
             this.lblPassword.TabIndex = 8;
@@ -146,7 +157,7 @@
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(157, 165);
+            this.lblUsername.Location = new System.Drawing.Point(157, 166);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(96, 19);
             this.lblUsername.TabIndex = 7;
@@ -164,7 +175,7 @@
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(157, 87);
+            this.lblPort.Location = new System.Drawing.Point(157, 88);
             this.lblPort.Name = "lblPort";
             this.lblPort.Size = new System.Drawing.Size(37, 19);
             this.lblPort.TabIndex = 5;
@@ -184,10 +195,10 @@
             this.lblDescription.AutoSize = true;
             this.lblDescription.Location = new System.Drawing.Point(156, 11);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(532, 19);
+            this.lblDescription.Size = new System.Drawing.Size(530, 19);
             this.lblDescription.TabIndex = 3;
             this.lblDescription.Text = "Die Verbindung zur Datenbank ist gescheitert. Bitte geben Sie eine gültige Verbin" +
-    "dung an!";
+    "dung an.";
             // 
             // pnlControls
             // 
@@ -263,6 +274,7 @@
             this.MinimizeBox = false;
             this.Name = "SetupConnectionGUI";
             this.Text = "Datenbankverbindung bearbeiten";
+            this.Load += new System.EventHandler(this.SetupConnectionGUI_Load);
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPort)).EndInit();

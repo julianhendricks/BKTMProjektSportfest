@@ -7,42 +7,31 @@ namespace SportsfestivalManagement.Provider
 {
     class StudentProvider : AbstractEntityProvider
     {
-        const string tableName = "student";
-        const string field_studentId = "studentId";
-        const string field_firstName = "firstName";
-        const string field_lastName = "lastName";
-        const string field_birthday = "birthday";
-        const string field_gender = "gender";
-        const string field_zip = "zip";
-        const string field_city = "city";
-        const string field_classId = "classId";
-        const string field_active = "active";
+        public const string tableName = "student";
+        public const string field_studentId = "studentId";
+        public const string field_firstName = "firstName";
+        public const string field_lastName = "lastName";
+        public const string field_birthday = "birthday";
+        public const string field_gender = "gender";
+        public const string field_zip = "zip";
+        public const string field_city = "city";
+        public const string field_classId = "classId";
+        public const string field_active = "active";
 
         public List<Student> getAllStudents()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Student> students = new List<Student>();
 
             while (reader.Read())
             {
-                Student student = new Student(
-                    reader.GetInt32(field_studentId),
-                    reader.GetString(field_firstName),
-                    reader.GetString(field_lastName),
-                    reader.GetDateTime(field_birthday),
-                    reader.GetChar(field_gender),
-                    reader.GetInt32(field_zip),
-                    reader.GetString(field_city),
-                    reader.GetInt32(field_classId),
-                    reader.GetBoolean(field_active)
-
-                );
-
-                students.Add(student);
+                students.Add(this.getStudentById(reader.GetInt32(field_studentId)));
             }
 
             return students;
@@ -51,11 +40,16 @@ namespace SportsfestivalManagement.Provider
         public Student getStudentById(int studentId)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_studentId + "` = " + studentId
             );
+
+            ClassProvider classProvider = new ClassProvider();
+            Class classObject = classProvider.getClassById(reader.GetInt32(field_classId));
 
             Student student = new Student(
                     reader.GetInt32(field_studentId),
@@ -65,36 +59,44 @@ namespace SportsfestivalManagement.Provider
                     reader.GetChar(field_gender),
                     reader.GetInt32(field_zip),
                     reader.GetString(field_city),
-                    reader.GetInt32(field_classId),
+                    classObject,
                     reader.GetBoolean(field_active)
             );
 
             return student;
         }
 
-        public int createStudent(string firstName, string lastName, DateTime birthday, char gender, int zip, string city, int classId, bool active)
-        {
+        public int createStudent(
+            string firstName,
+            string lastName,
+            DateTime birthday,
+            char gender,
+            int zip,
+            string city,
+            Class classObject,
+            bool active
+        ) {
             MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
-                    + "`" + field_firstName + "`,"
-                    + "`" + field_lastName + "`,"
-                    + "`" + field_birthday + "`,"
-                    + "`" + field_gender + "`,"
-                    + "`" + field_zip + "`,"
-                    + "`" + field_city + "`,"
-                    + "'" + field_classId + "',"
-                    + "'" + field_active + "',"
-
+                    + "`" + field_firstName + "`, "
+                    + "`" + field_lastName + "`, "
+                    + "`" + field_birthday + "`, "
+                    + "`" + field_gender + "`, "
+                    + "`" + field_zip + "`, "
+                    + "`" + field_city + "`, "
+                    + "'" + field_classId + "', "
+                    + "'" + field_active + "', "
                 + ") VALUES ("
-                    + "'" + firstName + "',"
-                    + "'" + lastName + "',"
-                    + "'" + birthday.ToString("yyyy-MM-dd") + "',
-                    + "'" + gender + "',"
-                    + zip + ","
-                    + "'" + city + "',"
-                    + classId + ","
-                    + active + ","
+                    + "'" + firstName + "', "
+                    + "'" + lastName + "', "
+                    + "'" + birthday.ToString("yyyy-MM-dd") + "', "
+                    + "'" + gender + "', "
+                    + zip + ", "
+                    + "'" + city + "', "
+                    + classObject.ClassId + ", "
+                    + active
                 + ")"
             );
 
@@ -106,27 +108,27 @@ namespace SportsfestivalManagement.Provider
         public void updateStudent(Student student)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
-                    + "`" + field_firstName + "` = '" + student.FirstName + "' "
-                    + "`" + field_lastName + "` = '" + student.LastName + "' "
-                    + "`" + field_birthday + "` = " + student.Birthday.ToString("yyyy-MM-dd") + " "
-                    + "`" + field_gender + "` = " + student.Gender + " "
-                    + "`" + field_zip + "` = " + student.Zip + " "
-                    + "`" + field_city + "` = '" + student.City + "' "
-                    + "`" + field_classId + "` = " + student.ClassId + " "
+                    + "`" + field_firstName + "` = '" + student.FirstName + "', "
+                    + "`" + field_lastName + "` = '" + student.LastName + "', "
+                    + "`" + field_birthday + "` = '" + student.Birthday.ToString("yyyy-MM-dd") + "', "
+                    + "`" + field_gender + "` = " + student.Gender + ", "
+                    + "`" + field_zip + "` = " + student.Zip + ", "
+                    + "`" + field_city + "` = '" + student.City + "', "
+                    + "`" + field_classId + "` = " + student.ClassObject.ClassId + ", "
                     + "`" + field_active + "` = " + student.Active + " "
-
                 + "WHERE "
                     + "`" + field_studentId + " = " + student.StudentId
-
             );
         }
 
         public void deleteStudent(Student student)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_studentId + " = " + student.StudentId + " "
                 + "LIMIT 1"

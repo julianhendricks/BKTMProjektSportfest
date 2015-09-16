@@ -6,29 +6,25 @@ namespace SportsfestivalManagement.Provider
 {
     class MeasureProvider : AbstractEntityProvider
     {
-        const string tableName = "measure";
-        const string field_measureId = "measureId";
-        const string field_name = "name";
-        const string field_shortcut = "shortcut";
+        public const string tableName = "measure";
+        public const string field_measureId = "measureId";
+        public const string field_name = "name";
+        public const string field_shortcut = "shortcut";
 
         public List<Measure> getAllMeasures()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Measure> measures = new List<Measure>();
 
             while (reader.Read())
             {
-                Measure measure = new Measure(
-                    reader.GetInt32(field_measureId),
-                    reader.GetString(field_name),
-                    reader.GetString(field_shortcut)
-                );
-
-                measures.Add(measure);
+                measures.Add(this.getMeasureById(reader.GetInt32(field_measureId)));
             }
 
             return measures;
@@ -37,8 +33,10 @@ namespace SportsfestivalManagement.Provider
         public Measure getMeasureById(int measureId)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_measureId + "` = " + measureId
             );
@@ -55,7 +53,8 @@ namespace SportsfestivalManagement.Provider
         public int createMeasure(string name)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_name + "`"
                 + ") VALUES ("
@@ -71,9 +70,11 @@ namespace SportsfestivalManagement.Provider
         public void updateMeasure(Measure measure)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
-                    + "`" + field_name + "` = " + measure.Name + " "
+                    + "`" + field_name + "` = " + measure.Name + ". "
+                    + "`" + field_shortcut + "` = " + measure.Shortcut + " "
                 + "WHERE "
                     + "`" + field_measureId + " = " + measure.MeasureId
             );
@@ -82,7 +83,8 @@ namespace SportsfestivalManagement.Provider
         public void deleteMeasure(Measure measure)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_measureId + " = " + measure.MeasureId + " "
                 + "LIMIT 1"

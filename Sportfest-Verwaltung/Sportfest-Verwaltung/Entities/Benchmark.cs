@@ -2,7 +2,7 @@
 {
     class Benchmark
     {
-        private int disciplineId;
+        private Discipline discipline;
         private int ageFrom;
         private int ageUntil;
         private char gender;
@@ -10,14 +10,14 @@
         private double benchmark;
 
         public Benchmark(
-            int disciplineId,
+            Discipline discipline,
             int ageFrom,
             int ageUntil,
             char gender,
             string rank,
             double benchmark
         ) {
-            this.disciplineId = disciplineId;
+            this.discipline = discipline;
             this.ageFrom = ageFrom;
             this.ageUntil = ageUntil;
             this.gender = gender;
@@ -25,11 +25,11 @@
             this.benchmark = benchmark;
         }
 
-        public int DisciplineId
+        public Discipline Discipline
         {
             get
             {
-                return disciplineId;
+                return discipline;
             }
         }
 

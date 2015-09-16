@@ -82,15 +82,19 @@
     <Compile Include="Controller\DisciplinesController.cs" />
     <Compile Include="Controller\NewSportsFestivalController.cs" />
     <Compile Include="Entities\Measure.cs" />
-    <Compile Include="Controller\SetupConnectionController.cs" />
+    <Compile Include="Controller\ConnectionSetupController.cs" />
     <Compile Include="Provider\AbstractEntityProvider.cs" />
     <Compile Include="Provider\BenchmarkProvider.cs" />
+    <Compile Include="Provider\VariantProvider.cs" />
+    <Compile Include="Provider\SportsFestivalProvider.cs" />
     <Compile Include="Provider\StudentProvider.cs" />
     <Compile Include="Provider\MeasureProvider.cs" />
     <Compile Include="Provider\CompetitionProvider.cs" />
     <Compile Include="Provider\DisciplineProvider.cs" />
     <Compile Include="Provider\CategoryProvider.cs" />
     <Compile Include="Provider\ClassProvider.cs" />
+    <Compile Include="Provider\DisciplineSetProvider.cs" />
+    <Compile Include="Provider\SubscriptionProvider.cs" />
     <Compile Include="Provider\DisciplineSetDisciplineMappingProvider.cs" />
     <Compile Include="View\DisciplinesGUI.cs">
       <SubType>Form</SubType>
@@ -126,11 +130,11 @@
       <DependentUpon>ResultsGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\SportCertificateController.cs" />
-    <Compile Include="View\SetupConnectionGUI.cs">
+    <Compile Include="View\ConnectionSetupGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SetupConnectionGUI.Designer.cs">
-      <DependentUpon>SetupConnectionGUI.cs</DependentUpon>
+    <Compile Include="View\ConnectionSetupGUI.Designer.cs">
+      <DependentUpon>ConnectionSetupGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SportCertificateGUI.cs">
       <SubType>Form</SubType>
@@ -174,8 +178,8 @@
     <EmbeddedResource Include="View\ResultsGUI.resx">
       <DependentUpon>ResultsGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\SetupConnectionGUI.resx">
-      <DependentUpon>SetupConnectionGUI.cs</DependentUpon>
+    <EmbeddedResource Include="View\ConnectionSetupGUI.resx">
+      <DependentUpon>ConnectionSetupGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SportCertificateGUI.resx">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
@@ -186,9 +190,6 @@
     <EmbeddedResource Include="View\StudentsAndClassesGUI.resx">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Configuration\App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

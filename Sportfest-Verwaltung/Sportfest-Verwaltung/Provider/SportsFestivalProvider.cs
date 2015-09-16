@@ -1,32 +1,30 @@
 ﻿using SportsfestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System;
 
 namespace SportsfestivalManagement.Provider
 {
     class SportsFestivalProvider : AbstractEntityProvider
     {
-        const string tableName = "sportsfestival";
-        const string field_sportsFestivalId = "sportsFestivalId";
-        const string field_sportsFestivalDate = "date";
+        public const string tableName = "sportsfestival";
+        public const string field_sportsFestivalId = "sportsFestivalId";
+        public const string field_sportsFestivalDate = "date";
 
         public List<SportsFestival> getAllSportsFestivals()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<SportsFestival> sportsFestivals = new List<SportsFestival>();
 
             while (reader.Read())
             {
-                SportsFestival sportsFestival = new SportsFestival(
-                    reader.GetInt32(field_sportsFestivalId),
-                    reader.GetDateTime(field_sportsFestivalDate)
-                );
-
-                sportsFestivals.Add(sportsFestival);
+                sportsFestivals.Add(this.getSportsFestivalById(reader.GetInt32(field_sportsFestivalId)));
             }
 
             return sportsFestivals;
@@ -35,8 +33,10 @@ namespace SportsfestivalManagement.Provider
         public SportsFestival getSportsFestivalById(int sportsFestivalId)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalId + "` = " + sportsFestivalId
             );
@@ -49,14 +49,14 @@ namespace SportsfestivalManagement.Provider
             return sportsFestival;
         }
 
-        public int createSportsFestival(string sportsFestivalDate)
+        public int createSportsFestival(DateTime sportsFestivalDate)
         {
             MySqlDataReader reader = this.executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
                     + "`" + field_sportsFestivalDate + "`"
                 + ") VALUES ("
-                    + "'" + sportsFestivalDate + "'"
+                    + "'" + sportsFestivalDate.ToString("yyyy-MM-dd") + "'"
                 + ")"
             );
 
@@ -68,9 +68,10 @@ namespace SportsfestivalManagement.Provider
         public void updateSportsFestival(SportsFestival sportsFestival)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
-                    + "`" + field_sportsFestivalDate + "` = " + sportsFestival.Date + " "
+                    + "`" + field_sportsFestivalDate + "` = '" + sportsFestival.Date.ToString("yyyy-MM-dd") + "' "
                 + "WHERE "
                     + "`" + field_sportsFestivalId + " = " + sportsFestival.SportsFestivalId
             );
@@ -79,7 +80,8 @@ namespace SportsfestivalManagement.Provider
         public void deleteSportsFestival(SportsFestival sportsFestival)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalId + " = " + sportsFestival.SportsFestivalId + " "
                 + "LIMIT 1"

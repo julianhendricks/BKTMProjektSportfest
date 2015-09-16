@@ -4,7 +4,7 @@ namespace SportsfestivalManagement.Provider
 {
     class ConfigurationProvider
     {
-        public string loadConfigurationValue(string configurationKey)
+        public static string loadConfigurationValue(string configurationKey)
         {
             return ConfigurationManager.AppSettings.Get(configurationKey);
         }

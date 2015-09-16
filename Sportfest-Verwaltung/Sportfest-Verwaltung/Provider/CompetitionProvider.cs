@@ -6,27 +6,28 @@ namespace SportsfestivalManagement.Provider
 {
     class CompetitionProvider : AbstractEntityProvider
     {
-        const string tableName = "competition";
-        const string field_competitionId = "competitionId";
-        const string field_competitionName = "competitionName";
+        public const string tableName = "competition";
+        public const string field_competitionId = "competitionId";
+        public const string field_competitionName = "competitionName";
+
+        public const string relation_tableName = "competitionDisciplineSet";
+        public const string relation_field_competitionId = "competitionId";
+        public const string relation_field_disciplineSetId = "disciplineSetId";
 
         public List<Competition> getAllCompetitions()
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Competition> competitions = new List<Competition>();
 
             while (reader.Read())
             {
-                Competition competition = new Competition(
-                    reader.GetInt32(field_competitionId),
-                    reader.GetString(field_competitionName)
-                );
-
-                competitions.Add(competition);
+                competitions.Add(this.getCompetitionById(reader.GetInt32(field_competitionId)));
             }
 
             return competitions;
@@ -35,24 +36,52 @@ namespace SportsfestivalManagement.Provider
         public Competition getCompetitionById(int competitionId)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_competitionId + "` = " + competitionId
             );
 
+            DisciplineSetProvider disciplineSetProvider = new DisciplineSetProvider();
+            List<DisciplineSet> disciplineSetsList = disciplineSetProvider.getDisciplineSetsByCompetitionId(reader.GetInt32(field_competitionId));
+
             Competition competition = new Competition(
                 reader.GetInt32(field_competitionId),
-                reader.GetString(field_competitionName)
+                reader.GetString(field_competitionName),
+                disciplineSetsList
             );
 
             return competition;
         }
 
+        public List<Competition> getCompetitionsByDisciplineSetId(int disciplineSetId)
+        {
+            MySqlDataReader reader = this.executeSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + relation_tableName + "` "
+                + "WHERE "
+                    + "`" + relation_field_disciplineSetId + "` = " + disciplineSetId
+            );
+
+            List<Competition> competitions = new List<Competition>();
+
+            while (reader.Read())
+            {
+                competitions.Add(this.getCompetitionById(reader.GetInt32(relation_field_competitionId)));
+            }
+
+            return competitions;
+        }
+
         public int createCompetition(string competitionName)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_competitionName + "`"
                 + ") VALUES ("
@@ -68,7 +97,8 @@ namespace SportsfestivalManagement.Provider
         public void updateCompetition(Competition competition)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_competitionName + "` = " + competition.CompetitionName + " "
                 + "WHERE "
@@ -79,7 +109,8 @@ namespace SportsfestivalManagement.Provider
         public void deleteCompetition(Competition competition)
         {
             MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_competitionId + " = " + competition.CompetitionId + " "
                 + "LIMIT 1"

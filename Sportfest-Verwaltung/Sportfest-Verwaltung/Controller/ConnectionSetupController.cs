@@ -4,40 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SportsfestivalManagement.Provider;
+using SportsfestivalManagement.Entities;
 
 namespace SportsfestivalManagement.Controller
 {
-    class SetupConnectionController
+    class ConnectionSetupController
     {
-        public static void OpenSetupConnectionGUI()
+        public void OpenSetupConnectionGUI()
         {
-            View.SetupConnectionGUI SetupConnectionGUIForm;
-            SetupConnectionGUIForm = new View.SetupConnectionGUI();
+            View.ConnectionSetupGUI SetupConnectionGUIForm;
+            SetupConnectionGUIForm = new View.ConnectionSetupGUI();
             SetupConnectionGUIForm.ShowDialog();
         }
 
-        public static void TestConnection(string iHost, string iUsername, string iPassword, string iDatabase, int iPort)
+        public bool connectionSuccessfullyEstablished()
         {
-            string connectionString = ""
-                + "SERVER=" + iHost + ";"
-                + "UID=" + iUsername + ";"
-                + "PASSWORD=" + iPassword + ";"
-                + "DATABASE=" + iDatabase + ";"
-                + "PORT=" + Convert.ToString(iPort) + ";"
-            ;
-            var Conn = new MySqlConnection(connectionString);
+            MySQLProvider mySqlProvider = new MySQLProvider();
+            MySQL mySqlInstance = MySQLProvider.getMySQLInstance();
 
             try
             {
-                Conn.Open();
+                mySqlInstance.connect();
+
+                return true;
             }
             catch (Exception e)
             {
-                MessageBox.Show("Verbindung fehlgeschlagen! " + e.Message);
+                return false;
             }
-
-            MessageBox.Show("Verbindung erfolgreich!");
-            Conn.Close();
         }
 
         public static bool SaveConnection(string iHost, string iUsername, string iPassword, string iDatabase, int iPort)
@@ -52,11 +47,17 @@ namespace SportsfestivalManagement.Controller
                 Provider.ConfigurationProvider.storeConfigurationValue("mySql_port", Convert.ToString(iPort));
                 Provider.ConfigurationProvider.storeConfigurationValue("mySql_database", iDatabase);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Result = false;
                 return Result;
             }
             return Result;
+        }
+
+        public static implicit operator ConnectionSetupController(SportsfestivalController v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
