@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SportsfestivalManagement.Controller;
+using SportsfestivalManagement.Provider;
 
 namespace SportsfestivalManagement
 {
@@ -48,15 +49,12 @@ namespace SportsfestivalManagement
 
         private void Sportsfestival_Load(object sender, EventArgs e)
         {
-            ConnectionSetupController connectionSetupController = new ConnectionSetupController();
-
-            while (connectionSetupController.connectionSuccessfullyEstablished() == false)
+            while (SportsfestivalController.getConnectionStateByConfigurationValues().Item1 == false)
             {
-                connectionSetupController.OpenSetupConnectionGUI();
+                ConnectionSetupController.OpenSetupConnectionGUI();
             }
 
-            MyController = new SportsfestivalController();
-            MyController.LoadSportsFestivalListView(lvSportsfestivals);
+            SportsfestivalController.LoadSportsFestivalListView(lvSportsfestivals);
         }
     }
 }

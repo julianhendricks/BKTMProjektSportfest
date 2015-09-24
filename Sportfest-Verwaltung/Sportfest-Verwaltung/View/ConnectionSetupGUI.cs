@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SportsfestivalManagement.Provider;
+using SportsfestivalManagement.Controller;
 
 namespace SportsfestivalManagement.View
 {
     public partial class ConnectionSetupGUI : MetroFramework.Forms.MetroForm
     {
+        private bool connectionSuccessful = false;
+
         public ConnectionSetupGUI()
         {
             InitializeComponent();
@@ -25,29 +21,73 @@ namespace SportsfestivalManagement.View
 
         private void btnTestConnection_Click(object sender, EventArgs e)
         {
-            //Controller.SetupConnectionController.TestConnection(edtHost.Text, edtUsername.Text, edtPassword.Text,
-            //    edtDatabase.Text, Convert.ToInt32(edtPort.Value));
+            var connectionStatus = MySQLProvider.testConnection(
+                edtHost.Text,
+                edtUsername.Text,
+                edtPassword.Text,
+                edtDatabase.Text,
+                Convert.ToInt32(edtPort.Text)
+            );
+
+            if (connectionStatus.Item1 == true)
+            {
+                MessageBox.Show(
+                    "Die Verbindung zur Datenbank wurde erfolgreich hergestellt!",
+                    "Verbindung hergestellt",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                this.connectionSuccessful = true;
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Die Verbindung zur Datenbank konnte nicht hergestellt werden!\n"
+                        + "\n"
+                        + "Fehler:\n"
+                        + connectionStatus.Item2,
+                    "Verbindung fehlgeschlagen",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                this.connectionSuccessful = false;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (Controller.ConnectionSetupController.SaveConnection(edtHost.Text, edtUsername.Text, edtPassword.Text,
-                edtDatabase.Text, Convert.ToInt32(edtPort.Value))){
-                Close();
+            if (this.connectionSuccessful == true)
+            {
+                ConnectionSetupController.SaveConnection(
+                    edtHost.Text,
+                    edtUsername.Text,
+                    edtPassword.Text,
+                    edtDatabase.Text,
+                    Convert.ToInt32(edtPort.Text)
+                );
+
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Es ist ein Fehler beim Speichern der Verbindung aufgetreten!");
+                MessageBox.Show(
+                    "Bitte stellen Sie zuerst eine Verbindung zu einer Datenbank her, bevor Sie die Einstellungen speichern!",
+                    "Speichern nicht möglich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
         private void SetupConnectionGUI_Load(object sender, EventArgs e)
         {
-            edtHost.Text = ConfigurationProvider.loadConfigurationValue("mySql_host");
-            edtPort.Text = ConfigurationProvider.loadConfigurationValue("mySql_port");
-            edtDatabase.Text = ConfigurationProvider.loadConfigurationValue("mySql_database");
-            edtUsername.Text = ConfigurationProvider.loadConfigurationValue("mySql_username");
-            edtPassword.Text = ConfigurationProvider.loadConfigurationValue("mySql_password");
+            edtHost.Text = ConfigurationProvider.loadConfigurationValue(ConfigurationProvider.mySql_host);
+            edtPort.Text = ConfigurationProvider.loadConfigurationValue(ConfigurationProvider.mySql_port);
+            edtDatabase.Text = ConfigurationProvider.loadConfigurationValue(ConfigurationProvider.mySql_database);
+            edtUsername.Text = ConfigurationProvider.loadConfigurationValue(ConfigurationProvider.mySql_username);
+            edtPassword.Text = ConfigurationProvider.loadConfigurationValue(ConfigurationProvider.mySql_password);
         }
     }
 }
