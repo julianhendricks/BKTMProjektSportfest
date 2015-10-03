@@ -18,9 +18,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_classId = "classId";
         public const string field_active = "active";
 
-        public List<Student> getAllStudents()
+        public static List<Student> getAllStudents()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -31,15 +31,15 @@ namespace SportsfestivalManagement.Provider
 
             while (reader.Read())
             {
-                students.Add(this.getStudentById(reader.GetInt32(field_studentId)));
+                students.Add(getStudentById(reader.GetInt32(field_studentId)));
             }
 
             return students;
         }
 
-        public Student getStudentById(int studentId)
+        public static Student getStudentById(int studentId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -48,8 +48,7 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_studentId + "` = " + studentId
             );
 
-            ClassProvider classProvider = new ClassProvider();
-            Class classObject = classProvider.getClassById(reader.GetInt32(field_classId));
+            Class classObject = ClassProvider.getClassById(reader.GetInt32(field_classId));
 
             Student student = new Student(
                     reader.GetInt32(field_studentId),
@@ -66,7 +65,7 @@ namespace SportsfestivalManagement.Provider
             return student;
         }
 
-        public int createStudent(
+        public static int createStudent(
             string firstName,
             string lastName,
             DateTime birthday,
@@ -76,7 +75,7 @@ namespace SportsfestivalManagement.Provider
             Class classObject,
             bool active
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -100,14 +99,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateStudent(Student student)
+        public static void updateStudent(Student student)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -124,9 +123,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteStudent(Student student)
+        public static void deleteStudent(Student student)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

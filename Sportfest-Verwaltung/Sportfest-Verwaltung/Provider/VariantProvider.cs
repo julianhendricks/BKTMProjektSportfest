@@ -13,9 +13,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_ageUntil = "ageUntil";
         public const string field_disciplineId = "disciplineId";
 
-        public List<Variant> getAllVariants()
+        public static List<Variant> getAllVariants()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -26,14 +26,14 @@ namespace SportsfestivalManagement.Provider
 
             while(reader.Read())
             {
-                variants.Add(this.getVariantById(reader.GetInt32(field_variantId)));
+                variants.Add(getVariantById(reader.GetInt32(field_variantId)));
             }
 
             return variants;
         }
 
-        public Variant getVariantById(int variantId) {
-            MySqlDataReader reader = this.executeSql(""
+        public static Variant getVariantById(int variantId) {
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -42,8 +42,7 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_variantId + "` = " + variantId
             );
 
-            DisciplineProvider disciplineProvider = new DisciplineProvider();
-            Discipline discipline = disciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+            Discipline discipline = DisciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
 
             Variant variant = new Variant(
                 reader.GetInt32(field_variantId),
@@ -56,13 +55,13 @@ namespace SportsfestivalManagement.Provider
             return variant;
         }
 
-        public int createVariant(
+        public static int createVariant(
             string variantName,
             int ageFrom,
             int ageUntil,
             Discipline discipline
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -75,14 +74,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateVariant(Variant variant)
+        public static void updateVariant(Variant variant)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -95,9 +94,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteVariant(Variant variant)
+        public static void deleteVariant(Variant variant)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

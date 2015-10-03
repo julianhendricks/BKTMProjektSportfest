@@ -8,9 +8,9 @@ using SportsfestivalManagement.Provider;
 
 namespace SportsfestivalManagement
 {
-    class SportsfestivalController
+    class SportsFestivalController
     {
-        public SportsfestivalController()
+        public SportsFestivalController()
         {
 
         }
@@ -23,9 +23,10 @@ namespace SportsfestivalManagement
             }
         }*/
 
-        public static void getAllSportsFestivals()
+        public static List<SportsFestival> getAllSportsFestivals()
         {
-            return SportsFestivalProvider.
+           return SportsFestivalProvider.getAllSportsFestivals();
+
             /*foreach (SportsFestival Sportsfest in SportsFestivalCollection){
                 string[] row = { Sportsfest.GetSportsFestivalId().ToString(), "Sportfest " + Sportsfest.GetSportsFestivalDate().Year.ToString() };
                 iListView.Items.Add(new ListViewItem(row));

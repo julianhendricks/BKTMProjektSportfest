@@ -54,7 +54,7 @@ namespace SportsfestivalManagement
                 ConnectionSetupController.OpenSetupConnectionGUI();
             }
 
-            SportsfestivalController.LoadSportsFestivalListView(lvSportsfestivals);
+            //SportsfestivalController.LoadSportsFestivalListView(lvSportsfestivals);
         }
     }
 }

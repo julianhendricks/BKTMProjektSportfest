@@ -10,9 +10,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_classId = "classId";
         public const string field_shortcut = "shortcut";
 
-        public List<Class> getAllClasses()
+        public static List<Class> getAllClasses()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -23,14 +23,14 @@ namespace SportsfestivalManagement.Provider
 
             while(reader.Read())
             {
-                classes.Add(this.getClassById(reader.GetInt32(field_classId)));
+                classes.Add(getClassById(reader.GetInt32(field_classId)));
             }
 
             return classes;
         }
 
-        public Class getClassById(int classId) {
-            MySqlDataReader reader = this.executeSql(""
+        public static Class getClassById(int classId) {
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -47,9 +47,9 @@ namespace SportsfestivalManagement.Provider
             return classElement;
         }
 
-        public int createClass(string shortcut)
+        public static int createClass(string shortcut)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -59,14 +59,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateClass(Class classElement)
+        public static void updateClass(Class classElement)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -76,9 +76,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteClass(Class classElement)
+        public static void deleteClass(Class classElement)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

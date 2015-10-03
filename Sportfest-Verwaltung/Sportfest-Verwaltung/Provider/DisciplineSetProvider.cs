@@ -9,9 +9,9 @@ namespace SportsfestivalManagement.Provider
         public const string tableName = "disciplineSet";
         public const string field_disciplineSetId = "disciplineSetId";
 
-        public List<DisciplineSet> getAllDisciplineSets()
+        public static List<DisciplineSet> getAllDisciplineSets()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -22,14 +22,14 @@ namespace SportsfestivalManagement.Provider
 
             while(reader.Read())
             {
-                disciplineSets.Add(this.getDisciplineSetById(reader.GetInt32(field_disciplineSetId)));
+                disciplineSets.Add(getDisciplineSetById(reader.GetInt32(field_disciplineSetId)));
             }
 
             return disciplineSets;
         }
 
-        public DisciplineSet getDisciplineSetById(int disciplineSetId) {
-            MySqlDataReader reader = this.executeSql(""
+        public static DisciplineSet getDisciplineSetById(int disciplineSetId) {
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -38,14 +38,11 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_disciplineSetId + "` = " + disciplineSetId
             );
 
-            DisciplineProvider disciplineProvider = new DisciplineProvider();
-            List<Discipline> disciplines = disciplineProvider.getDisciplinesByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
+            List<Discipline> disciplines = DisciplineProvider.getDisciplinesByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
 
-            CompetitionProvider competitionProvider = new CompetitionProvider();
-            List<Competition> competitions = competitionProvider.getCompetitionsByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
+            List<Competition> competitions = CompetitionProvider.getCompetitionsByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
 
-            DisciplineSetDisciplineMappingProvider disciplineSetDisciplineMappingProvider = new DisciplineSetDisciplineMappingProvider();
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = disciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
 
             DisciplineSet disciplineSet = new DisciplineSet(
                 reader.GetInt32(field_disciplineSetId),
@@ -57,9 +54,9 @@ namespace SportsfestivalManagement.Provider
             return disciplineSet;
         }
 
-        public List<DisciplineSet> getDisciplineSetsByCompetitionId(int competitionId)
+        public static List<DisciplineSet> getDisciplineSetsByCompetitionId(int competitionId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -72,31 +69,30 @@ namespace SportsfestivalManagement.Provider
 
             while (reader.Read())
             {
-                disciplineSets.Add(this.getDisciplineSetById(reader.GetInt32(field_disciplineSetId)));
+                disciplineSets.Add(getDisciplineSetById(reader.GetInt32(field_disciplineSetId)));
             }
 
             return disciplineSets;
         }
 
-        public List<DisciplineSet> getDisciplineSetsByDisciplineId(int disciplineId)
+        public static List<DisciplineSet> getDisciplineSetsByDisciplineId(int disciplineId)
         {
-            DisciplineSetDisciplineMappingProvider disciplineSetDisciplineMappingProvider = new DisciplineSetDisciplineMappingProvider();
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = disciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineId(disciplineId);
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineId(disciplineId);
 
             List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
 
             foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in disciplineSetDisciplineMappings)
             {
-                disciplineSets.Add(this.getDisciplineSetById(disciplineSetDisciplineMapping.DisciplineSetId));
+                disciplineSets.Add(getDisciplineSetById(disciplineSetDisciplineMapping.DisciplineSetId));
             }
 
             return disciplineSets;
         }
 
-        public int createDisciplineSet(
+        public static int createDisciplineSet(
 
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
                     
@@ -105,12 +101,12 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateDisciplineSet(DisciplineSet disciplineSet)
+        public static void updateDisciplineSet(DisciplineSet disciplineSet)
         {
             // Implement if there are any updateable fields available
             
@@ -126,9 +122,9 @@ namespace SportsfestivalManagement.Provider
             );*/
         }
 
-        public void deleteDisciplineSet(DisciplineSet disciplineSet)
+        public static void deleteDisciplineSet(DisciplineSet disciplineSet)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

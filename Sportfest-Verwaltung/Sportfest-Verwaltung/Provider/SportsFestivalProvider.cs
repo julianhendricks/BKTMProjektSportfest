@@ -11,9 +11,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_sportsFestivalId = "sportsFestivalId";
         public const string field_sportsFestivalDate = "date";
 
-        public List<SportsFestival> getAllSportsFestivals()
+        public static List<SportsFestival> getAllSportsFestivals()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -24,15 +24,15 @@ namespace SportsfestivalManagement.Provider
 
             while (reader.Read())
             {
-                sportsFestivals.Add(this.getSportsFestivalById(reader.GetInt32(field_sportsFestivalId)));
+                sportsFestivals.Add(getSportsFestivalById(reader.GetInt32(field_sportsFestivalId)));
             }
 
             return sportsFestivals;
         }
 
-        public SportsFestival getSportsFestivalById(int sportsFestivalId)
+        public static SportsFestival getSportsFestivalById(int sportsFestivalId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -49,9 +49,9 @@ namespace SportsfestivalManagement.Provider
             return sportsFestival;
         }
 
-        public int createSportsFestival(DateTime sportsFestivalDate)
+        public static int createSportsFestival(DateTime sportsFestivalDate)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
                     + "`" + field_sportsFestivalDate + "`"
@@ -60,14 +60,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateSportsFestival(SportsFestival sportsFestival)
+        public static void updateSportsFestival(SportsFestival sportsFestival)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -77,9 +77,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteSportsFestival(SportsFestival sportsFestival)
+        public static void deleteSportsFestival(SportsFestival sportsFestival)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

@@ -5,7 +5,7 @@ namespace SportsfestivalManagement.Provider
 {
     abstract class AbstractEntityProvider
     {
-        protected MySqlDataReader executeSql(string sql)
+        protected static MySqlDataReader executeSql(string sql)
         {
             MySQL mySql = MySQLProvider.getMySQLInstance();
             mySql.connect();

@@ -14,9 +14,9 @@ namespace SportsfestivalManagement.Provider
         public const string relation_field_competitionId = "competitionId";
         public const string relation_field_disciplineSetId = "disciplineSetId";
 
-        public List<Competition> getAllCompetitions()
+        public static List<Competition> getAllCompetitions()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -27,15 +27,15 @@ namespace SportsfestivalManagement.Provider
 
             while (reader.Read())
             {
-                competitions.Add(this.getCompetitionById(reader.GetInt32(field_competitionId)));
+                competitions.Add(getCompetitionById(reader.GetInt32(field_competitionId)));
             }
 
             return competitions;
         }
 
-        public Competition getCompetitionById(int competitionId)
+        public static Competition getCompetitionById(int competitionId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -44,8 +44,7 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_competitionId + "` = " + competitionId
             );
 
-            DisciplineSetProvider disciplineSetProvider = new DisciplineSetProvider();
-            List<DisciplineSet> disciplineSetsList = disciplineSetProvider.getDisciplineSetsByCompetitionId(reader.GetInt32(field_competitionId));
+            List<DisciplineSet> disciplineSetsList = DisciplineSetProvider.getDisciplineSetsByCompetitionId(reader.GetInt32(field_competitionId));
 
             Competition competition = new Competition(
                 reader.GetInt32(field_competitionId),
@@ -56,9 +55,9 @@ namespace SportsfestivalManagement.Provider
             return competition;
         }
 
-        public List<Competition> getCompetitionsByDisciplineSetId(int disciplineSetId)
+        public static List<Competition> getCompetitionsByDisciplineSetId(int disciplineSetId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -71,15 +70,15 @@ namespace SportsfestivalManagement.Provider
 
             while (reader.Read())
             {
-                competitions.Add(this.getCompetitionById(reader.GetInt32(relation_field_competitionId)));
+                competitions.Add(getCompetitionById(reader.GetInt32(relation_field_competitionId)));
             }
 
             return competitions;
         }
 
-        public int createCompetition(string competitionName)
+        public static int createCompetition(string competitionName)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -89,14 +88,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateCompetition(Competition competition)
+        public static void updateCompetition(Competition competition)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -106,9 +105,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteCompetition(Competition competition)
+        public static void deleteCompetition(Competition competition)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

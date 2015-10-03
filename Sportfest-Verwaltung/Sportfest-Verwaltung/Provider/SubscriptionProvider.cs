@@ -12,9 +12,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_disciplineId = "disciplineId";
         public const string field_result = "result";
 
-        public List<Subscription> getAllSubscriptions()
+        public static List<Subscription> getAllSubscriptions()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -25,13 +25,11 @@ namespace SportsfestivalManagement.Provider
 
             while(reader.Read())
             {
-                CompetitionProvider competitionProvider = new CompetitionProvider();
-                Competition competition = competitionProvider.getCompetitionById(reader.GetInt32(field_competitionId));
+                Competition competition = CompetitionProvider.getCompetitionById(reader.GetInt32(field_competitionId));
 
-                DisciplineProvider disciplineProvider = new DisciplineProvider();
-                Discipline discipline = disciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+                Discipline discipline = DisciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
 
-                subscriptions.Add(this.getSubscriptionByPrimaryKey(
+                subscriptions.Add(getSubscriptionByPrimaryKey(
                     reader.GetInt32(field_sportsFestivalSubscriptionId),
                     competition,
                     discipline
@@ -41,12 +39,12 @@ namespace SportsfestivalManagement.Provider
             return subscriptions;
         }
 
-        public Subscription getSubscriptionByPrimaryKey(
+        public static Subscription getSubscriptionByPrimaryKey(
             int sportsFestivalSubscriptionId,
             Competition competition,
             Discipline discipline
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -67,13 +65,13 @@ namespace SportsfestivalManagement.Provider
             return subscription;
         }
 
-        public void createSubscription(
+        public static void createSubscription(
             int sportsFestivalSubscriptionId,
             Competition competition,
             Discipline discipline,
             double result
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -90,9 +88,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void updateSubscription(Subscription subscription)
+        public static void updateSubscription(Subscription subscription)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -104,9 +102,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteSubscription(Subscription subscription)
+        public static void deleteSubscription(Subscription subscription)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM `" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalSubscriptionId + " = " + subscription.SportsFestivalSubscriptionId + " "

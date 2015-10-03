@@ -14,9 +14,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_rank = "rank";
         public const string field_benchmark = "benchmark";
 
-        public List<Benchmark> getAllBenchmarks()
+        public static List<Benchmark> getAllBenchmarks()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "`" + field_disciplineId + "`, "
                     + "`" + field_ageFrom + "`, "
@@ -31,10 +31,9 @@ namespace SportsfestivalManagement.Provider
 
             while(reader.Read())
             {
-                DisciplineProvider disciplineProvider = new DisciplineProvider();
-                Discipline discipline = disciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+                Discipline discipline = DisciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
 
-                benchmarks.Add(this.getBenchmarkByPrimaryKey(
+                benchmarks.Add(getBenchmarkByPrimaryKey(
                     discipline,
                     reader.GetInt32(field_ageFrom),
                     reader.GetInt32(field_ageUntil),
@@ -46,14 +45,14 @@ namespace SportsfestivalManagement.Provider
             return benchmarks;
         }
 
-        public Benchmark getBenchmarkByPrimaryKey(
+        public static Benchmark getBenchmarkByPrimaryKey(
             Discipline discipline,
             int ageFrom,
             int ageUntil,
             char gender,
             string rank
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -78,9 +77,9 @@ namespace SportsfestivalManagement.Provider
             return benchmark;
         }
 
-        public List<Benchmark> getBenchmarksByDiscipline(Discipline discipline)
+        public static List<Benchmark> getBenchmarksByDiscipline(Discipline discipline)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -108,7 +107,7 @@ namespace SportsfestivalManagement.Provider
             return benchmarks;
         }
 
-        public void createBenchmark(
+        public static void createBenchmark(
             Discipline discipline,
             int ageFrom,
             int ageUntil,
@@ -116,7 +115,7 @@ namespace SportsfestivalManagement.Provider
             string rank,
             double benchmark
         ) {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -137,9 +136,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void updateBenchmark(Benchmark benchmark)
+        public static void updateBenchmark(Benchmark benchmark)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -153,9 +152,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteBenchmark(Benchmark benchmark)
+        public static void deleteBenchmark(Benchmark benchmark)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

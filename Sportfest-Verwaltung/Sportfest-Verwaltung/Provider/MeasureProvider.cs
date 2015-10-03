@@ -11,9 +11,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_name = "name";
         public const string field_shortcut = "shortcut";
 
-        public List<Measure> getAllMeasures()
+        public static List<Measure> getAllMeasures()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -24,15 +24,15 @@ namespace SportsfestivalManagement.Provider
 
             while (reader.Read())
             {
-                measures.Add(this.getMeasureById(reader.GetInt32(field_measureId)));
+                measures.Add(getMeasureById(reader.GetInt32(field_measureId)));
             }
 
             return measures;
         }
 
-        public Measure getMeasureById(int measureId)
+        public static Measure getMeasureById(int measureId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -50,9 +50,9 @@ namespace SportsfestivalManagement.Provider
             return measure;
         }
 
-        public int createMeasure(string name)
+        public static int createMeasure(string name)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -62,14 +62,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateMeasure(Measure measure)
+        public static void updateMeasure(Measure measure)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -80,9 +80,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteMeasure(Measure measure)
+        public static void deleteMeasure(Measure measure)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

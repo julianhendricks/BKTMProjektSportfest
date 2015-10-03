@@ -10,9 +10,9 @@ namespace SportsfestivalManagement.Provider
         public const string field_categoryId = "categoryId";
         public const string field_categoryName = "categoryName";
 
-        public List<Category> getAllCategories()
+        public static List<Category> getAllCategories()
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "`" + field_categoryId + "` "
                 + "FROM "
@@ -23,14 +23,14 @@ namespace SportsfestivalManagement.Provider
 
             while(reader.Read())
             {
-                categories.Add(this.getCategoryById(reader.GetInt32(field_categoryId)));
+                categories.Add(getCategoryById(reader.GetInt32(field_categoryId)));
             }
 
             return categories;
         }
 
-        public Category getCategoryById(int categoryId) {
-            MySqlDataReader reader = this.executeSql(""
+        public static Category getCategoryById(int categoryId) {
+            MySqlDataReader reader = executeSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -47,9 +47,9 @@ namespace SportsfestivalManagement.Provider
             return category;
         }
 
-        public int createCategory(string categoryName)
+        public static int createCategory(string categoryName)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -59,14 +59,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
 
             return reader.GetInt32("insertionId");
         }
 
-        public void updateCategory(Category category)
+        public static void updateCategory(Category category)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -76,9 +76,9 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteCategory(Category category)
+        public static void deleteCategory(Category category)
         {
-            MySqlDataReader reader = this.executeSql(""
+            MySqlDataReader reader = executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "
