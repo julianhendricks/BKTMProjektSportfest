@@ -1,58 +1,87 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class CompetitionProvider : AbstractEntityProvider
     {
-        const string tableName = "competition";
-        const string field_competitionId = "competitionId";
-        const string field_competitionName = "competitionName";
+        public const string tableName = "competition";
+        public const string field_competitionId = "competitionId";
+        public const string field_competitionName = "competitionName";
 
-        public List<Competition> getAllCompetitions()
+        public const string relation_tableName = "competitionDisciplineSet";
+        public const string relation_field_competitionId = "competitionId";
+        public const string relation_field_disciplineSetId = "disciplineSetId";
+
+        public static List<Competition> getAllCompetitions()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Competition> competitions = new List<Competition>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                Competition competition = new Competition(
-                    reader.GetInt32(field_competitionId),
-                    reader.GetString(field_competitionName)
-                );
-
-                competitions.Add(competition);
+                competitions.Add(getCompetitionById(Convert.ToInt32(row[field_competitionId])));
             }
 
             return competitions;
         }
 
-        public Competition getCompetitionById(int competitionId)
+        public static Competition getCompetitionById(int competitionId)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_competitionId + "` = " + competitionId
             );
 
+            List<DisciplineSet> disciplineSetsList = DisciplineSetProvider.getDisciplineSetsByCompetitionId(Convert.ToInt32(result[field_competitionId]));
+
             Competition competition = new Competition(
-                reader.GetInt32(field_competitionId),
-                reader.GetString(field_competitionName)
+                Convert.ToInt32(result[field_competitionId]),
+                Convert.ToString(result[field_competitionName]),
+                disciplineSetsList
             );
 
             return competition;
         }
 
-        public int createCompetition(string competitionName)
+        public static List<Competition> getCompetitionsByDisciplineSetId(int disciplineSetId)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + relation_tableName + "` "
+                + "WHERE "
+                    + "`" + relation_field_disciplineSetId + "` = " + disciplineSetId
+            );
+
+            List<Competition> competitions = new List<Competition>();
+
+            foreach (var row in results)
+            {
+                competitions.Add(getCompetitionById(Convert.ToInt32(row[relation_field_competitionId])));
+            }
+
+            return competitions;
+        }
+
+        public static int createCompetition(string competitionName)
+        {
+            executeSql(""
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_competitionName + "`"
                 + ") VALUES ("
@@ -60,15 +89,16 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
-        public void updateCompetition(Competition competition)
+        public static void updateCompetition(Competition competition)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_competitionName + "` = " + competition.CompetitionName + " "
                 + "WHERE "
@@ -76,10 +106,11 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteCompetition(Competition competition)
+        public static void deleteCompetition(Competition competition)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+            executeSql(""
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_competitionId + " = " + competition.CompetitionId + " "
                 + "LIMIT 1"

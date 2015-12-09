@@ -1,132 +1,133 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class StudentProvider : AbstractEntityProvider
     {
-        const string tableName = "student";
-        const string field_studentId = "studentId";
-        const string field_firstName = "firstName";
-        const string field_lastName = "lastName";
-        const string field_birthday = "birthday";
-        const string field_gender = "gender";
-        const string field_zip = "zip";
-        const string field_city = "city";
-        const string field_classId = "classId";
-        const string field_active = "active";
+        public const string tableName = "student";
+        public const string field_studentId = "studentId";
+        public const string field_firstName = "firstName";
+        public const string field_lastName = "lastName";
+        public const string field_birthday = "birthday";
+        public const string field_gender = "gender";
+        public const string field_zip = "zip";
+        public const string field_city = "city";
+        public const string field_classId = "classId";
+        public const string field_active = "active";
 
-        public List<Student> getAllStudents()
+        public static List<Student> getAllStudents()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Student> students = new List<Student>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                Student student = new Student(
-                    reader.GetInt32(field_studentId),
-                    reader.GetString(field_firstName),
-                    reader.GetString(field_lastName),
-                    reader.GetDateTime(field_birthday),
-                    reader.GetChar(field_gender),
-                    reader.GetInt32(field_zip),
-                    reader.GetString(field_city),
-                    reader.GetInt32(field_classId),
-                    reader.GetBoolean(field_active)
-
-                );
-
-                students.Add(student);
+                students.Add(getStudentById(Convert.ToInt32(row[field_studentId])));
             }
 
             return students;
         }
 
-        public Student getStudentById(int studentId)
+        public static Student getStudentById(int studentId)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_studentId + "` = " + studentId
             );
 
+            Class classObject = ClassProvider.getClassById(Convert.ToInt32(result[field_classId]));
+
             Student student = new Student(
-                    reader.GetInt32(field_studentId),
-                    reader.GetString(field_firstName),
-                    reader.GetString(field_lastName),
-                    reader.GetDateTime(field_birthday),
-                    reader.GetChar(field_gender),
-                    reader.GetInt32(field_zip),
-                    reader.GetString(field_city),
-                    reader.GetInt32(field_classId),
-                    reader.GetBoolean(field_active)
+                    Convert.ToInt32(result[field_studentId]),
+                    Convert.ToString(result[field_firstName]),
+                    Convert.ToString(result[field_lastName]),
+                    Convert.ToDateTime(result[field_birthday]),
+                    Convert.ToChar(result[field_gender]),
+                    Convert.ToInt32(result[field_zip]),
+                    Convert.ToString(result[field_city]),
+                    classObject,
+                    Convert.ToBoolean(result[field_active])
             );
 
             return student;
         }
 
-        public int createStudent(string firstName, string lastName, DateTime birthday, char gender, int zip, string city, int classId, bool active)
-        {
-            MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+        public static int createStudent(
+            string firstName,
+            string lastName,
+            DateTime birthday,
+            char gender,
+            int zip,
+            string city,
+            Class classObject,
+            bool active
+        ) {
+            executeSql(""
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
-                    + "`" + field_firstName + "`,"
-                    + "`" + field_lastName + "`,"
-                    + "`" + field_birthday + "`,"
-                    + "`" + field_gender + "`,"
-                    + "`" + field_zip + "`,"
-                    + "`" + field_city + "`,"
-                    + "'" + field_classId + "',"
-                    + "'" + field_active + "',"
-
+                    + "`" + field_firstName + "`, "
+                    + "`" + field_lastName + "`, "
+                    + "`" + field_birthday + "`, "
+                    + "`" + field_gender + "`, "
+                    + "`" + field_zip + "`, "
+                    + "`" + field_city + "`, "
+                    + "'" + field_classId + "', "
+                    + "'" + field_active + "', "
                 + ") VALUES ("
-                    + "'" + firstName + "',"
-                    + "'" + lastName + "',"
-                    + "'" + birthday.ToString("yyyy-MM-dd") + "',
-                    + "'" + gender + "',"
-                    + zip + ","
-                    + "'" + city + "',"
-                    + classId + ","
-                    + active + ","
+                    + "'" + firstName + "', "
+                    + "'" + lastName + "', "
+                    + "'" + birthday.ToString("yyyy-MM-dd") + "', "
+                    + "'" + gender + "', "
+                    + zip + ", "
+                    + "'" + city + "', "
+                    + classObject.ClassId + ", "
+                    + active
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
-        public void updateStudent(Student student)
+        public static void updateStudent(Student student)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
-                    + "`" + field_firstName + "` = '" + student.FirstName + "' "
-                    + "`" + field_lastName + "` = '" + student.LastName + "' "
-                    + "`" + field_birthday + "` = " + student.Birthday.ToString("yyyy-MM-dd") + " "
-                    + "`" + field_gender + "` = " + student.Gender + " "
-                    + "`" + field_zip + "` = " + student.Zip + " "
-                    + "`" + field_city + "` = '" + student.City + "' "
-                    + "`" + field_classId + "` = " + student.ClassId + " "
+                    + "`" + field_firstName + "` = '" + student.FirstName + "', "
+                    + "`" + field_lastName + "` = '" + student.LastName + "', "
+                    + "`" + field_birthday + "` = '" + student.Birthday.ToString("yyyy-MM-dd") + "', "
+                    + "`" + field_gender + "` = " + student.Gender + ", "
+                    + "`" + field_zip + "` = " + student.Zip + ", "
+                    + "`" + field_city + "` = '" + student.City + "', "
+                    + "`" + field_classId + "` = " + student.ClassObject.ClassId + ", "
                     + "`" + field_active + "` = " + student.Active + " "
-
                 + "WHERE "
                     + "`" + field_studentId + " = " + student.StudentId
-
             );
         }
 
-        public void deleteStudent(Student student)
+        public static void deleteStudent(Student student)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+            executeSql(""
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_studentId + " = " + student.StudentId + " "
                 + "LIMIT 1"

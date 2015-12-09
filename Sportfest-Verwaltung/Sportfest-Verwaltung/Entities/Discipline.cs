@@ -4,26 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportsfestivalManagement.Entities
+namespace SportsFestivalManagement.Entities
 {
     class Discipline
     {
         private int disciplineId;
         private string name;
-        private int measureId;
-        private int categoryId;
+        private Measure measure;
+        private Category category;
+        private List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings;
 
 
         public Discipline(
             int disciplineId,
             string name,
-            int measureId,
-            int categoryId
+            Measure measure,
+            Category category,
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings
         ) {
             this.disciplineId = disciplineId;
             this.name = name;
-            this.measureId = measureId;
-            this.categoryId = categoryId;
+            this.measure = measure;
+            this.category = category;
+            this.disciplineSetDisciplineMappings = disciplineSetDisciplineMappings;
         }
 
         public int DisciplineId
@@ -47,30 +50,45 @@ namespace SportsfestivalManagement.Entities
             }
         }
 
-        public int MeasureId
+        public Measure Measure
         {
             get
             {
-                return measureId;
+                return measure;
             }
 
             set
             {
-                measureId = value;
+                measure = value;
             }
         }
 
-        public int CategoryId
+        public Category Category
         {
             get
             {
-                return categoryId;
+                return category;
             }
 
             set
             {
-                categoryId = value;
+                category = value;
             }
+        }
+
+        public List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappings()
+        {
+            return disciplineSetDisciplineMappings;
+        }
+
+        public void addDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
+        {
+            disciplineSetDisciplineMappings.Add(disciplineSetDisciplineMapping);
+        }
+
+        public void removeDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
+        {
+            disciplineSetDisciplineMappings.Remove(disciplineSetDisciplineMapping);
         }
     }
 }

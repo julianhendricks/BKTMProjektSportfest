@@ -1,90 +1,118 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class DisciplineProvider : AbstractEntityProvider
     {
-        const string tableName = "discipline";
-        const string field_disciplineId = "disciplineId";
-        const string field_name = "name";
-        const string field_measureId = "measureId";
-        const string field_categoryId = "categoryId";
+        public const string tableName = "discipline";
+        public const string field_disciplineId = "disciplineId";
+        public const string field_name = "name";
+        public const string field_measureId = "measureId";
+        public const string field_categoryId = "categoryId";
 
 
-        public List<Discipline> getAllDisciplines()
+        public static List<Discipline> getAllDisciplines()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Discipline> disciplines = new List<Discipline>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                Discipline discipline = new Discipline(
-                    reader.GetInt32(field_disciplineId),
-                    reader.GetString(field_name),
-                    reader.GetInt32(field_measureId),
-                    reader.GetInt32(field_categoryId)
-                );
-
-                disciplines.Add(discipline);
+                disciplines.Add(getDisciplineById(Convert.ToInt32(row[field_disciplineId])));
             }
 
             return disciplines;
         }
 
-        public Discipline getDisciplineById(int disciplineId) {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+        public static Discipline getDisciplineById(int disciplineId) {
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_disciplineId + "` = " + disciplineId
             );
 
+            Measure measure = MeasureProvider.getMeasureById(Convert.ToInt32(result[field_measureId]));
+
+            Category category = CategoryProvider.getCategoryById(Convert.ToInt32(result[field_categoryId]));
+
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineId(Convert.ToInt32(result[field_disciplineId]));
+
             Discipline discipline = new Discipline(
-                reader.GetInt32(field_disciplineId),
-                reader.GetString(field_name),
-                reader.GetInt32(field_measureId),
-                reader.GetInt32(field_categoryId)
+                Convert.ToInt32(result[field_disciplineId]),
+                Convert.ToString(result[field_name]),
+                measure,
+                category,
+                disciplineSetDisciplineMappings
             );
 
             return discipline;
         }
 
-        public int createDiscipline(string name)
+        public static List<Discipline> getDisciplinesByDisciplineSetId(int disciplineSetId)
         {
-            MySqlDataReader reader = this.executeSql(""
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(disciplineSetId);
+
+            List<Discipline> disciplines = new List<Discipline>();
+
+            foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in disciplineSetDisciplineMappings)
+            {
+                disciplines.Add(getDisciplineById(disciplineSetDisciplineMapping.DisciplineId));
+            }
+
+            return disciplines;
+        }
+
+        public static int createDiscipline(
+            string name,
+            Measure measure,
+            Category category
+        ) {
+            executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
-                    + "`" + field_name + "`"
+                    + "`" + field_name + "`, "
+                    + "`" + field_measureId + "`, "
+                    + "`" + field_categoryId + "`"
                 + ") VALUES ("
-                    + "'" + name + "'"
+                    + "'" + name + "', "
+                    + measure.MeasureId + ", "
+                    + category.CategoryId
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
-        public void updateDiscipline(Discipline discipline)
+        public static void updateDiscipline(Discipline discipline)
         {
-            MySqlDataReader reader = this.executeSql(""
+            executeSql(""
                 + "UPDATE `" + tableName + "` "
                 + "SET "
-                    + "`" + field_name + "` = " + discipline.Name + " "
+                    + "`" + field_name + "` = " + discipline.Name + ", "
+                    + "`" + field_measureId + "` = " + discipline.Measure.MeasureId + ", "
+                    + "`" + field_categoryId + "` = " + discipline.Category.CategoryId + " "
                 + "WHERE "
                     + "`" + field_disciplineId + " = " + discipline.DisciplineId
             );
         }
 
-        public void deleteDiscipline(Discipline discipline)
+        public static void deleteDiscipline(Discipline discipline)
         {
-            MySqlDataReader reader = this.executeSql(""
+            executeSql(""
                 + "DELETE FROM `" + tableName + "` "
                 + "WHERE "
                     + "`" + field_disciplineId + " = " + discipline.DisciplineId + " "

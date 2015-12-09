@@ -1,20 +1,43 @@
 ﻿using MySql.Data.MySqlClient;
-using SportsfestivalManagement.Entities;
+using SportsFestivalManagement.Entities;
+using System.Collections.Generic;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     abstract class AbstractEntityProvider
     {
-        protected MySqlDataReader executeSql(string sql)
+        protected static List<Dictionary<string, object>> querySql(string sql)
         {
             MySQL mySql = MySQLProvider.getMySQLInstance();
             mySql.connect();
 
-            MySqlDataReader reader = mySql.query(sql);
+            var reader = mySql.query(sql);
 
             mySql.close();
 
             return reader;
+        }
+
+        protected static Dictionary<string, object> querySingleSql(string sql)
+        {
+            MySQL mySql = MySQLProvider.getMySQLInstance();
+            mySql.connect();
+
+            var results = mySql.querySingle(sql);
+
+            mySql.close();
+
+            return results;
+        }
+
+        protected static void executeSql(string sql)
+        {
+            MySQL mySql = MySQLProvider.getMySQLInstance();
+            mySql.connect();
+
+            mySql.execute(sql);
+
+            mySql.close();
         }
     }
 }

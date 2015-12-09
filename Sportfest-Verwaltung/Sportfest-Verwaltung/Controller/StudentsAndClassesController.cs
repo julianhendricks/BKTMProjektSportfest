@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SportsfestivalManagement;
+using SportsFestivalManagement;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace SportsfestivalManagement
+namespace SportsFestivalManagement
 {
     class StudentsAndClassesController
     {

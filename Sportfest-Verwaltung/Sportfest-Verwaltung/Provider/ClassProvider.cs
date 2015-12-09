@@ -1,57 +1,58 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class ClassProvider : AbstractEntityProvider
     {
-        const string tableName = "class";
-        const string field_classId = "classId";
-        const string field_shortcut = "shortcut";
+        public const string tableName = "class";
+        public const string field_classId = "classId";
+        public const string field_shortcut = "shortcut";
 
-        public List<Class> getAllClasses()
+        public static List<Class> getAllClasses()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Class> classes = new List<Class>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                Class classElement = new Class(
-                    reader.GetInt32(field_classId),
-                    reader.GetString(field_shortcut)
-                );
-
-                classes.Add(classElement);
+                classes.Add(getClassById(Convert.ToInt32(row[field_classId])));
             }
 
             return classes;
         }
 
-        public Class getClassById(int classId) {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+        public static Class getClassById(int classId) {
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_classId + "` = " + classId
             );
 
             Class classElement = new Class(
-                reader.GetInt32(field_classId),
-                reader.GetString(field_shortcut)
+                Convert.ToInt32(result[field_classId]),
+                Convert.ToString(result[field_shortcut])
             );
 
             return classElement;
         }
 
-        public int createClass(string shortcut)
+        public static int createClass(string shortcut)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+            executeSql(""
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_shortcut + "`"
                 + ") VALUES ("
@@ -59,15 +60,16 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
-        public void updateClass(Class classElement)
+        public static void updateClass(Class classElement)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_shortcut + "` = " + classElement.Shortcut + " "
                 + "WHERE "
@@ -75,10 +77,11 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteClass(Class classElement)
+        public static void deleteClass(Class classElement)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+            executeSql(""
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_classId + " = " + classElement.ClassId + " "
                 + "LIMIT 1"

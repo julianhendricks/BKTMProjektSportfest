@@ -1,73 +1,80 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class SubscriptionProvider : AbstractEntityProvider
     {
-        const string tableName = "subscription";
-        const string field_sportsFestivalSubscriptionId = "sportsFestivalSubscriptionId";
-        const string field_competitionId = "competitionId";
-        const string field_disciplineId = "disciplineId";
-        const string field_result = "result";
+        public const string tableName = "subscription";
+        public const string field_sportsFestivalSubscriptionId = "sportsFestivalSubscriptionId";
+        public const string field_competitionId = "competitionId";
+        public const string field_disciplineId = "disciplineId";
+        public const string field_result = "result";
 
-        public List<Subscription> getAllSubscriptions()
+        public static List<Subscription> getAllSubscriptions()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Subscription> subscriptions = new List<Subscription>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                Subscription subscription = new Subscription(
-                    reader.GetInt32(field_sportsFestivalSubscriptionId),
-                    reader.GetInt32(field_competitionId),
-                    reader.GetInt32(field_disciplineId),
-                    reader.GetDouble(field_result)
-                );
+                Competition competition = CompetitionProvider.getCompetitionById(Convert.ToInt32(row[field_competitionId]));
 
-                subscriptions.Add(subscription);
+                Discipline discipline = DisciplineProvider.getDisciplineById(Convert.ToInt32(row[field_disciplineId]));
+
+                subscriptions.Add(getSubscriptionByPrimaryKey(
+                    Convert.ToInt32(row[field_sportsFestivalSubscriptionId]),
+                    competition,
+                    discipline
+                ));
             }
 
             return subscriptions;
         }
 
-        public Subscription getSubscriptionByPrimaryKey(
+        public static Subscription getSubscriptionByPrimaryKey(
             int sportsFestivalSubscriptionId,
-            int competitionId,
-            int disciplineId
+            Competition competition,
+            Discipline discipline
         ) {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_sportsFestivalSubscriptionId + "` = " + sportsFestivalSubscriptionId
-                    + "AND `" + field_competitionId + "` = " + competitionId
-                    + "AND `" + field_disciplineId + "` = " + disciplineId
+                    + "`" + field_sportsFestivalSubscriptionId + "` = " + sportsFestivalSubscriptionId + " "
+                    + "AND `" + field_competitionId + "` = " + competition.CompetitionId + " "
+                    + "AND `" + field_disciplineId + "` = " + discipline.DisciplineId
             );
 
             Subscription subscription = new Subscription(
-                reader.GetInt32(field_sportsFestivalSubscriptionId),
-                reader.GetInt32(field_competitionId),
-                reader.GetInt32(field_disciplineId),
-                reader.GetDouble(field_result)
+                Convert.ToInt32(result[field_sportsFestivalSubscriptionId]),
+                competition,
+                discipline,
+                Convert.ToDouble(result[field_result])
             );
 
             return subscription;
         }
 
-        public void createSubscription(
+        public static void createSubscription(
             int sportsFestivalSubscriptionId,
-            int competitionId,
-            int disciplineId,
+            Competition competition,
+            Discipline discipline,
             double result
         ) {
-            MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+            executeSql(""
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_sportsFestivalSubscriptionId + "`, "
                     + "`" + field_competitionId + "`, "
@@ -75,34 +82,35 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_result + "`"
                 + ") VALUES ("
                     + sportsFestivalSubscriptionId + ", "
-                    + competitionId + ", "
-                    + disciplineId + ", "
+                    + competition.CompetitionId + ", "
+                    + discipline.DisciplineId + ", "
                     + result
                 + ")"
             );
         }
 
-        public void updateSubscription(Subscription subscription)
+        public static void updateSubscription(Subscription subscription)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_result + "` = " + subscription.Result + " "
                 + "WHERE "
                     + "`" + field_sportsFestivalSubscriptionId + " = " + subscription.SportsFestivalSubscriptionId + " "
-                    + "AND `" + field_competitionId + "` = " + subscription.CompetitionId + " "
-                    + "AND `" + field_disciplineId + "` = " + subscription.DisciplineId
+                    + "AND `" + field_competitionId + "` = " + subscription.Competition.CompetitionId + " "
+                    + "AND `" + field_disciplineId + "` = " + subscription.Discipline.DisciplineId
             );
         }
 
-        public void deleteSubscription(Subscription subscription)
+        public static void deleteSubscription(Subscription subscription)
         {
-            MySqlDataReader reader = this.executeSql(""
+            executeSql(""
                 + "DELETE FROM `" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalSubscriptionId + " = " + subscription.SportsFestivalSubscriptionId + " "
-                    + "AND `" + field_competitionId + "` = " + subscription.CompetitionId + " "
-                    + "AND `" + field_disciplineId + "` = " + subscription.DisciplineId + " "
+                    + "AND `" + field_competitionId + "` = " + subscription.Competition.CompetitionId + " "
+                    + "AND `" + field_disciplineId + "` = " + subscription.Discipline.DisciplineId + " "
                 + "LIMIT 1"
             );
         }

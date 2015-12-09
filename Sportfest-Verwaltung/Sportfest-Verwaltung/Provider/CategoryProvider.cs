@@ -1,57 +1,58 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class CategoryProvider : AbstractEntityProvider
     {
-        const string tableName = "category";
-        const string field_categoryId = "categoryId";
-        const string field_categoryName = "categoryName";
+        public const string tableName = "category";
+        public const string field_categoryId = "categoryId";
+        public const string field_categoryName = "categoryName";
 
-        public List<Category> getAllCategories()
+        public static List<Category> getAllCategories()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "`" + field_categoryId + "` "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Category> categories = new List<Category>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                Category category = new Category(
-                    reader.GetInt32(field_categoryId),
-                    reader.GetString(field_categoryName)
-                );
-
-                categories.Add(category);
+                categories.Add(getCategoryById(Convert.ToInt32(row[field_categoryId])));
             }
 
             return categories;
         }
 
-        public Category getCategoryById(int categoryId) {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+        public static Category getCategoryById(int categoryId) {
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_categoryId + "` = " + categoryId
             );
 
             Category category = new Category(
-                reader.GetInt32(field_categoryId),
-                reader.GetString(field_categoryName)
+                Convert.ToInt32(result[field_categoryId]),
+                Convert.ToString(result[field_categoryName])
             );
 
             return category;
         }
 
-        public int createCategory(string categoryName)
+        public static int createCategory(string categoryName)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+            executeSql(""
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_categoryName + "`"
                 + ") VALUES ("
@@ -59,15 +60,16 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
-        public void updateCategory(Category category)
+        public static void updateCategory(Category category)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_categoryName + "` = " + category.CategoryName + " "
                 + "WHERE "
@@ -75,10 +77,11 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteCategory(Category category)
+        public static void deleteCategory(Category category)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+            executeSql(""
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_categoryId + " = " + category.CategoryId + " "
                 + "LIMIT 1"

@@ -4,24 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportsfestivalManagement.Entities
+namespace SportsFestivalManagement.Entities
 {
     class Subscription
     {
         private int sportsFestivalSubscriptionId;
-        private int competitionId;
-        private int disciplineId;
+        private Competition competition;
+        private Discipline discipline;
         private double result;
 
         public Subscription(
             int sportsFestivalSubscriptionId,
-            int competitionId,
-            int disciplineId,
+            Competition competition,
+            Discipline discipline,
             double result
         ) {
             this.sportsFestivalSubscriptionId = sportsFestivalSubscriptionId;
-            this.competitionId = competitionId;
-            this.disciplineId = disciplineId;
+            this.competition = competition;
+            this.discipline = discipline;
             this.result = result;
         }
 
@@ -37,27 +37,27 @@ namespace SportsfestivalManagement.Entities
             }
         }
 
-        public int CompetitionId
+        public Competition Competition
         {
             get
             {
-                return competitionId;
+                return competition;
             }
             set
             {
-                competitionId = value;
+                competition = value;
             }
         }
 
-        public int DisciplineId
+        public Discipline Discipline
         {
             get
             {
-                return disciplineId;
+                return discipline;
             }
             set
             {
-                disciplineId = value;
+                discipline = value;
             }
         }
 

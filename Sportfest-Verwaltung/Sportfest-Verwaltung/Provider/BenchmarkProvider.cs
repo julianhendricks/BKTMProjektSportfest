@@ -1,37 +1,105 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class BenchmarkProvider : AbstractEntityProvider
     {
-        const string tableName = "benchmark";
-        const string field_disciplineId = "disciplineId";
-        const string field_ageFrom = "ageFrom";
-        const string field_ageUntil = "ageUntil";
-        const string field_gender = "gender";
-        const string field_rank = "rank";
-        const string field_benchmark = "benchmark";
+        public const string tableName = "benchmark";
+        public const string field_disciplineId = "disciplineId";
+        public const string field_ageFrom = "ageFrom";
+        public const string field_ageUntil = "ageUntil";
+        public const string field_gender = "gender";
+        public const string field_rank = "rank";
+        public const string field_benchmark = "benchmark";
 
-        public List<Benchmark> getAllBenchmarks()
+        public static List<Benchmark> getAllBenchmarks()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "`" + field_disciplineId + "`, "
+                    + "`" + field_ageFrom + "`, "
+                    + "`" + field_ageUntil + "`, "
+                    + "`" + field_gender + "`, "
+                    + "`" + field_rank + "` "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<Benchmark> benchmarks = new List<Benchmark>();
 
-            while(reader.Read())
+            foreach(var row in results)
+            {
+                Discipline discipline = DisciplineProvider.getDisciplineById(Convert.ToInt32(row[field_disciplineId]));
+
+                benchmarks.Add(getBenchmarkByPrimaryKey(
+                    discipline,
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToChar(row[field_gender]),
+                    Convert.ToString(row[field_rank])
+                ));
+            }
+
+            return benchmarks;
+        }
+
+        public static Benchmark getBenchmarkByPrimaryKey(
+            Discipline discipline,
+            int ageFrom,
+            int ageUntil,
+            char gender,
+            string rank
+        ) {
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineId + "` = " + discipline.DisciplineId + " "
+                    + "AND `" + field_ageFrom + "` = " + ageFrom + " "
+                    + "AND `" + field_ageUntil + "` = " + ageUntil + " "
+                    + "AND `" + field_gender + "` = '" + ageFrom + "' "
+                    + "AND `" + field_rank + "` = '" + rank + "'"
+            );
+
+            Benchmark benchmark = new Benchmark(
+                discipline,
+                Convert.ToInt32(result[field_ageFrom]),
+                Convert.ToInt32(result[field_ageUntil]),
+                Convert.ToChar(result[field_gender]),
+                Convert.ToString(result[field_rank]),
+                Convert.ToDouble(result[field_benchmark])
+            );
+
+            return benchmark;
+        }
+
+        public static List<Benchmark> getBenchmarksByDiscipline(Discipline discipline)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineId + "` = " + discipline.DisciplineId
+            );
+
+            List<Benchmark> benchmarks = new List<Benchmark>();
+
+            foreach (var row in results)
             {
                 Benchmark benchmark = new Benchmark(
-                    reader.GetInt32(field_disciplineId),
-                    reader.GetInt32(field_ageFrom),
-                    reader.GetInt32(field_ageUntil),
-                    reader.GetChar(field_gender),
-                    reader.GetString(field_rank),
-                    reader.GetDouble(field_benchmark)
+                    discipline,
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToChar(row[field_gender]),
+                    Convert.ToString(row[field_rank]),
+                    Convert.ToDouble(row[field_benchmark])
                 );
 
                 benchmarks.Add(benchmark);
@@ -40,46 +108,17 @@ namespace SportsfestivalManagement.Provider
             return benchmarks;
         }
 
-        public Benchmark getBenchmarkByPrimaryKey(
-            int disciplineId,
-            int ageFrom,
-            int ageUntil,
-            char gender,
-            string rank
-        ) {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
-                + "WHERE "
-                    + "`" + field_disciplineId + "` = " + disciplineId
-                    + "AND `" + field_ageFrom + "` = " + ageFrom
-                    + "AND `" + field_ageUntil + "` = " + ageUntil
-                    + "AND `" + field_gender + "` = '" + ageFrom + "'"
-                    + "AND `" + field_rank + "` = '" + rank + "'"
-            );
-
-            Benchmark benchmark = new Benchmark(
-                reader.GetInt32(field_disciplineId),
-                reader.GetInt32(field_ageFrom),
-                reader.GetInt32(field_ageUntil),
-                reader.GetChar(field_gender),
-                reader.GetString(field_rank),
-                reader.GetDouble(field_benchmark)
-            );
-
-            return benchmark;
-        }
-
-        public void createBenchmark(
-            int disciplineId,
+        public static void createBenchmark(
+            Discipline discipline,
             int ageFrom,
             int ageUntil,
             char gender,
             string rank,
             double benchmark
         ) {
-            MySqlDataReader reader = this.executeSql(""
-                + "INSERT INTO `" + tableName + "` "
+            executeSql(""
+                + "INSERT INTO "
+                    + "`" + tableName + "` "
                 + "("
                     + "`" + field_disciplineId + "`, "
                     + "`" + field_ageFrom + "`, "
@@ -88,7 +127,7 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_rank + "`, "
                     + "`" + field_benchmark + "`"
                 + ") VALUES ("
-                    + disciplineId + ", "
+                    + discipline.DisciplineId + ", "
                     + ageFrom + ", "
                     + ageUntil + ", "
                     + "'" + gender + "', "
@@ -98,14 +137,15 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void updateBenchmark(Benchmark benchmark)
+        public static void updateBenchmark(Benchmark benchmark)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
                     + "`" + field_benchmark + "` = " + benchmark.BenchmarkValue + " "
                 + "WHERE "
-                    + "`" + field_disciplineId + " = " + benchmark.DisciplineId + " "
+                    + "`" + field_disciplineId + " = " + benchmark.Discipline.DisciplineId + " "
                     + "AND `" + field_ageFrom + "` = " + benchmark.AgeFrom + " "
                     + "AND `" + field_ageUntil + "` = " + benchmark.AgeUntil + " "
                     + "AND `" + field_gender + "` = '" + benchmark.Gender + "' "
@@ -113,12 +153,13 @@ namespace SportsfestivalManagement.Provider
             );
         }
 
-        public void deleteBenchmark(Benchmark benchmark)
+        public static void deleteBenchmark(Benchmark benchmark)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+            executeSql(""
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_disciplineId + " = " + benchmark.DisciplineId + " "
+                    + "`" + field_disciplineId + " = " + benchmark.Discipline.DisciplineId + " "
                     + "AND `" + field_ageFrom + "` = " + benchmark.AgeFrom + " "
                     + "AND `" + field_ageUntil + "` = " + benchmark.AgeUntil + " "
                     + "AND `" + field_gender + "` = '" + benchmark.Gender + "' "

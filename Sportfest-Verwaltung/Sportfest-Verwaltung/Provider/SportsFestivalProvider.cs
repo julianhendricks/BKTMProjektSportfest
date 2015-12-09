@@ -1,85 +1,87 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class SportsFestivalProvider : AbstractEntityProvider
     {
-        const string tableName = "sportsfestival";
-        const string field_sportsFestivalId = "sportsFestivalId";
-        const string field_sportsFestivalDate = "date";
+        public const string tableName = "sportsfestival";
+        public const string field_sportsFestivalId = "sportsFestivalId";
+        public const string field_sportsFestivalDate = "date";
 
-        public List<SportsFestival> getAllSportsFestivals()
+        public static List<SportsFestival> getAllSportsFestivals()
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "`"
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "`"
             );
 
             List<SportsFestival> sportsFestivals = new List<SportsFestival>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                SportsFestival sportsFestival = new SportsFestival(
-                    reader.GetInt32(field_sportsFestivalId),
-                    reader.GetDateTime(field_sportsFestivalDate)
-                );
-
-                sportsFestivals.Add(sportsFestival);
+                sportsFestivals.Add(getSportsFestivalById(Convert.ToInt32(row[field_sportsFestivalId])));
             }
 
             return sportsFestivals;
         }
 
-        public SportsFestival getSportsFestivalById(int sportsFestivalId)
+        public static SportsFestival getSportsFestivalById(int sportsFestivalId)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "SELECT * "
-                + "FROM `" + tableName + "` "
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalId + "` = " + sportsFestivalId
             );
 
             SportsFestival sportsFestival = new SportsFestival(
-                reader.GetInt32(field_sportsFestivalId),
-                reader.GetDateTime(field_sportsFestivalDate)
+                Convert.ToInt32(result[field_sportsFestivalId]),
+                Convert.ToDateTime(result[field_sportsFestivalDate])
             );
 
             return sportsFestival;
         }
 
-        public int createSportsFestival(string sportsFestivalDate)
+        public static int createSportsFestival(DateTime sportsFestivalDate)
         {
-            MySqlDataReader reader = this.executeSql(""
+            executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
                     + "`" + field_sportsFestivalDate + "`"
                 + ") VALUES ("
-                    + "'" + sportsFestivalDate + "'"
+                    + "'" + sportsFestivalDate.ToString("yyyy-MM-dd") + "'"
                 + ")"
             );
 
-            reader = this.executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
-        public void updateSportsFestival(SportsFestival sportsFestival)
+        public static void updateSportsFestival(SportsFestival sportsFestival)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "UPDATE `" + tableName + "` "
+            executeSql(""
+                + "UPDATE "
+                    + "`" + tableName + "` "
                 + "SET "
-                    + "`" + field_sportsFestivalDate + "` = " + sportsFestival.Date + " "
+                    + "`" + field_sportsFestivalDate + "` = '" + sportsFestival.Date.ToString("yyyy-MM-dd") + "' "
                 + "WHERE "
                     + "`" + field_sportsFestivalId + " = " + sportsFestival.SportsFestivalId
             );
         }
 
-        public void deleteSportsFestival(SportsFestival sportsFestival)
+        public static void deleteSportsFestival(SportsFestival sportsFestival)
         {
-            MySqlDataReader reader = this.executeSql(""
-                + "DELETE FROM `" + tableName + "` "
+            executeSql(""
+                + "DELETE FROM "
+                    + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalId + " = " + sportsFestival.SportsFestivalId + " "
                 + "LIMIT 1"

@@ -1,4 +1,4 @@
-﻿namespace SportsfestivalManagement
+﻿namespace SportsFestivalManagement
 {
     partial class StudentsAndClassesGUI
     {
