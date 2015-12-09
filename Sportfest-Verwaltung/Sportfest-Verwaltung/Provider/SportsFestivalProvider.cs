@@ -1,9 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class SportsFestivalProvider : AbstractEntityProvider
     {
@@ -13,7 +13,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<SportsFestival> getAllSportsFestivals()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -22,9 +22,9 @@ namespace SportsfestivalManagement.Provider
 
             List<SportsFestival> sportsFestivals = new List<SportsFestival>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                sportsFestivals.Add(getSportsFestivalById(reader.GetInt32(field_sportsFestivalId)));
+                sportsFestivals.Add(getSportsFestivalById(Convert.ToInt32(row[field_sportsFestivalId])));
             }
 
             return sportsFestivals;
@@ -32,7 +32,7 @@ namespace SportsfestivalManagement.Provider
 
         public static SportsFestival getSportsFestivalById(int sportsFestivalId)
         {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -42,8 +42,8 @@ namespace SportsfestivalManagement.Provider
             );
 
             SportsFestival sportsFestival = new SportsFestival(
-                reader.GetInt32(field_sportsFestivalId),
-                reader.GetDateTime(field_sportsFestivalDate)
+                Convert.ToInt32(result[field_sportsFestivalId]),
+                Convert.ToDateTime(result[field_sportsFestivalDate])
             );
 
             return sportsFestival;
@@ -51,7 +51,7 @@ namespace SportsfestivalManagement.Provider
 
         public static int createSportsFestival(DateTime sportsFestivalDate)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
                     + "`" + field_sportsFestivalDate + "`"
@@ -60,14 +60,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateSportsFestival(SportsFestival sportsFestival)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -79,7 +79,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteSportsFestival(SportsFestival sportsFestival)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

@@ -1,4 +1,4 @@
-﻿namespace SportsfestivalManagement.Entities
+﻿namespace SportsFestivalManagement.Entities
 {
     class Benchmark
     {

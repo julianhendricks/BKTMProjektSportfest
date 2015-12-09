@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class DisciplineSetDisciplineMappingProvider : AbstractEntityProvider
     {
@@ -14,7 +15,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<DisciplineSetDisciplineMapping> getAllDisciplineSetDisciplineMappings()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -23,13 +24,13 @@ namespace SportsfestivalManagement.Provider
 
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
                 disciplineSetDisciplineMappings.Add(getDisciplineSetDisciplineMappingByPrimaryKey(
-                    reader.GetInt32(field_disciplineSetId),
-                    reader.GetInt32(field_ageFrom),
-                    reader.GetInt32(field_ageUntil),
-                    reader.GetInt32(field_disciplineId)
+                    Convert.ToInt32(row[field_disciplineSetId]),
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToInt32(row[field_disciplineId])
                 ));
             }
 
@@ -42,7 +43,7 @@ namespace SportsfestivalManagement.Provider
             int ageUntil,
             int disciplineId
         ) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -55,10 +56,10 @@ namespace SportsfestivalManagement.Provider
             );
 
             DisciplineSetDisciplineMapping disciplineSetDisciplineMapping = new DisciplineSetDisciplineMapping(
-                reader.GetInt32(field_disciplineSetId),
-                reader.GetInt32(field_ageFrom),
-                reader.GetInt32(field_ageUntil),
-                reader.GetInt32(field_disciplineId)
+                Convert.ToInt32(result[field_disciplineSetId]),
+                Convert.ToInt32(result[field_ageFrom]),
+                Convert.ToInt32(result[field_ageUntil]),
+                Convert.ToInt32(result[field_disciplineId])
             );
 
             return disciplineSetDisciplineMapping;
@@ -66,7 +67,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineSetId(int disciplineSetId)
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -77,13 +78,13 @@ namespace SportsfestivalManagement.Provider
 
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
                 disciplineSetDisciplineMappings.Add(getDisciplineSetDisciplineMappingByPrimaryKey(
-                    reader.GetInt32(field_disciplineSetId),
-                    reader.GetInt32(field_ageFrom),
-                    reader.GetInt32(field_ageUntil),
-                    reader.GetInt32(field_disciplineId)
+                    Convert.ToInt32(row[field_disciplineSetId]),
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToInt32(row[field_disciplineId])
                 ));
             }
 
@@ -92,7 +93,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineId(int disciplineId)
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -103,13 +104,13 @@ namespace SportsfestivalManagement.Provider
 
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
                 disciplineSetDisciplineMappings.Add(getDisciplineSetDisciplineMappingByPrimaryKey(
-                    reader.GetInt32(field_disciplineSetId),
-                    reader.GetInt32(field_ageFrom),
-                    reader.GetInt32(field_ageUntil),
-                    reader.GetInt32(field_disciplineId)
+                    Convert.ToInt32(row[field_disciplineSetId]),
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToInt32(row[field_disciplineId])
                 ));
             }
 
@@ -122,7 +123,7 @@ namespace SportsfestivalManagement.Provider
             int ageUntil,
             int disciplineId
         ) {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -141,7 +142,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void updateDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -157,7 +158,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

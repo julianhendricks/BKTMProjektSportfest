@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class VariantProvider : AbstractEntityProvider
     {
@@ -15,7 +16,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Variant> getAllVariants()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -24,16 +25,16 @@ namespace SportsfestivalManagement.Provider
 
             List<Variant> variants = new List<Variant>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                variants.Add(getVariantById(reader.GetInt32(field_variantId)));
+                variants.Add(getVariantById(Convert.ToInt32(row[field_variantId])));
             }
 
             return variants;
         }
 
         public static Variant getVariantById(int variantId) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -42,13 +43,13 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_variantId + "` = " + variantId
             );
 
-            Discipline discipline = DisciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+            Discipline discipline = DisciplineProvider.getDisciplineById(Convert.ToInt32(result[field_disciplineId]));
 
             Variant variant = new Variant(
-                reader.GetInt32(field_variantId),
-                reader.GetString(field_variantName),
-                reader.GetInt32(field_ageFrom),
-                reader.GetInt32(field_ageUntil),
+                Convert.ToInt32(result[field_variantId]),
+                Convert.ToString(result[field_variantName]),
+                Convert.ToInt32(result[field_ageFrom]),
+                Convert.ToInt32(result[field_ageUntil]),
                 discipline
             );
 
@@ -61,7 +62,7 @@ namespace SportsfestivalManagement.Provider
             int ageUntil,
             Discipline discipline
         ) {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -74,14 +75,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateVariant(Variant variant)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -96,7 +97,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteVariant(Variant variant)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

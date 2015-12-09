@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class ClassProvider : AbstractEntityProvider
     {
@@ -12,7 +13,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Class> getAllClasses()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -21,16 +22,16 @@ namespace SportsfestivalManagement.Provider
 
             List<Class> classes = new List<Class>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                classes.Add(getClassById(reader.GetInt32(field_classId)));
+                classes.Add(getClassById(Convert.ToInt32(row[field_classId])));
             }
 
             return classes;
         }
 
         public static Class getClassById(int classId) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -40,8 +41,8 @@ namespace SportsfestivalManagement.Provider
             );
 
             Class classElement = new Class(
-                reader.GetInt32(field_classId),
-                reader.GetString(field_shortcut)
+                Convert.ToInt32(result[field_classId]),
+                Convert.ToString(result[field_shortcut])
             );
 
             return classElement;
@@ -49,7 +50,7 @@ namespace SportsfestivalManagement.Provider
 
         public static int createClass(string shortcut)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -59,14 +60,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateClass(Class classElement)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -78,7 +79,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteClass(Class classElement)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

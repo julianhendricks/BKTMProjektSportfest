@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class MeasureProvider : AbstractEntityProvider
     {
@@ -13,7 +14,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Measure> getAllMeasures()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -22,9 +23,9 @@ namespace SportsfestivalManagement.Provider
 
             List<Measure> measures = new List<Measure>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                measures.Add(getMeasureById(reader.GetInt32(field_measureId)));
+                measures.Add(getMeasureById(Convert.ToInt32(row[field_measureId])));
             }
 
             return measures;
@@ -32,7 +33,7 @@ namespace SportsfestivalManagement.Provider
 
         public static Measure getMeasureById(int measureId)
         {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -42,9 +43,9 @@ namespace SportsfestivalManagement.Provider
             );
 
             Measure measure = new Measure(
-                reader.GetInt32(field_measureId),
-                reader.GetString(field_name),
-                reader.GetString(field_shortcut)
+                Convert.ToInt32(result[field_measureId]),
+                Convert.ToString(result[field_name]),
+                Convert.ToString(result[field_shortcut])
             );
 
             return measure;
@@ -52,7 +53,7 @@ namespace SportsfestivalManagement.Provider
 
         public static int createMeasure(string name)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -62,14 +63,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateMeasure(Measure measure)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -82,7 +83,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteMeasure(Measure measure)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

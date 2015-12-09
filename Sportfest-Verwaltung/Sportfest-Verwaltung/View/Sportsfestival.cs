@@ -7,14 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SportsfestivalManagement.Controller;
-using SportsfestivalManagement.Provider;
+using SportsFestivalManagement.Controller;
+using SportsFestivalManagement.Provider;
+using SportsFestivalManagement.Entities;
+using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement
+namespace SportsFestivalManagement
 {
     public partial class Sportsfestival : MetroFramework.Forms.MetroForm
     {
-        SportsfestivalController MyController;
+        SportsFestivalController MyController;
         public Sportsfestival()
         {
             InitializeComponent();
@@ -49,10 +51,33 @@ namespace SportsfestivalManagement
 
         private void Sportsfestival_Load(object sender, EventArgs e)
         {
-            while (SportsfestivalController.getConnectionStateByConfigurationValues().Item1 == false)
+            while (SportsFestivalController.getConnectionStateByConfigurationValues().Item1 == false)
             {
                 ConnectionSetupController.OpenSetupConnectionGUI();
             }
+
+            MySQL mySql = MySQLProvider.getMySQLInstance();
+            mySql.connect();
+            var result = mySql.query("SELECT * FROM sportsFestival");
+
+            
+
+            /*while (reader.Read())
+            {
+                MessageBox.Show(reader.ToString());
+                reader.GetType();
+            }*/
+
+            
+
+            /*foreach (SportsFestival sportsFestival in SportsFestivalController.getAllSportsFestivals())
+            {
+                string[] row = {
+                    sportsFestival.SportsFestivalId.ToString(),
+                    "Sportfest " + sportsFestival.Date.Year.ToString()
+                };
+                lvSportsfestivals.Items.Add(new ListViewItem(row));
+            }*/
 
             //SportsfestivalController.LoadSportsFestivalListView(lvSportsfestivals);
         }

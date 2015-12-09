@@ -1,4 +1,4 @@
-﻿namespace SportsfestivalManagement.View
+﻿namespace SportsFestivalManagement.View
 {
     partial class ConnectionSetupGUI
     {

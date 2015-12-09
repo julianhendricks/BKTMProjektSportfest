@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class CategoryProvider : AbstractEntityProvider
     {
@@ -12,7 +13,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Category> getAllCategories()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "`" + field_categoryId + "` "
                 + "FROM "
@@ -21,16 +22,16 @@ namespace SportsfestivalManagement.Provider
 
             List<Category> categories = new List<Category>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                categories.Add(getCategoryById(reader.GetInt32(field_categoryId)));
+                categories.Add(getCategoryById(Convert.ToInt32(row[field_categoryId])));
             }
 
             return categories;
         }
 
         public static Category getCategoryById(int categoryId) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -40,8 +41,8 @@ namespace SportsfestivalManagement.Provider
             );
 
             Category category = new Category(
-                reader.GetInt32(field_categoryId),
-                reader.GetString(field_categoryName)
+                Convert.ToInt32(result[field_categoryId]),
+                Convert.ToString(result[field_categoryName])
             );
 
             return category;
@@ -49,7 +50,7 @@ namespace SportsfestivalManagement.Provider
 
         public static int createCategory(string categoryName)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -59,14 +60,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateCategory(Category category)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -78,7 +79,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteCategory(Category category)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

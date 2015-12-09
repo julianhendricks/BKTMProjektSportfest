@@ -1,7 +1,7 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using SportsFestivalManagement.Entities;
 using System;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class MySQLProvider
     {

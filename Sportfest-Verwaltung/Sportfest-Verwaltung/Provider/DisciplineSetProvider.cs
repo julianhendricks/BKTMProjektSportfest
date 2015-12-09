@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class DisciplineSetProvider : AbstractEntityProvider
     {
@@ -11,7 +12,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<DisciplineSet> getAllDisciplineSets()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -20,16 +21,16 @@ namespace SportsfestivalManagement.Provider
 
             List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                disciplineSets.Add(getDisciplineSetById(reader.GetInt32(field_disciplineSetId)));
+                disciplineSets.Add(getDisciplineSetById(Convert.ToInt32(row[field_disciplineSetId])));
             }
 
             return disciplineSets;
         }
 
         public static DisciplineSet getDisciplineSetById(int disciplineSetId) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -38,14 +39,14 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_disciplineSetId + "` = " + disciplineSetId
             );
 
-            List<Discipline> disciplines = DisciplineProvider.getDisciplinesByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
+            List<Discipline> disciplines = DisciplineProvider.getDisciplinesByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
 
-            List<Competition> competitions = CompetitionProvider.getCompetitionsByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
+            List<Competition> competitions = CompetitionProvider.getCompetitionsByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
 
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(reader.GetInt32(field_disciplineSetId));
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
 
             DisciplineSet disciplineSet = new DisciplineSet(
-                reader.GetInt32(field_disciplineSetId),
+                Convert.ToInt32(result[field_disciplineSetId]),
                 disciplines,
                 competitions,
                 disciplineSetDisciplineMappings
@@ -56,7 +57,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<DisciplineSet> getDisciplineSetsByCompetitionId(int competitionId)
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -67,9 +68,9 @@ namespace SportsfestivalManagement.Provider
 
             List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                disciplineSets.Add(getDisciplineSetById(reader.GetInt32(field_disciplineSetId)));
+                disciplineSets.Add(getDisciplineSetById(Convert.ToInt32(row[field_disciplineSetId])));
             }
 
             return disciplineSets;
@@ -92,7 +93,7 @@ namespace SportsfestivalManagement.Provider
         public static int createDisciplineSet(
 
         ) {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO `" + tableName + "` "
                 + "("
                     
@@ -101,16 +102,16 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateDisciplineSet(DisciplineSet disciplineSet)
         {
             // Implement if there are any updateable fields available
             
-            /*MySqlDataReader reader = this.executeSql(""
+            /*this.executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -124,7 +125,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteDisciplineSet(DisciplineSet disciplineSet)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

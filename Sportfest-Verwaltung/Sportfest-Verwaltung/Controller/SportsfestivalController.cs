@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
-using SportsfestivalManagement.Entities;
-using SportsfestivalManagement.Provider;
+using SportsFestivalManagement.Entities;
+using SportsFestivalManagement.Provider;
 
-namespace SportsfestivalManagement
+namespace SportsFestivalManagement
 {
     class SportsFestivalController
     {

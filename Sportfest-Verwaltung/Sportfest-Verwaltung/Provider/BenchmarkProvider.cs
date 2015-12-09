@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class BenchmarkProvider : AbstractEntityProvider
     {
@@ -16,7 +17,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Benchmark> getAllBenchmarks()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "`" + field_disciplineId + "`, "
                     + "`" + field_ageFrom + "`, "
@@ -29,16 +30,16 @@ namespace SportsfestivalManagement.Provider
 
             List<Benchmark> benchmarks = new List<Benchmark>();
 
-            while(reader.Read())
+            foreach(var row in results)
             {
-                Discipline discipline = DisciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+                Discipline discipline = DisciplineProvider.getDisciplineById(Convert.ToInt32(row[field_disciplineId]));
 
                 benchmarks.Add(getBenchmarkByPrimaryKey(
                     discipline,
-                    reader.GetInt32(field_ageFrom),
-                    reader.GetInt32(field_ageUntil),
-                    reader.GetChar(field_gender),
-                    reader.GetString(field_rank)
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToChar(row[field_gender]),
+                    Convert.ToString(row[field_rank])
                 ));
             }
 
@@ -52,7 +53,7 @@ namespace SportsfestivalManagement.Provider
             char gender,
             string rank
         ) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -67,11 +68,11 @@ namespace SportsfestivalManagement.Provider
 
             Benchmark benchmark = new Benchmark(
                 discipline,
-                reader.GetInt32(field_ageFrom),
-                reader.GetInt32(field_ageUntil),
-                reader.GetChar(field_gender),
-                reader.GetString(field_rank),
-                reader.GetDouble(field_benchmark)
+                Convert.ToInt32(result[field_ageFrom]),
+                Convert.ToInt32(result[field_ageUntil]),
+                Convert.ToChar(result[field_gender]),
+                Convert.ToString(result[field_rank]),
+                Convert.ToDouble(result[field_benchmark])
             );
 
             return benchmark;
@@ -79,7 +80,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Benchmark> getBenchmarksByDiscipline(Discipline discipline)
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -90,15 +91,15 @@ namespace SportsfestivalManagement.Provider
 
             List<Benchmark> benchmarks = new List<Benchmark>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
                 Benchmark benchmark = new Benchmark(
                     discipline,
-                    reader.GetInt32(field_ageFrom),
-                    reader.GetInt32(field_ageUntil),
-                    reader.GetChar(field_gender),
-                    reader.GetString(field_rank),
-                    reader.GetDouble(field_benchmark)
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToChar(row[field_gender]),
+                    Convert.ToString(row[field_rank]),
+                    Convert.ToDouble(row[field_benchmark])
                 );
 
                 benchmarks.Add(benchmark);
@@ -115,7 +116,7 @@ namespace SportsfestivalManagement.Provider
             string rank,
             double benchmark
         ) {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -138,7 +139,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void updateBenchmark(Benchmark benchmark)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -154,7 +155,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteBenchmark(Benchmark benchmark)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

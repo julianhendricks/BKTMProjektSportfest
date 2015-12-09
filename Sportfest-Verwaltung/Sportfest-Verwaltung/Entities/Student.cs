@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportsfestivalManagement.Entities
+namespace SportsFestivalManagement.Entities
 {
     class Student
     {

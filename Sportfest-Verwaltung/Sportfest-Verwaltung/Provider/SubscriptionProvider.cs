@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class SubscriptionProvider : AbstractEntityProvider
     {
@@ -14,7 +15,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Subscription> getAllSubscriptions()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -23,14 +24,14 @@ namespace SportsfestivalManagement.Provider
 
             List<Subscription> subscriptions = new List<Subscription>();
 
-            while(reader.Read())
+            foreach (var row in results)
             {
-                Competition competition = CompetitionProvider.getCompetitionById(reader.GetInt32(field_competitionId));
+                Competition competition = CompetitionProvider.getCompetitionById(Convert.ToInt32(row[field_competitionId]));
 
-                Discipline discipline = DisciplineProvider.getDisciplineById(reader.GetInt32(field_disciplineId));
+                Discipline discipline = DisciplineProvider.getDisciplineById(Convert.ToInt32(row[field_disciplineId]));
 
                 subscriptions.Add(getSubscriptionByPrimaryKey(
-                    reader.GetInt32(field_sportsFestivalSubscriptionId),
+                    Convert.ToInt32(row[field_sportsFestivalSubscriptionId]),
                     competition,
                     discipline
                 ));
@@ -44,7 +45,7 @@ namespace SportsfestivalManagement.Provider
             Competition competition,
             Discipline discipline
         ) {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -56,10 +57,10 @@ namespace SportsfestivalManagement.Provider
             );
 
             Subscription subscription = new Subscription(
-                reader.GetInt32(field_sportsFestivalSubscriptionId),
+                Convert.ToInt32(result[field_sportsFestivalSubscriptionId]),
                 competition,
                 discipline,
-                reader.GetDouble(field_result)
+                Convert.ToDouble(result[field_result])
             );
 
             return subscription;
@@ -71,7 +72,7 @@ namespace SportsfestivalManagement.Provider
             Discipline discipline,
             double result
         ) {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -90,7 +91,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void updateSubscription(Subscription subscription)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -104,7 +105,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteSubscription(Subscription subscription)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM `" + tableName + "` "
                 + "WHERE "
                     + "`" + field_sportsFestivalSubscriptionId + " = " + subscription.SportsFestivalSubscriptionId + " "

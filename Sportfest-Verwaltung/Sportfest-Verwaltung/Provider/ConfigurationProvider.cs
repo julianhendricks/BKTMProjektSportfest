@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class ConfigurationProvider
     {

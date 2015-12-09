@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using SportsfestivalManagement.Provider;
-using SportsfestivalManagement.Controller;
+using SportsFestivalManagement.Provider;
+using SportsFestivalManagement.Controller;
 
-namespace SportsfestivalManagement.View
+namespace SportsFestivalManagement.View
 {
     public partial class ConnectionSetupGUI : MetroFramework.Forms.MetroForm
     {

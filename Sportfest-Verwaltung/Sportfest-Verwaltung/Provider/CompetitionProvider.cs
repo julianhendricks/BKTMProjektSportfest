@@ -1,8 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using System;
+using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class CompetitionProvider : AbstractEntityProvider
     {
@@ -16,7 +17,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Competition> getAllCompetitions()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -25,9 +26,9 @@ namespace SportsfestivalManagement.Provider
 
             List<Competition> competitions = new List<Competition>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                competitions.Add(getCompetitionById(reader.GetInt32(field_competitionId)));
+                competitions.Add(getCompetitionById(Convert.ToInt32(row[field_competitionId])));
             }
 
             return competitions;
@@ -35,7 +36,7 @@ namespace SportsfestivalManagement.Provider
 
         public static Competition getCompetitionById(int competitionId)
         {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -44,11 +45,11 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_competitionId + "` = " + competitionId
             );
 
-            List<DisciplineSet> disciplineSetsList = DisciplineSetProvider.getDisciplineSetsByCompetitionId(reader.GetInt32(field_competitionId));
+            List<DisciplineSet> disciplineSetsList = DisciplineSetProvider.getDisciplineSetsByCompetitionId(Convert.ToInt32(result[field_competitionId]));
 
             Competition competition = new Competition(
-                reader.GetInt32(field_competitionId),
-                reader.GetString(field_competitionName),
+                Convert.ToInt32(result[field_competitionId]),
+                Convert.ToString(result[field_competitionName]),
                 disciplineSetsList
             );
 
@@ -57,7 +58,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Competition> getCompetitionsByDisciplineSetId(int disciplineSetId)
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -68,9 +69,9 @@ namespace SportsfestivalManagement.Provider
 
             List<Competition> competitions = new List<Competition>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                competitions.Add(getCompetitionById(reader.GetInt32(relation_field_competitionId)));
+                competitions.Add(getCompetitionById(Convert.ToInt32(row[relation_field_competitionId])));
             }
 
             return competitions;
@@ -78,7 +79,7 @@ namespace SportsfestivalManagement.Provider
 
         public static int createCompetition(string competitionName)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -88,14 +89,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateCompetition(Competition competition)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -107,7 +108,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteCompetition(Competition competition)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

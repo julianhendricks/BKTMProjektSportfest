@@ -1,9 +1,9 @@
-﻿using SportsfestivalManagement.Entities;
+﻿using SportsFestivalManagement.Entities;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System;
 
-namespace SportsfestivalManagement.Provider
+namespace SportsFestivalManagement.Provider
 {
     class StudentProvider : AbstractEntityProvider
     {
@@ -20,7 +20,7 @@ namespace SportsfestivalManagement.Provider
 
         public static List<Student> getAllStudents()
         {
-            MySqlDataReader reader = executeSql(""
+            List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -29,9 +29,9 @@ namespace SportsfestivalManagement.Provider
 
             List<Student> students = new List<Student>();
 
-            while (reader.Read())
+            foreach (var row in results)
             {
-                students.Add(getStudentById(reader.GetInt32(field_studentId)));
+                students.Add(getStudentById(Convert.ToInt32(row[field_studentId])));
             }
 
             return students;
@@ -39,7 +39,7 @@ namespace SportsfestivalManagement.Provider
 
         public static Student getStudentById(int studentId)
         {
-            MySqlDataReader reader = executeSql(""
+            Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
                     + "* "
                 + "FROM "
@@ -48,18 +48,18 @@ namespace SportsfestivalManagement.Provider
                     + "`" + field_studentId + "` = " + studentId
             );
 
-            Class classObject = ClassProvider.getClassById(reader.GetInt32(field_classId));
+            Class classObject = ClassProvider.getClassById(Convert.ToInt32(result[field_classId]));
 
             Student student = new Student(
-                    reader.GetInt32(field_studentId),
-                    reader.GetString(field_firstName),
-                    reader.GetString(field_lastName),
-                    reader.GetDateTime(field_birthday),
-                    reader.GetChar(field_gender),
-                    reader.GetInt32(field_zip),
-                    reader.GetString(field_city),
+                    Convert.ToInt32(result[field_studentId]),
+                    Convert.ToString(result[field_firstName]),
+                    Convert.ToString(result[field_lastName]),
+                    Convert.ToDateTime(result[field_birthday]),
+                    Convert.ToChar(result[field_gender]),
+                    Convert.ToInt32(result[field_zip]),
+                    Convert.ToString(result[field_city]),
                     classObject,
-                    reader.GetBoolean(field_active)
+                    Convert.ToBoolean(result[field_active])
             );
 
             return student;
@@ -75,7 +75,7 @@ namespace SportsfestivalManagement.Provider
             Class classObject,
             bool active
         ) {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "INSERT INTO "
                     + "`" + tableName + "` "
                 + "("
@@ -99,14 +99,14 @@ namespace SportsfestivalManagement.Provider
                 + ")"
             );
 
-            reader = executeSql("SELECT LAST_INSERT_ID() AS insertionId");
+            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
 
-            return reader.GetInt32("insertionId");
+            return Convert.ToInt32(result["insertionId"]);
         }
 
         public static void updateStudent(Student student)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "UPDATE "
                     + "`" + tableName + "` "
                 + "SET "
@@ -125,7 +125,7 @@ namespace SportsfestivalManagement.Provider
 
         public static void deleteStudent(Student student)
         {
-            MySqlDataReader reader = executeSql(""
+            executeSql(""
                 + "DELETE FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

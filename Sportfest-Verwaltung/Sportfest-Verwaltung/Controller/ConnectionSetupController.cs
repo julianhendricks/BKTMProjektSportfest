@@ -1,7 +1,7 @@
 ﻿using System;
-using SportsfestivalManagement.Provider;
+using SportsFestivalManagement.Provider;
 
-namespace SportsfestivalManagement.Controller
+namespace SportsFestivalManagement.Controller
 {
     class ConnectionSetupController
     {
@@ -26,7 +26,7 @@ namespace SportsfestivalManagement.Controller
             ConfigurationProvider.storeConfigurationValue(ConfigurationProvider.mySql_database, database);
         }
 
-        public static implicit operator ConnectionSetupController(SportsfestivalController v)
+        public static implicit operator ConnectionSetupController(SportsFestivalController v)
         {
             throw new NotImplementedException();
         }
