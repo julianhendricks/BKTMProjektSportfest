@@ -1,4 +1,4 @@
-﻿namespace SportsFestivalManagement
+﻿namespace SportsFestivalManagement.View
 {
     partial class DisciplinesGUI
     {

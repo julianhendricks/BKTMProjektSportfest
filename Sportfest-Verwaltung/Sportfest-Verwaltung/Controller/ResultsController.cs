@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SportsFestivalManagement.View;
 
-namespace SportsFestivalManagement
+namespace SportsFestivalManagement.Controller
 {
     class ResultsController
     {

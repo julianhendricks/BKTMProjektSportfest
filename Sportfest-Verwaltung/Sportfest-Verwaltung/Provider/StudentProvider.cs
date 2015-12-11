@@ -48,6 +48,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_studentId + "` = " + studentId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Class classObject = ClassProvider.getClassById(Convert.ToInt32(result[field_classId]));
 
             Student student = new Student(

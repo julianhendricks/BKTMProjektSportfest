@@ -40,6 +40,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_classId + "` = " + classId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Class classElement = new Class(
                 Convert.ToInt32(result[field_classId]),
                 Convert.ToString(result[field_shortcut])

@@ -66,6 +66,11 @@ namespace SportsFestivalManagement.Provider
                     + "AND `" + field_rank + "` = '" + rank + "'"
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Benchmark benchmark = new Benchmark(
                 discipline,
                 Convert.ToInt32(result[field_ageFrom]),

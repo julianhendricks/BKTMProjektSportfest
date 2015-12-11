@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SportsFestivalManagement.Controller;
 
-namespace SportsFestivalManagement
+namespace SportsFestivalManagement.View
 {
     public partial class StudentsAndClassesGUI : MetroFramework.Forms.MetroForm
     {

@@ -42,6 +42,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_measureId + "` = " + measureId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Measure measure = new Measure(
                 Convert.ToInt32(result[field_measureId]),
                 Convert.ToString(result[field_name]),

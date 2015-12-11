@@ -1,4 +1,4 @@
-﻿namespace SportsFestivalManagement
+﻿namespace SportsFestivalManagement.View
 {
     partial class NewSportsFestivalGUI
     {
@@ -31,15 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
-            this.lbAvailableDisciplines = new System.Windows.Forms.ListBox();
+            this.lbActiveDisciplines = new System.Windows.Forms.ListBox();
             this.pnlShiftControls = new MetroFramework.Controls.MetroPanel();
             this.btnRight = new MetroFramework.Controls.MetroTile();
             this.btnLeft = new MetroFramework.Controls.MetroTile();
-            this.lbActiveDisciplines = new System.Windows.Forms.ListBox();
+            this.lbAvailableDisciplines = new System.Windows.Forms.ListBox();
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
+            this.chbUpgrade = new MetroFramework.Controls.MetroCheckBox();
             this.btnCancel = new MetroFramework.Controls.MetroButton();
             this.btnOK = new MetroFramework.Controls.MetroButton();
-            this.chbUpgrade = new MetroFramework.Controls.MetroCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             this.pnlClient.SuspendLayout();
             this.pnlShiftControls.SuspendLayout();
@@ -52,9 +52,9 @@
             // 
             // pnlClient
             // 
-            this.pnlClient.Controls.Add(this.lbAvailableDisciplines);
-            this.pnlClient.Controls.Add(this.pnlShiftControls);
             this.pnlClient.Controls.Add(this.lbActiveDisciplines);
+            this.pnlClient.Controls.Add(this.pnlShiftControls);
+            this.pnlClient.Controls.Add(this.lbAvailableDisciplines);
             this.pnlClient.Controls.Add(this.pnlControls);
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.HorizontalScrollbarBarColor = true;
@@ -68,17 +68,17 @@
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClient.VerticalScrollbarSize = 10;
             // 
-            // lbAvailableDisciplines
+            // lbActiveDisciplines
             // 
-            this.lbAvailableDisciplines.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbAvailableDisciplines.FormattingEnabled = true;
-            this.lbAvailableDisciplines.Items.AddRange(new object[] {
-            "Available1",
-            "Available2"});
-            this.lbAvailableDisciplines.Location = new System.Drawing.Point(574, 0);
-            this.lbAvailableDisciplines.Name = "lbAvailableDisciplines";
-            this.lbAvailableDisciplines.Size = new System.Drawing.Size(410, 420);
-            this.lbAvailableDisciplines.TabIndex = 7;
+            this.lbActiveDisciplines.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbActiveDisciplines.FormattingEnabled = true;
+            this.lbActiveDisciplines.Items.AddRange(new object[] {
+            " "});
+            this.lbActiveDisciplines.Location = new System.Drawing.Point(574, 0);
+            this.lbActiveDisciplines.Name = "lbActiveDisciplines";
+            this.lbActiveDisciplines.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbActiveDisciplines.Size = new System.Drawing.Size(410, 420);
+            this.lbActiveDisciplines.TabIndex = 7;
             // 
             // pnlShiftControls
             // 
@@ -100,19 +100,20 @@
             // 
             this.btnRight.ActiveControl = null;
             this.btnRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRight.Location = new System.Drawing.Point(50, 127);
+            this.btnRight.Location = new System.Drawing.Point(50, 183);
             this.btnRight.Name = "btnRight";
             this.btnRight.Size = new System.Drawing.Size(74, 23);
             this.btnRight.TabIndex = 3;
             this.btnRight.Text = ">>";
             this.btnRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnRight.UseSelectable = true;
+            this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
             // 
             // btnLeft
             // 
             this.btnLeft.ActiveControl = null;
             this.btnLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLeft.Location = new System.Drawing.Point(50, 58);
+            this.btnLeft.Location = new System.Drawing.Point(50, 214);
             this.btnLeft.Name = "btnLeft";
             this.btnLeft.Size = new System.Drawing.Size(74, 23);
             this.btnLeft.TabIndex = 2;
@@ -120,17 +121,17 @@
             this.btnLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnLeft.UseSelectable = true;
             // 
-            // lbActiveDisciplines
+            // lbAvailableDisciplines
             // 
-            this.lbActiveDisciplines.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lbActiveDisciplines.FormattingEnabled = true;
-            this.lbActiveDisciplines.Items.AddRange(new object[] {
-            "Diszi1",
-            "Diszi2"});
-            this.lbActiveDisciplines.Location = new System.Drawing.Point(0, 0);
-            this.lbActiveDisciplines.Name = "lbActiveDisciplines";
-            this.lbActiveDisciplines.Size = new System.Drawing.Size(400, 420);
-            this.lbActiveDisciplines.TabIndex = 3;
+            this.lbAvailableDisciplines.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lbAvailableDisciplines.FormattingEnabled = true;
+            this.lbAvailableDisciplines.Items.AddRange(new object[] {
+            " "});
+            this.lbAvailableDisciplines.Location = new System.Drawing.Point(0, 0);
+            this.lbAvailableDisciplines.Name = "lbAvailableDisciplines";
+            this.lbAvailableDisciplines.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbAvailableDisciplines.Size = new System.Drawing.Size(400, 420);
+            this.lbAvailableDisciplines.TabIndex = 3;
             // 
             // pnlControls
             // 
@@ -148,6 +149,16 @@
             this.pnlControls.VerticalScrollbarBarColor = true;
             this.pnlControls.VerticalScrollbarHighlightOnWheel = false;
             this.pnlControls.VerticalScrollbarSize = 10;
+            // 
+            // chbUpgrade
+            // 
+            this.chbUpgrade.AutoSize = true;
+            this.chbUpgrade.Location = new System.Drawing.Point(13, 18);
+            this.chbUpgrade.Name = "chbUpgrade";
+            this.chbUpgrade.Size = new System.Drawing.Size(130, 15);
+            this.chbUpgrade.TabIndex = 4;
+            this.chbUpgrade.Text = "Schüler hochstufen?";
+            this.chbUpgrade.UseSelectable = true;
             // 
             // btnCancel
             // 
@@ -182,16 +193,6 @@
             this.btnOK.UseCustomForeColor = true;
             this.btnOK.UseSelectable = true;
             // 
-            // chbUpgrade
-            // 
-            this.chbUpgrade.AutoSize = true;
-            this.chbUpgrade.Location = new System.Drawing.Point(13, 18);
-            this.chbUpgrade.Name = "chbUpgrade";
-            this.chbUpgrade.Size = new System.Drawing.Size(130, 15);
-            this.chbUpgrade.TabIndex = 4;
-            this.chbUpgrade.Text = "Schüler hochstufen?";
-            this.chbUpgrade.UseSelectable = true;
-            // 
             // NewSportsFestivalGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,8 +217,8 @@
         private MetroFramework.Controls.MetroPanel pnlControls;
         private MetroFramework.Controls.MetroButton btnCancel;
         private MetroFramework.Controls.MetroButton btnOK;
-        private System.Windows.Forms.ListBox lbActiveDisciplines;
         private System.Windows.Forms.ListBox lbAvailableDisciplines;
+        private System.Windows.Forms.ListBox lbActiveDisciplines;
         private MetroFramework.Controls.MetroPanel pnlShiftControls;
         private MetroFramework.Controls.MetroTile btnRight;
         private MetroFramework.Controls.MetroTile btnLeft;

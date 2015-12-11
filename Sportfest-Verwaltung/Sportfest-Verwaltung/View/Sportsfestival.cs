@@ -12,7 +12,7 @@ using SportsFestivalManagement.Provider;
 using SportsFestivalManagement.Entities;
 using MySql.Data.MySqlClient;
 
-namespace SportsFestivalManagement
+namespace SportsFestivalManagement.View
 {
     public partial class Sportsfestival : MetroFramework.Forms.MetroForm
     {
@@ -36,7 +36,7 @@ namespace SportsFestivalManagement
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            //NewSportsFestivalController.OpenNewSportsFestivalGUI();
+            NewSportsFestivalController.getInstance.OpenNewSportsFestivalGUI();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

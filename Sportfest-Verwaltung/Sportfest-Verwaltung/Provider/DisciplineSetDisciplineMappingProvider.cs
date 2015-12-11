@@ -55,6 +55,11 @@ namespace SportsFestivalManagement.Provider
                     + "AND `" + field_disciplineId + "` = " + disciplineId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             DisciplineSetDisciplineMapping disciplineSetDisciplineMapping = new DisciplineSetDisciplineMapping(
                 Convert.ToInt32(result[field_disciplineSetId]),
                 Convert.ToInt32(result[field_ageFrom]),

@@ -40,6 +40,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_categoryId + "` = " + categoryId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Category category = new Category(
                 Convert.ToInt32(result[field_categoryId]),
                 Convert.ToString(result[field_categoryName])

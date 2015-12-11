@@ -56,6 +56,11 @@ namespace SportsFestivalManagement.Provider
                     + "AND `" + field_disciplineId + "` = " + discipline.DisciplineId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Subscription subscription = new Subscription(
                 Convert.ToInt32(result[field_sportsFestivalSubscriptionId]),
                 competition,

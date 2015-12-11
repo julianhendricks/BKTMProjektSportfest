@@ -43,6 +43,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_variantId + "` = " + variantId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Discipline discipline = DisciplineProvider.getDisciplineById(Convert.ToInt32(result[field_disciplineId]));
 
             Variant variant = new Variant(

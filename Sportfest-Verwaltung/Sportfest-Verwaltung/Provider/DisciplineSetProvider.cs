@@ -39,6 +39,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_disciplineSetId + "` = " + disciplineSetId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             List<Discipline> disciplines = DisciplineProvider.getDisciplinesByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
 
             List<Competition> competitions = CompetitionProvider.getCompetitionsByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));

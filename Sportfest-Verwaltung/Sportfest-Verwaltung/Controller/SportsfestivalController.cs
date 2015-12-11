@@ -5,14 +5,19 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using SportsFestivalManagement.Entities;
 using SportsFestivalManagement.Provider;
+using SportsFestivalManagement.View;
 
-namespace SportsFestivalManagement
+namespace SportsFestivalManagement.Controller
 {
     class SportsFestivalController
     {
-        public SportsFestivalController()
-        {
+        public static SportsFestivalController getInstance { get; } = new SportsFestivalController();
 
+        private SportsFestivalController() { }
+
+        public Form getMainWindow()
+        {
+            return new Sportsfestival();
         }
 
        /* ~SportsfestivalController()

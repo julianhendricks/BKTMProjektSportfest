@@ -41,6 +41,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_sportsFestivalId + "` = " + sportsFestivalId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             SportsFestival sportsFestival = new SportsFestival(
                 Convert.ToInt32(result[field_sportsFestivalId]),
                 Convert.ToDateTime(result[field_sportsFestivalDate])

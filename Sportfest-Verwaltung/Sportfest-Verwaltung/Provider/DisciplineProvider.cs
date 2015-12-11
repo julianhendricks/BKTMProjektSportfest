@@ -43,6 +43,11 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_disciplineId + "` = " + disciplineId
             );
 
+            if (result == null)
+            {
+                return null;
+            }
+
             Measure measure = MeasureProvider.getMeasureById(Convert.ToInt32(result[field_measureId]));
 
             Category category = CategoryProvider.getCategoryById(Convert.ToInt32(result[field_categoryId]));

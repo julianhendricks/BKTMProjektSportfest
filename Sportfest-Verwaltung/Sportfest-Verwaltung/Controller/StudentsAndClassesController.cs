@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using SportsFestivalManagement;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using SportsFestivalManagement.View;
 
-namespace SportsFestivalManagement
+namespace SportsFestivalManagement.Controller
 {
     class StudentsAndClassesController
     {

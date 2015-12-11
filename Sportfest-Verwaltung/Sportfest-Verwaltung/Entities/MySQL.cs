@@ -84,7 +84,7 @@ namespace SportsFestivalManagement.Entities
 
         public Dictionary<string, object> querySingle(string sql)
         {
-            return this.queryStatement(sql)[0];
+            return this.queryStatement(sql).FirstOrDefault();
         }
 
         public void execute(string sql)
@@ -94,14 +94,10 @@ namespace SportsFestivalManagement.Entities
 
         private List<Dictionary<string, object>> queryStatement(string sql)
         {
-            try
-            {
+            //try
+            //{
                 MySqlCommand sqlCommand = this.instance.CreateCommand();
                 sqlCommand.CommandText = sql;
-
-                MySqlDataReader reader = sqlCommand.ExecuteReader();
-                var executionResult = this.getArrayFromDataReader(reader);
-                reader.Close();
 
                 if (Convert.ToBoolean(ConfigurationProvider.loadConfigurationValue("enable_sql_logger")) == true)
                 {
@@ -118,23 +114,33 @@ namespace SportsFestivalManagement.Entities
                         + ")"
                     ;
 
-                    logCommand.ExecuteReader();
+                    MySqlDataReader logReader = logCommand.ExecuteReader();
+                    logReader.Close();
                 }
 
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                var executionResult = this.getArrayFromDataReader(reader);
+                reader.Close();
+
                 return executionResult;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(""
-                    + "Es trat ein Fehler beim Ausführen einer Datenbankabfrage auf!\n"
-                    + "Ausgabe der Datenbank:\n\n"
-                    + e.Message
-                );
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    throw new Exception(""
+            //        + "Es trat ein Fehler beim Ausführen einer Datenbankabfrage auf!\n"
+            //        + "Ausgabe der Datenbank:\n\n"
+            //        + e.Message
+            //    );
+            //}
         }
 
         private List<Dictionary<string, object>> getArrayFromDataReader(MySqlDataReader reader)
         {
+            /*if (reader.IsDBNull() == true)
+            {
+                return new List<Dictionary<string, object>>();
+            }*/
+
             var dataSets = new List<Dictionary<string, object>>();
 
             var columns = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
@@ -143,57 +149,15 @@ namespace SportsFestivalManagement.Entities
             {
                 var dataSet = new Dictionary<string, object>();
 
-                foreach (string column in columns)
+                for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    var value = new object();
-
-                    switch (Type.GetTypeCode(reader.GetFieldType(column)))
+                    if (reader.IsDBNull(i))
                     {
-                        case TypeCode.Boolean:
-                            value = reader.GetBoolean(column);
-                            break;
-                        case TypeCode.Byte:
-                            value = reader.GetByte(column);
-                            break;
-                        case TypeCode.SByte:
-                            value = reader.GetSByte(column);
-                            break;
-                        case TypeCode.Char:
-                            value = reader.GetChar(column);
-                            break;
-                        case TypeCode.DateTime:
-                            value = reader.GetDateTime(column);
-                            break;
-                        case TypeCode.Decimal:
-                            value = reader.GetDecimal(column);
-                            break;
-                        case TypeCode.Double:
-                            value = reader.GetDouble(column);
-                            break;
-                        case TypeCode.Int16:
-                            value = reader.GetInt16(column);
-                            break;
-                        case TypeCode.Int32:
-                            value = reader.GetInt32(column);
-                            break;
-                        case TypeCode.Int64:
-                            value = reader.GetInt64(column);
-                            break;
-                        case TypeCode.UInt16:
-                            value = reader.GetUInt16(column);
-                            break;
-                        case TypeCode.UInt32:
-                            value = reader.GetUInt32(column);
-                            break;
-                        case TypeCode.UInt64:
-                            value = reader.GetUInt64(column);
-                            break;
-                        default:
-                            value = reader.GetString(column);
-                            break;
+                        dataSet[reader.GetName(i)] = null;
+                        continue;
                     }
 
-                    dataSet[column] = value;
+                    dataSet[reader.GetName(i)] = reader.GetValue(i);
                 }
 
                 dataSets.Add(dataSet);
