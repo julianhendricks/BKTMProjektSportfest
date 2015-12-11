@@ -11,7 +11,13 @@ namespace SportsFestivalManagement.Controller
 {
     class SportsFestivalController
     {
-        public static SportsFestivalController getInstance { get; } = new SportsFestivalController();
+        private static readonly SportsFestivalController _instance = new SportsFestivalController();
+
+        public static SportsFestivalController getInstance
+        {
+            get { return _instance; }
+        } 
+
 
         private SportsFestivalController() { }
 

@@ -14,6 +14,13 @@ namespace SportsFestivalManagement.Controller
     {
         private NewSportsFestivalController() { }
 
+        private static readonly NewSportsFestivalController _instance = new NewSportsFestivalController();
+
+        public static NewSportsFestivalController getInstance
+        {
+            get { return _instance; }
+        } 
+
         public void OpenNewSportsFestivalGUI()
         {
             NewSportsFestivalGUI NewSportsFestivalGUIForm;
@@ -32,6 +39,5 @@ namespace SportsFestivalManagement.Controller
             MessageBox.Show("hiereweffwqedfrg");
         }
 
-        public static NewSportsFestivalController getInstance { get; } = new NewSportsFestivalController();
     }
 }
