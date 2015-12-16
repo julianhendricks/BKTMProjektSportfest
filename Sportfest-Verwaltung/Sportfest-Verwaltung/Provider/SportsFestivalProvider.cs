@@ -30,6 +30,27 @@ namespace SportsFestivalManagement.Provider
             return sportsFestivals;
         }
 
+        public static List<SportsFestival> getAllSportsFestivalsByDescendingDate()
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "ORDER BY "
+                    + "`" + field_sportsFestivalDate + "` DESC"
+            );
+
+            List<SportsFestival> sportsFestivals = new List<SportsFestival>();
+
+            foreach (var row in results)
+            {
+                sportsFestivals.Add(getSportsFestivalById(Convert.ToInt32(row[field_sportsFestivalId])));
+            }
+
+            return sportsFestivals;
+        }
+
         public static SportsFestival getSportsFestivalById(int sportsFestivalId)
         {
             Dictionary<string, object> result = querySingleSql(""

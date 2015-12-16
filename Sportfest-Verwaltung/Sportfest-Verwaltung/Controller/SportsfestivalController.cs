@@ -11,37 +11,44 @@ namespace SportsFestivalManagement.Controller
 {
     class SportsFestivalController
     {
+        /*
+         * Instance constructor
+         */
+        private SportsFestivalController() { }
+
         private static readonly SportsFestivalController _instance = new SportsFestivalController();
 
         public static SportsFestivalController getInstance
         {
             get { return _instance; }
         } 
+        /*
+         * End of Instance constructor
+         */
 
 
-        private SportsFestivalController() { }
+        private SportsFestivalGUI view;
 
         public Form getMainWindow()
         {
-            return new Sportsfestival();
+            this.view = new SportsFestivalGUI();
+            return this.view;
         }
 
-       /* ~SportsfestivalController()
+        public void openNewSportsFestivalForm()
         {
-            if (SportsFestivalConnection.State == System.Data.ConnectionState.Open)
-            {
-                SportsFestivalConnection.Close();
-            }
-        }*/
+            NewSportsFestivalController.getInstance.OpenNewSportsFestivalGUI();
+            this.view.renderSportsFestivalsGrid();
+        }
 
-        public static List<SportsFestival> getAllSportsFestivals()
+        public void openSportsFestivalDetailsForm()
         {
-            return SportsFestivalProvider.getAllSportsFestivals();
 
-            /*foreach (SportsFestival Sportsfest in SportsFestivalCollection){
-                string[] row = { Sportsfest.GetSportsFestivalId().ToString(), "Sportfest " + Sportsfest.GetSportsFestivalDate().Year.ToString() };
-                iListView.Items.Add(new ListViewItem(row));
-            }*/
+        }
+
+        public List<SportsFestival> getAllSportsFestivalsOrderedByDescendingDate()
+        {
+            return SportsFestivalProvider.getAllSportsFestivalsByDescendingDate();
         }
 
         public static Tuple<bool, string> getConnectionStateByConfigurationValues()

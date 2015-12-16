@@ -12,6 +12,9 @@ namespace SportsFestivalManagement.Controller
 {
     class NewSportsFestivalController
     {
+        /*
+         * Instance constructor
+         */
         private NewSportsFestivalController() { }
 
         private static readonly NewSportsFestivalController _instance = new NewSportsFestivalController();
@@ -20,6 +23,10 @@ namespace SportsFestivalManagement.Controller
         {
             get { return _instance; }
         }
+        /*
+         * End of Instance constructor
+         */
+
 
         public void OpenNewSportsFestivalGUI()
         {
@@ -28,9 +35,9 @@ namespace SportsFestivalManagement.Controller
             NewSportsFestivalGUI NewSportsFestivalGUIForm;
 
             NewSportsFestivalGUIForm = new NewSportsFestivalGUI(this);
-            NewSportsFestivalGUIForm.Show();
-
             NewSportsFestivalGUIForm.renderCompetitionsGrid(competitions);
+
+            NewSportsFestivalGUIForm.ShowDialog();
         }
 
         public void createNewSportsFestival(DateTime sportsFestivalDate, List<Int32> competitionIds)

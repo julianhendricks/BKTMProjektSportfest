@@ -1,6 +1,6 @@
 ﻿namespace SportsFestivalManagement.View
 {
-    partial class Sportsfestival
+    partial class SportsFestivalGUI
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -29,21 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sportsfestival));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SportsFestivalGUI));
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
-            this.lvSportsfestivals = new System.Windows.Forms.ListView();
-            this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SportsfestivalName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
             this.btnResults = new MetroFramework.Controls.MetroButton();
             this.btnDelete = new MetroFramework.Controls.MetroButton();
             this.btnNew = new MetroFramework.Controls.MetroButton();
             this.btnDisciplines = new MetroFramework.Controls.MetroButton();
             this.btnStudentsAndClasses = new MetroFramework.Controls.MetroButton();
+            this.sportsFestivalGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             this.pnlClient.SuspendLayout();
             this.pnlControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sportsFestivalGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // metroStyleManager
@@ -52,7 +51,7 @@
             // 
             // pnlClient
             // 
-            this.pnlClient.Controls.Add(this.lvSportsfestivals);
+            this.pnlClient.Controls.Add(this.sportsFestivalGrid);
             this.pnlClient.Controls.Add(this.pnlControls);
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.HorizontalScrollbarBarColor = true;
@@ -65,33 +64,6 @@
             this.pnlClient.VerticalScrollbarBarColor = true;
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClient.VerticalScrollbarSize = 10;
-            // 
-            // lvSportsfestivals
-            // 
-            this.lvSportsfestivals.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Id,
-            this.SportsfestivalName});
-            this.lvSportsfestivals.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvSportsfestivals.GridLines = true;
-            this.lvSportsfestivals.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvSportsfestivals.LabelEdit = true;
-            this.lvSportsfestivals.Location = new System.Drawing.Point(150, 0);
-            this.lvSportsfestivals.MultiSelect = false;
-            this.lvSportsfestivals.Name = "lvSportsfestivals";
-            this.lvSportsfestivals.Size = new System.Drawing.Size(594, 482);
-            this.lvSportsfestivals.TabIndex = 4;
-            this.lvSportsfestivals.UseCompatibleStateImageBehavior = false;
-            this.lvSportsfestivals.View = System.Windows.Forms.View.Details;
-            // 
-            // Id
-            // 
-            this.Id.Text = "Id";
-            this.Id.Width = 0;
-            // 
-            // SportsfestivalName
-            // 
-            this.SportsfestivalName.Text = "Sportfest";
-            this.SportsfestivalName.Width = 500;
             // 
             // pnlControls
             // 
@@ -186,20 +158,36 @@
             this.btnStudentsAndClasses.UseSelectable = true;
             this.btnStudentsAndClasses.Click += new System.EventHandler(this.btnStudentsAndClasses_Click_1);
             // 
-            // Sportsfestival
+            // sportsFestivalGrid
+            // 
+            this.sportsFestivalGrid.AllowUserToAddRows = false;
+            this.sportsFestivalGrid.AllowUserToDeleteRows = false;
+            this.sportsFestivalGrid.AllowUserToResizeRows = false;
+            this.sportsFestivalGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sportsFestivalGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sportsFestivalGrid.Location = new System.Drawing.Point(150, 0);
+            this.sportsFestivalGrid.MultiSelect = false;
+            this.sportsFestivalGrid.Name = "sportsFestivalGrid";
+            this.sportsFestivalGrid.RowHeadersVisible = false;
+            this.sportsFestivalGrid.Size = new System.Drawing.Size(594, 482);
+            this.sportsFestivalGrid.TabIndex = 5;
+            this.sportsFestivalGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.sportsFestivalGrid_CellContentDoubleClick);
+            // 
+            // SportsFestivalGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.pnlClient);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Sportsfestival";
+            this.Name = "SportsFestivalGUI";
             this.Text = "Sportfeste";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Sportsfestival_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
             this.pnlClient.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.sportsFestivalGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -214,9 +202,7 @@
         private MetroFramework.Controls.MetroButton btnDelete;
         private MetroFramework.Controls.MetroButton btnNew;
         private MetroFramework.Controls.MetroButton btnResults;
-        private System.Windows.Forms.ListView lvSportsfestivals;
-        private System.Windows.Forms.ColumnHeader Id;
-        private System.Windows.Forms.ColumnHeader SportsfestivalName;
+        private System.Windows.Forms.DataGridView sportsFestivalGrid;
     }
 }
 

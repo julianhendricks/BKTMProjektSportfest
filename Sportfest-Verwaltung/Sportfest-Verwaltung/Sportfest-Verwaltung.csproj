@@ -144,11 +144,11 @@
     <Compile Include="View\SportCertificateGUI.Designer.cs">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Sportsfestival.cs">
+    <Compile Include="View\SportsfestivalGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Sportsfestival.Designer.cs">
-      <DependentUpon>Sportsfestival.cs</DependentUpon>
+    <Compile Include="View\SportsfestivalGUI.Designer.cs">
+      <DependentUpon>SportsfestivalGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,8 +186,8 @@
     <EmbeddedResource Include="View\SportCertificateGUI.resx">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Sportsfestival.resx">
-      <DependentUpon>Sportsfestival.cs</DependentUpon>
+    <EmbeddedResource Include="View\SportsfestivalGUI.resx">
+      <DependentUpon>SportsfestivalGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\StudentsAndClassesGUI.resx">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>

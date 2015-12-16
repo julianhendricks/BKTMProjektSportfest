@@ -53,6 +53,8 @@ namespace SportsFestivalManagement.View
 
         internal void renderCompetitionsGrid(List<Competition> competitions)
         {
+            competitionGrid.Rows.Clear();
+
             foreach (Competition competition in competitions)
             {
                 object[] rowData = new object[] {

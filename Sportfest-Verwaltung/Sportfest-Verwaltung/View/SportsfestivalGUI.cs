@@ -14,14 +14,49 @@ using MySql.Data.MySqlClient;
 
 namespace SportsFestivalManagement.View
 {
-    public partial class Sportsfestival : MetroFramework.Forms.MetroForm
+    public partial class SportsFestivalGUI : MetroFramework.Forms.MetroForm
     {
-        SportsFestivalController MyController;
-        public Sportsfestival()
+        const string sportsFestivalGridColumn0Name = "sportsFestivalId";
+        const string sportsFestivalGridColumn1Name = "sportsFestivalName";
+
+        public SportsFestivalGUI()
         {
             InitializeComponent();
 
             this.StyleManager = metroStyleManager;
+
+            DataGridViewTextBoxColumn sportsFestivalIdColumn = new DataGridViewTextBoxColumn();
+            sportsFestivalIdColumn.HeaderText = "Sportfest-ID";
+            sportsFestivalIdColumn.Name = sportsFestivalGridColumn0Name;
+            sportsFestivalIdColumn.Visible = false;
+
+            DataGridViewTextBoxColumn sportsFestivalNameColumn = new DataGridViewTextBoxColumn();
+            sportsFestivalNameColumn.HeaderText = "Sportfest";
+            sportsFestivalNameColumn.Name = sportsFestivalGridColumn1Name;
+            sportsFestivalNameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            sportsFestivalNameColumn.ReadOnly = true;
+
+            sportsFestivalGrid.Columns.Add(sportsFestivalIdColumn);
+            sportsFestivalGrid.Columns.Add(sportsFestivalNameColumn);
+
+            this.renderSportsFestivalsGrid();
+        }
+
+        public void renderSportsFestivalsGrid()
+        {
+            List<SportsFestival> sportsFestivals = SportsFestivalController.getInstance.getAllSportsFestivalsOrderedByDescendingDate();
+            sportsFestivalGrid.Rows.Clear();
+
+            foreach (SportsFestival sportsFestival in sportsFestivals)
+            {
+                object[] rowData = new object[] {
+                    sportsFestival.SportsFestivalId,
+                    "Sportfest "
+                        + String.Format("{0:dd/MM/yyyy}", sportsFestival.Date)
+                };
+
+                sportsFestivalGrid.Rows.Add(rowData);
+            }
         }
         
         private void btnStudentsAndClasses_Click_1(object sender, EventArgs e)
@@ -36,7 +71,7 @@ namespace SportsFestivalManagement.View
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            NewSportsFestivalController.getInstance.OpenNewSportsFestivalGUI();
+            SportsFestivalController.getInstance.openNewSportsFestivalForm();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -80,6 +115,11 @@ namespace SportsFestivalManagement.View
             }*/
 
             //SportsfestivalController.LoadSportsFestivalListView(lvSportsfestivals);
+        }
+
+        private void sportsFestivalGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SportsFestivalController.getInstance.openSportsFestivalDetailsForm();
         }
     }
 }
