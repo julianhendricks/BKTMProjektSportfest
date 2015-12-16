@@ -85,6 +85,8 @@
     <Compile Include="Controller\ConnectionSetupController.cs" />
     <Compile Include="Provider\AbstractEntityProvider.cs" />
     <Compile Include="Provider\BenchmarkProvider.cs" />
+    <Compile Include="Provider\CompetitionDisciplineSetProvider.cs" />
+    <Compile Include="Provider\SportsFestivalCompetitionProvider.cs" />
     <Compile Include="Provider\VariantProvider.cs" />
     <Compile Include="Provider\SportsFestivalProvider.cs" />
     <Compile Include="Provider\StudentProvider.cs" />

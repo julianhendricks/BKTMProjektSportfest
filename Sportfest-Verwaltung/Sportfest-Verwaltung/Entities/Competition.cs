@@ -14,6 +14,14 @@ namespace SportsFestivalManagement.Entities
 
         public Competition(
             int competitionId,
+            string competitionName
+        ) {
+            this.competitionId = competitionId;
+            this.competitionName = competitionName;
+        }
+
+        public Competition(
+            int competitionId,
             string competitionName,
             List<DisciplineSet> disciplineSets
         ) {
@@ -47,12 +55,12 @@ namespace SportsFestivalManagement.Entities
             return disciplineSets;
         }
 
-        public void addDiscipline(DisciplineSet disciplineSet)
+        public void addDisciplineSet(DisciplineSet disciplineSet)
         {
             disciplineSets.Add(disciplineSet);
         }
 
-        public void removeDiscipline(DisciplineSet disciplineSet)
+        public void removeDisciplineSet(DisciplineSet disciplineSet)
         {
             disciplineSets.Remove(disciplineSet);
         }

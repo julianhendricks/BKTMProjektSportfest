@@ -19,24 +19,31 @@ namespace SportsFestivalManagement.Controller
         public static NewSportsFestivalController getInstance
         {
             get { return _instance; }
-        } 
+        }
 
         public void OpenNewSportsFestivalGUI()
         {
+            List<Competition> competitions = CompetitionProvider.getAllCompetitions();
+
             NewSportsFestivalGUI NewSportsFestivalGUIForm;
 
             NewSportsFestivalGUIForm = new NewSportsFestivalGUI(this);
             NewSportsFestivalGUIForm.Show();
 
-            NewSportsFestivalGUIForm.updateDisciplines(
-                DisciplineProvider.getAllDisciplines(), // Available disciplines
-                new List<Discipline>()                  // Selected disciplines
-            );
+            NewSportsFestivalGUIForm.renderCompetitionsGrid(competitions);
         }
 
-        public void test123()
+        public void createNewSportsFestival(DateTime sportsFestivalDate, List<Int32> competitionIds)
         {
-            MessageBox.Show("hiereweffwqedfrg");
+            List<Competition> competitions = new List<Competition>();
+
+            foreach (int competitionId in competitionIds)
+            {
+                Competition competition = CompetitionProvider.getCompetitionById(competitionId);
+                competitions.Add(competition);
+            }
+
+            SportsFestivalProvider.createSportsFestival(sportsFestivalDate, competitions);
         }
 
     }

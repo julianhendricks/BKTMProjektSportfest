@@ -94,8 +94,8 @@ namespace SportsFestivalManagement.Entities
 
         private List<Dictionary<string, object>> queryStatement(string sql)
         {
-            //try
-            //{
+            try
+            {
                 MySqlCommand sqlCommand = this.instance.CreateCommand();
                 sqlCommand.CommandText = sql;
 
@@ -123,15 +123,15 @@ namespace SportsFestivalManagement.Entities
                 reader.Close();
 
                 return executionResult;
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new Exception(""
-            //        + "Es trat ein Fehler beim Ausführen einer Datenbankabfrage auf!\n"
-            //        + "Ausgabe der Datenbank:\n\n"
-            //        + e.Message
-            //    );
-            //}
+            }
+            catch (Exception e)
+            {
+                throw new Exception(""
+                    + "Es trat ein Fehler beim Ausführen einer Datenbankabfrage auf!\n"
+                    + "Ausgabe der Datenbank:\n\n"
+                    + e.Message
+                );
+            }
         }
 
         private List<Dictionary<string, object>> getArrayFromDataReader(MySqlDataReader reader)

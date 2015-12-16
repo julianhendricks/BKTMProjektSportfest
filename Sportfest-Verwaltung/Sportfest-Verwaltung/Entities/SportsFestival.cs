@@ -10,6 +10,7 @@ namespace SportsFestivalManagement.Entities
     {
         private int sportsFestivalId;
         private DateTime date;
+        private List<Competition> competitions;
 
         public SportsFestival(
             int sportsFestivalId,
@@ -19,11 +20,21 @@ namespace SportsFestivalManagement.Entities
             this.date = date;
         }
 
+        public SportsFestival(
+            int sportsFestivalId,
+            DateTime date,
+            List<Competition> competitions
+        ) {
+            this.sportsFestivalId = sportsFestivalId;
+            this.date = date;
+            this.competitions = competitions;
+        }
+
         public int SportsFestivalId
         {
             get
             {
-                return sportsFestivalId;
+                return this.sportsFestivalId;
             }
         }
 
@@ -31,12 +42,27 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return date;
+                return this.date;
             }
             set
             {
-                date = value;
+                this.date = value;
             }
+        }
+
+        public List<Competition> getCompetitions()
+        {
+            return this.competitions;
+        }
+
+        public void addCompetition(Competition competition)
+        {
+            this.competitions.Add(competition);
+        }
+
+        public void removeCompetition(Competition competition)
+        {
+            this.competitions.Remove(competition);
         }
     }
 }

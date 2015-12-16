@@ -51,10 +51,15 @@ namespace SportsFestivalManagement.Provider
                 Convert.ToDateTime(result[field_sportsFestivalDate])
             );
 
+            foreach (Competition competition in CompetitionProvider.getCompetitionsBySportsFestival(sportsFestival))
+            {
+                sportsFestival.addCompetition(competition);
+            }
+
             return sportsFestival;
         }
 
-        public static int createSportsFestival(DateTime sportsFestivalDate)
+        public static int createSportsFestival(DateTime sportsFestivalDate, List<Competition> competitions)
         {
             executeSql(""
                 + "INSERT INTO `" + tableName + "` "
@@ -65,9 +70,19 @@ namespace SportsFestivalManagement.Provider
                 + ")"
             );
 
-            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
+            Dictionary<string, object> result = querySingleSql("SELECT MAX(`" + field_sportsFestivalId + "`) AS `insertionId` FROM `" + tableName + "`");
 
-            return Convert.ToInt32(result["insertionId"]);
+            int insertionId = Convert.ToInt32(result["insertionId"]);
+
+            foreach (Competition competition in competitions)
+            {
+                SportsFestivalCompetitionProvider.createSportsFestivalCompetitionRelation(
+                    getSportsFestivalById(insertionId),
+                    competition
+                );
+            }
+
+            return insertionId;
         }
 
         public static void updateSportsFestival(SportsFestival sportsFestival)
@@ -78,8 +93,16 @@ namespace SportsFestivalManagement.Provider
                 + "SET "
                     + "`" + field_sportsFestivalDate + "` = '" + sportsFestival.Date.ToString("yyyy-MM-dd") + "' "
                 + "WHERE "
-                    + "`" + field_sportsFestivalId + " = " + sportsFestival.SportsFestivalId
+                    + "`" + field_sportsFestivalId + "` = " + sportsFestival.SportsFestivalId
             );
+
+            foreach (Competition competition in sportsFestival.getCompetitions())
+            {
+                if (SportsFestivalCompetitionProvider.relationExists(sportsFestival, competition) == false)
+                {
+                    SportsFestivalCompetitionProvider.createSportsFestivalCompetitionRelation(sportsFestival, competition);
+                }
+            }
         }
 
         public static void deleteSportsFestival(SportsFestival sportsFestival)

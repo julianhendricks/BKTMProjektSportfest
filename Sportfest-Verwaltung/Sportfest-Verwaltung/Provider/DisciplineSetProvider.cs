@@ -44,55 +44,36 @@ namespace SportsFestivalManagement.Provider
                 return null;
             }
 
-            List<Discipline> disciplines = DisciplineProvider.getDisciplinesByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
-
-            List<Competition> competitions = CompetitionProvider.getCompetitionsByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
-
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(Convert.ToInt32(result[field_disciplineSetId]));
-
             DisciplineSet disciplineSet = new DisciplineSet(
-                Convert.ToInt32(result[field_disciplineSetId]),
-                disciplines,
-                competitions,
-                disciplineSetDisciplineMappings
+                Convert.ToInt32(result[field_disciplineSetId])
             );
+
+            foreach (Discipline discipline in DisciplineSetDisciplineMappingProvider.getDisciplinesByDisciplineSet(disciplineSet))
+            {
+                disciplineSet.addDiscipline(discipline);
+            }
+
+            foreach (Competition competition in CompetitionProvider.getCompetitionsByDisciplineSet(disciplineSet))
+            {
+                disciplineSet.addCompetition(competition);
+            }
+
+            foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSet(disciplineSet))
+            {
+                disciplineSet.addDisciplineSetDisciplineMapping(disciplineSetDisciplineMapping);
+            }
 
             return disciplineSet;
         }
 
-        public static List<DisciplineSet> getDisciplineSetsByCompetitionId(int competitionId)
+        public static List<DisciplineSet> getDisciplineSetsByCompetition(Competition competition)
         {
-            List<Dictionary<string, object>> results = querySql(""
-                + "SELECT "
-                    + "* "
-                + "FROM "
-                    + "`" + CompetitionProvider.relation_tableName + "` "
-                + "WHERE "
-                    + "`" + CompetitionProvider.relation_field_competitionId + "` = " + competitionId
-            );
-
-            List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
-
-            foreach (var row in results)
-            {
-                disciplineSets.Add(getDisciplineSetById(Convert.ToInt32(row[field_disciplineSetId])));
-            }
-
-            return disciplineSets;
+            return CompetitionDisciplineSetProvider.getDisciplineSetsByCompetition(competition);
         }
 
-        public static List<DisciplineSet> getDisciplineSetsByDisciplineId(int disciplineId)
+        public static List<DisciplineSet> getDisciplineSetsByDisciplineId(Discipline discipline)
         {
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineId(disciplineId);
-
-            List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
-
-            foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in disciplineSetDisciplineMappings)
-            {
-                disciplineSets.Add(getDisciplineSetById(disciplineSetDisciplineMapping.DisciplineSetId));
-            }
-
-            return disciplineSets;
+            return DisciplineSetDisciplineMappingProvider.getDisciplineSetsByDiscipline(discipline);
         }
 
         public static int createDisciplineSet(
@@ -107,9 +88,11 @@ namespace SportsFestivalManagement.Provider
                 + ")"
             );
 
-            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
+            Dictionary<string, object> result = querySingleSql("SELECT MAX(`" + field_disciplineSetId + "`) AS `insertionId` FROM `" + tableName + "`");
 
-            return Convert.ToInt32(result["insertionId"]);
+            int insertionId = Convert.ToInt32(result["insertionId"]);
+
+            return insertionId;
         }
 
         public static void updateDisciplineSet(DisciplineSet disciplineSet)

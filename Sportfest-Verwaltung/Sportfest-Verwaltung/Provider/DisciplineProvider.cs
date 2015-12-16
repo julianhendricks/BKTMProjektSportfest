@@ -48,35 +48,24 @@ namespace SportsFestivalManagement.Provider
                 return null;
             }
 
-            Measure measure = MeasureProvider.getMeasureById(Convert.ToInt32(result[field_measureId]));
-
-            Category category = CategoryProvider.getCategoryById(Convert.ToInt32(result[field_categoryId]));
-
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineId(Convert.ToInt32(result[field_disciplineId]));
-
             Discipline discipline = new Discipline(
                 Convert.ToInt32(result[field_disciplineId]),
                 Convert.ToString(result[field_name]),
-                measure,
-                category,
-                disciplineSetDisciplineMappings
+                MeasureProvider.getMeasureById(Convert.ToInt32(result[field_measureId])),
+                CategoryProvider.getCategoryById(Convert.ToInt32(result[field_categoryId]))
             );
+
+            foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDiscipline(discipline))
+            {
+                discipline.addDisciplineSetDisciplineMapping(disciplineSetDisciplineMapping);
+            }
 
             return discipline;
         }
 
-        public static List<Discipline> getDisciplinesByDisciplineSetId(int disciplineSetId)
+        public static List<Discipline> getDisciplinesByDisciplineSetId(DisciplineSet disciplineSet)
         {
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = DisciplineSetDisciplineMappingProvider.getDisciplineSetDisciplineMappingsByDisciplineSetId(disciplineSetId);
-
-            List<Discipline> disciplines = new List<Discipline>();
-
-            foreach (DisciplineSetDisciplineMapping disciplineSetDisciplineMapping in disciplineSetDisciplineMappings)
-            {
-                disciplines.Add(getDisciplineById(disciplineSetDisciplineMapping.DisciplineId));
-            }
-
-            return disciplines;
+            return DisciplineSetDisciplineMappingProvider.getDisciplinesByDisciplineSet(disciplineSet);
         }
 
         public static int createDiscipline(
@@ -97,9 +86,11 @@ namespace SportsFestivalManagement.Provider
                 + ")"
             );
 
-            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
+            Dictionary<string, object> result = querySingleSql("SELECT MAX(`" + field_disciplineId + "`) AS `insertionId` FROM `" + tableName + "`");
 
-            return Convert.ToInt32(result["insertionId"]);
+            int insertionId = Convert.ToInt32(result["insertionId"]);
+
+            return insertionId;
         }
 
         public static void updateDiscipline(Discipline discipline)

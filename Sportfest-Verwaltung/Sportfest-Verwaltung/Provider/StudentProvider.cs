@@ -104,9 +104,11 @@ namespace SportsFestivalManagement.Provider
                 + ")"
             );
 
-            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
+            Dictionary<string, object> result = querySingleSql("SELECT MAX(`" + field_studentId + "`) AS `insertionId` FROM `" + tableName + "`");
 
-            return Convert.ToInt32(result["insertionId"]);
+            int insertionId = Convert.ToInt32(result["insertionId"]);
+
+            return insertionId;
         }
 
         public static void updateStudent(Student student)

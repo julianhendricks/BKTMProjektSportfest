@@ -36,7 +36,7 @@ namespace SportsFestivalManagement.Controller
 
         public static List<SportsFestival> getAllSportsFestivals()
         {
-           return SportsFestivalProvider.getAllSportsFestivals();
+            return SportsFestivalProvider.getAllSportsFestivals();
 
             /*foreach (SportsFestival Sportsfest in SportsFestivalCollection){
                 string[] row = { Sportsfest.GetSportsFestivalId().ToString(), "Sportfest " + Sportsfest.GetSportsFestivalDate().Year.ToString() };

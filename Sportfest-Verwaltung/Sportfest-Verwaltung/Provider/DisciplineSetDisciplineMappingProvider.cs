@@ -70,7 +70,7 @@ namespace SportsFestivalManagement.Provider
             return disciplineSetDisciplineMapping;
         }
 
-        public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineSetId(int disciplineSetId)
+        public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineSet(DisciplineSet disciplineSet)
         {
             List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
@@ -78,7 +78,7 @@ namespace SportsFestivalManagement.Provider
                 + "FROM "
                     + "`" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_disciplineSetId + "` = " + disciplineSetId
+                    + "`" + field_disciplineSetId + "` = " + disciplineSet.DisciplineSetId
             );
 
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
@@ -96,7 +96,7 @@ namespace SportsFestivalManagement.Provider
             return disciplineSetDisciplineMappings;
         }
 
-        public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineId(int disciplineId)
+        public static List<Discipline> getDisciplinesByDisciplineSet(DisciplineSet disciplineSet)
         {
             List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
@@ -104,7 +104,50 @@ namespace SportsFestivalManagement.Provider
                 + "FROM "
                     + "`" + tableName + "` "
                 + "WHERE "
-                    + "`" + field_disciplineId + "` = " + disciplineId
+                    + "`" + field_disciplineSetId + "` = " + disciplineSet.DisciplineSetId
+            );
+
+            List<Discipline> disciplines = new List<Discipline>();
+
+            foreach (var row in results)
+            {
+                disciplines.Add(DisciplineProvider.getDisciplineById(Convert.ToInt32(row[field_disciplineId])));
+            }
+
+            return disciplines;
+        }
+
+        public static List<DisciplineSet> getDisciplineSetsByDiscipline(Discipline discipline)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineId + "` = " + discipline.DisciplineId
+            );
+
+            List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
+
+            foreach (var row in results)
+            {
+                disciplineSets.Add(DisciplineSetProvider.getDisciplineSetById(Convert.ToInt32(row[field_disciplineSetId])));
+            }
+
+            return disciplineSets;
+        }
+
+        public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDisciplineSetAndDiscipline(DisciplineSet disciplineSet, Discipline discipline)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineSetId + "` = " + disciplineSet.DisciplineSetId + " "
+                    + "AND `" + field_disciplineId + "` = " + discipline.DisciplineId
             );
 
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
@@ -120,6 +163,52 @@ namespace SportsFestivalManagement.Provider
             }
 
             return disciplineSetDisciplineMappings;
+        }
+
+        public static List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappingsByDiscipline(Discipline discipline)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineId + "` = " + discipline.DisciplineId
+            );
+
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
+
+            foreach (var row in results)
+            {
+                disciplineSetDisciplineMappings.Add(getDisciplineSetDisciplineMappingByPrimaryKey(
+                    Convert.ToInt32(row[field_disciplineSetId]),
+                    Convert.ToInt32(row[field_ageFrom]),
+                    Convert.ToInt32(row[field_ageUntil]),
+                    Convert.ToInt32(row[field_disciplineId])
+                ));
+            }
+
+            return disciplineSetDisciplineMappings;
+        }
+
+        public static bool relationExists(DisciplineSet disciplineSet, Discipline discipline)
+        {
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineSetId + "` = " + disciplineSet.DisciplineSetId + " "
+                    + "AND `" + field_disciplineId + "` = " + discipline.DisciplineId
+            );
+
+            if (result.Count == 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public static void createDisciplineSetDisciplineMapping(

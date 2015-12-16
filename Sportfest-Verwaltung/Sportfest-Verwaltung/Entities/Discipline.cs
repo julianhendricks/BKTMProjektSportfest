@@ -19,6 +19,18 @@ namespace SportsFestivalManagement.Entities
             int disciplineId,
             string name,
             Measure measure,
+            Category category
+        ) {
+            this.disciplineId = disciplineId;
+            this.name = name;
+            this.measure = measure;
+            this.category = category;
+        }
+
+        public Discipline(
+            int disciplineId,
+            string name,
+            Measure measure,
             Category category,
             List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings
         ) {

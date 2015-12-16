@@ -80,9 +80,11 @@ namespace SportsFestivalManagement.Provider
                 + ")"
             );
 
-            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
+            Dictionary<string, object> result = querySingleSql("SELECT MAX(`" + field_variantId + "`) AS `insertionId` FROM `" + tableName + "`");
 
-            return Convert.ToInt32(result["insertionId"]);
+            int insertionId = Convert.ToInt32(result["insertionId"]);
+
+            return insertionId;
         }
 
         public static void updateVariant(Variant variant)

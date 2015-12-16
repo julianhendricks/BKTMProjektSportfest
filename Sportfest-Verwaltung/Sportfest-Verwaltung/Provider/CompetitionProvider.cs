@@ -11,10 +11,6 @@ namespace SportsFestivalManagement.Provider
         public const string field_competitionId = "competitionId";
         public const string field_competitionName = "competitionName";
 
-        public const string relation_tableName = "competitionDisciplineSet";
-        public const string relation_field_competitionId = "competitionId";
-        public const string relation_field_disciplineSetId = "disciplineSetId";
-
         public static List<Competition> getAllCompetitions()
         {
             List<Dictionary<string, object>> results = querySql(""
@@ -50,36 +46,27 @@ namespace SportsFestivalManagement.Provider
                 return null;
             }
 
-            List<DisciplineSet> disciplineSetsList = DisciplineSetProvider.getDisciplineSetsByCompetitionId(Convert.ToInt32(result[field_competitionId]));
-
             Competition competition = new Competition(
                 Convert.ToInt32(result[field_competitionId]),
-                Convert.ToString(result[field_competitionName]),
-                disciplineSetsList
+                Convert.ToString(result[field_competitionName])
             );
+
+            foreach (DisciplineSet disciplineSet in DisciplineSetProvider.getDisciplineSetsByCompetition(competition))
+            {
+                competition.addDisciplineSet(disciplineSet);
+            }
 
             return competition;
         }
 
-        public static List<Competition> getCompetitionsByDisciplineSetId(int disciplineSetId)
+        public static List<Competition> getCompetitionsByDisciplineSet(DisciplineSet disciplineSet)
         {
-            List<Dictionary<string, object>> results = querySql(""
-                + "SELECT "
-                    + "* "
-                + "FROM "
-                    + "`" + relation_tableName + "` "
-                + "WHERE "
-                    + "`" + relation_field_disciplineSetId + "` = " + disciplineSetId
-            );
+            return CompetitionDisciplineSetProvider.getCompetitionsByDisciplineSet(disciplineSet);
+        }
 
-            List<Competition> competitions = new List<Competition>();
-
-            foreach (var row in results)
-            {
-                competitions.Add(getCompetitionById(Convert.ToInt32(row[relation_field_competitionId])));
-            }
-
-            return competitions;
+        public static List<Competition> getCompetitionsBySportsFestival(SportsFestival sportsFestival)
+        {
+            return SportsFestivalCompetitionProvider.getCompetitionsBySportsFestival(sportsFestival);
         }
 
         public static int createCompetition(string competitionName)
@@ -94,9 +81,11 @@ namespace SportsFestivalManagement.Provider
                 + ")"
             );
 
-            Dictionary<string, object> result = querySingleSql("SELECT LAST_INSERT_ID() AS `insertionId`");
+            Dictionary<string, object> result = querySingleSql("SELECT MAX(`" + field_competitionId + "`) AS `insertionId` FROM `" + tableName + "`");
 
-            return Convert.ToInt32(result["insertionId"]);
+            int insertionId = Convert.ToInt32(result["insertionId"]);
+
+            return insertionId;
         }
 
         public static void updateCompetition(Competition competition)
@@ -109,6 +98,14 @@ namespace SportsFestivalManagement.Provider
                 + "WHERE "
                     + "`" + field_competitionId + " = " + competition.CompetitionId
             );
+
+            foreach (DisciplineSet disciplineSet in competition.getDisciplineSets())
+            {
+                if (CompetitionDisciplineSetProvider.relationExists(competition, disciplineSet) == false)
+                {
+                    CompetitionDisciplineSetProvider.createCompetitionDisciplineSetRelation(competition, disciplineSet);
+                }
+            }
         }
 
         public static void deleteCompetition(Competition competition)
