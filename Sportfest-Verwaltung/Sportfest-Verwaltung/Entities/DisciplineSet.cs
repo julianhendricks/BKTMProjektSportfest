@@ -9,9 +9,9 @@ namespace SportsFestivalManagement.Entities
     class DisciplineSet
     {
         private int disciplineSetId;
-        private List<Discipline> disciplines;
-        private List<Competition> competitions;
-        private List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings;
+        private List<Discipline> disciplines = new List<Discipline>();
+        private List<Competition> competitions = new List<Competition>();
+        private List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
         public DisciplineSet(
             int disciplineSetId

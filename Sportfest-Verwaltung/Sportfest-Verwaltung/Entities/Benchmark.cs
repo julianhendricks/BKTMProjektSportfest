@@ -29,7 +29,7 @@
         {
             get
             {
-                return discipline;
+                return this.discipline;
             }
         }
 
@@ -37,7 +37,7 @@
         {
             get
             {
-                return ageFrom;
+                return this.ageFrom;
             }
         }
 
@@ -45,7 +45,7 @@
         {
             get
             {
-                return ageUntil;
+                return this.ageUntil;
             }
         }
 
@@ -53,7 +53,7 @@
         {
             get
             {
-                return gender;
+                return this.gender;
             }
         }
 
@@ -61,7 +61,7 @@
         {
             get
             {
-                return rank;
+                return this.rank;
             }
         }
 
@@ -69,11 +69,11 @@
         {
             get
             {
-                return benchmark;
+                return this.benchmark;
             }
             set
             {
-                benchmark = value;
+                this.benchmark = value;
             }
         }
     }

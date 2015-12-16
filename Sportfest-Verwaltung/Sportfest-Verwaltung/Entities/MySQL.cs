@@ -136,11 +136,6 @@ namespace SportsFestivalManagement.Entities
 
         private List<Dictionary<string, object>> getArrayFromDataReader(MySqlDataReader reader)
         {
-            /*if (reader.IsDBNull() == true)
-            {
-                return new List<Dictionary<string, object>>();
-            }*/
-
             var dataSets = new List<Dictionary<string, object>>();
 
             var columns = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();

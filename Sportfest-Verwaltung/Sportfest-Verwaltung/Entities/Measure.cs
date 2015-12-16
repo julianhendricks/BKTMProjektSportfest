@@ -26,7 +26,7 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return measureId;
+                return this.measureId;
             }
         }
 
@@ -34,12 +34,12 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return name;
+                return this.name;
             }
 
             set
             {
-                name = value;
+                this.name = value;
             }
         }
 
@@ -47,12 +47,12 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return shortcut;
+                return this.shortcut;
             }
 
             set
             {
-                shortcut = value;
+                this.shortcut = value;
             }
         }
     }

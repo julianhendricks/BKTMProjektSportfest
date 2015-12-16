@@ -44,7 +44,7 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return studentId;
+                return this.studentId;
             }
         }
 
@@ -52,11 +52,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return firstName;
+                return this.firstName;
             }
             set
             {
-                firstName = value;
+                this.firstName = value;
             }
         }
 
@@ -64,11 +64,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return lastName;
+                return this.lastName;
             }
             set
             {
-                lastName = value;
+                this.lastName = value;
             }
         }
 
@@ -76,11 +76,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return birthday;
+                return this.birthday;
             }
             set
             {
-                birthday = value;
+                this.birthday = value;
             }
         }
 
@@ -88,11 +88,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return gender;
+                return this.gender;
             }
             set
             {
-                gender = value;
+                this.gender = value;
             }
         }
 
@@ -100,11 +100,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return zip;
+                return this.zip;
             }
             set
             {
-                zip = value;
+                this.zip = value;
             }
         }
 
@@ -112,11 +112,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return city;
+                return this.city;
             }
             set
             {
-                city = value;
+                this.city = value;
             }
         }
 
@@ -124,11 +124,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return classObject;
+                return this.classObject;
             }
             set
             {
-                classObject = value;
+                this.classObject = value;
             }
         }
 
@@ -136,11 +136,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return active;
+                return this.active;
             }
             set
             {
-                active = value;
+                this.active = value;
             }
         }
     }

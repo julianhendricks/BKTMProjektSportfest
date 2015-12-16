@@ -23,7 +23,7 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return classId;
+                return this.classId;
             }
         }
 
@@ -31,11 +31,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return shortcut;
+                return this.shortcut;
             }
             set
             {
-                shortcut = value;
+                this.shortcut = value;
             }
         }
     }

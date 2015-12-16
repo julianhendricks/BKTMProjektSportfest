@@ -90,7 +90,7 @@
             // dateTimePickerSportsFestival
             // 
             this.dateTimePickerSportsFestival.Location = new System.Drawing.Point(47, 8);
-            this.dateTimePickerSportsFestival.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePickerSportsFestival.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerSportsFestival.Name = "dateTimePickerSportsFestival";
             this.dateTimePickerSportsFestival.Size = new System.Drawing.Size(135, 20);
             this.dateTimePickerSportsFestival.TabIndex = 4;
@@ -102,15 +102,13 @@
             this.competitionGrid.AllowUserToResizeRows = false;
             this.competitionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.competitionGrid.Location = new System.Drawing.Point(0, 44);
-            this.competitionGrid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.competitionGrid.Margin = new System.Windows.Forms.Padding(2);
             this.competitionGrid.MultiSelect = false;
             this.competitionGrid.Name = "competitionGrid";
-            this.competitionGrid.ReadOnly = true;
             this.competitionGrid.RowHeadersVisible = false;
             this.competitionGrid.RowTemplate.Height = 28;
             this.competitionGrid.Size = new System.Drawing.Size(873, 323);
             this.competitionGrid.TabIndex = 3;
-            this.competitionGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.competitionGrid_CellContentClick);
             // 
             // pnlControls
             // 

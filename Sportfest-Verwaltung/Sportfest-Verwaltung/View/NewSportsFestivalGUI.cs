@@ -39,6 +39,7 @@ namespace SportsFestivalManagement.View
             competitionNameColumn.HeaderText = "Wettkampf";
             competitionNameColumn.Name = competitionGridColumn2Name;
             competitionNameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            competitionNameColumn.ReadOnly = true;
 
             competitionGrid.Columns.Add(checkboxColumn);
             competitionGrid.Columns.Add(competitionIdColumn);
@@ -83,14 +84,9 @@ namespace SportsFestivalManagement.View
             }
 
             NewSportsFestivalController.getInstance.createNewSportsFestival(dateTimePickerSportsFestival.Value, selectedCompetitionIds);
-        }
 
-        private void competitionGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                checkAllowSave();
-            }
+            MessageBox.Show("Das Sportfest wurde erfolgreich angelegt.");
+            Close();
         }
 
         private bool checkAllowSave()
@@ -110,12 +106,7 @@ namespace SportsFestivalManagement.View
                 }
             }
 
-            if (rowIsChecked == false)
-            {
-                return false;
-            }
-
-            return true;
+            return rowIsChecked;
         }
     }
 }

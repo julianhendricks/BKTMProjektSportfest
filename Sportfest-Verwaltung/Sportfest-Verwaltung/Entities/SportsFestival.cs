@@ -10,7 +10,7 @@ namespace SportsFestivalManagement.Entities
     {
         private int sportsFestivalId;
         private DateTime date;
-        private List<Competition> competitions;
+        private List<Competition> competitions = new List<Competition>();
 
         public SportsFestival(
             int sportsFestivalId,

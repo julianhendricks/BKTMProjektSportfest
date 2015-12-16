@@ -29,11 +29,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return disciplineSetId;
+                return this.disciplineSetId;
             }
             set
             {
-                disciplineSetId = value;
+                this.disciplineSetId = value;
             }
         }
 
@@ -41,11 +41,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return ageFrom;
+                return this.ageFrom;
             }
             set
             {
-                ageFrom = value;
+                this.ageFrom = value;
             }
         }
 
@@ -53,11 +53,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return ageUntil;
+                return this.ageUntil;
             }
             set
             {
-                ageUntil = value;
+                this.ageUntil = value;
             }
         }
 
@@ -65,11 +65,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return disciplineId;
+                return this.disciplineId;
             }
             set
             {
-                disciplineId = value;
+                this.disciplineId = value;
             }
         }
     }

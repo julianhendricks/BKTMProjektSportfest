@@ -12,7 +12,7 @@ namespace SportsFestivalManagement.Entities
         private string name;
         private Measure measure;
         private Category category;
-        private List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings;
+        private List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
 
         public Discipline(
@@ -45,7 +45,7 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return disciplineId;
+                return this.disciplineId;
             }
         }
 
@@ -53,12 +53,12 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return name;
+                return this.name;
             }
 
             set
             {
-                name = value;
+                this.name = value;
             }
         }
 
@@ -66,12 +66,12 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return measure;
+                return this.measure;
             }
 
             set
             {
-                measure = value;
+                this.measure = value;
             }
         }
 
@@ -79,28 +79,28 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return category;
+                return this.category;
             }
 
             set
             {
-                category = value;
+                this.category = value;
             }
         }
 
         public List<DisciplineSetDisciplineMapping> getDisciplineSetDisciplineMappings()
         {
-            return disciplineSetDisciplineMappings;
+            return this.disciplineSetDisciplineMappings;
         }
 
         public void addDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
-            disciplineSetDisciplineMappings.Add(disciplineSetDisciplineMapping);
+            this.disciplineSetDisciplineMappings.Add(disciplineSetDisciplineMapping);
         }
 
         public void removeDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
-            disciplineSetDisciplineMappings.Remove(disciplineSetDisciplineMapping);
+            this.disciplineSetDisciplineMappings.Remove(disciplineSetDisciplineMapping);
         }
     }
 }

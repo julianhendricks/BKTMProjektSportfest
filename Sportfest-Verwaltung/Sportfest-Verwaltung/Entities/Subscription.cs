@@ -29,11 +29,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return sportsFestivalSubscriptionId;
+                return this.sportsFestivalSubscriptionId;
             }
             set
             {
-                sportsFestivalSubscriptionId = value;
+                this.sportsFestivalSubscriptionId = value;
             }
         }
 
@@ -41,11 +41,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return competition;
+                return this.competition;
             }
             set
             {
-                competition = value;
+                this.competition = value;
             }
         }
 
@@ -53,11 +53,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return discipline;
+                return this.discipline;
             }
             set
             {
-                discipline = value;
+                this.discipline = value;
             }
         }
 
@@ -65,11 +65,11 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return result;
+                return this.result;
             }
             set
             {
-                result = value;
+                this.result = value;
             }
         }
     }

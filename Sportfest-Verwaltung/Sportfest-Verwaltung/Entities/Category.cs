@@ -23,7 +23,7 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return categoryId;
+                return this.categoryId;
             }
         }
 
@@ -31,12 +31,12 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return categoryName;
+                return this.categoryName;
             }
 
             set
             {
-                categoryName = value;
+                this.categoryName = value;
             }
         }
     }

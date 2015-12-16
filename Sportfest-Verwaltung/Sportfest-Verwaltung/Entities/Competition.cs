@@ -10,7 +10,7 @@ namespace SportsFestivalManagement.Entities
     {
         private int competitionId;
         private string competitionName;
-        private List<DisciplineSet> disciplineSets;
+        private List<DisciplineSet> disciplineSets = new List<DisciplineSet>();
 
         public Competition(
             int competitionId,
@@ -34,7 +34,7 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return competitionId;
+                return this.competitionId;
             }
         }
 
@@ -42,27 +42,27 @@ namespace SportsFestivalManagement.Entities
         {
             get
             {
-                return competitionName;
+                return this.competitionName;
             }
             set
             {
-                competitionName = value;
+                this.competitionName = value;
             }
         }
 
         public List<DisciplineSet> getDisciplineSets()
         {
-            return disciplineSets;
+            return this.disciplineSets;
         }
 
         public void addDisciplineSet(DisciplineSet disciplineSet)
         {
-            disciplineSets.Add(disciplineSet);
+            this.disciplineSets.Add(disciplineSet);
         }
 
         public void removeDisciplineSet(DisciplineSet disciplineSet)
         {
-            disciplineSets.Remove(disciplineSet);
+            this.disciplineSets.Remove(disciplineSet);
         }
     }
 }
