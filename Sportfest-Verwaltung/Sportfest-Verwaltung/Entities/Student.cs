@@ -13,6 +13,7 @@ namespace SportsFestivalManagement.Entities
         private string lastName;
         private DateTime birthday;
         private char gender;
+        private string street;
         private int zip;
         private string city;
         private Class classObject;
@@ -24,6 +25,7 @@ namespace SportsFestivalManagement.Entities
             string lastName,
             DateTime birthday,
             char gender,
+            string street,
             int zip,
             string city,
             Class classObject,
@@ -34,6 +36,7 @@ namespace SportsFestivalManagement.Entities
             this.lastName = lastName;
             this.birthday = birthday;
             this.gender = gender;
+            this.street = street;
             this.zip = zip;
             this.city = city;
             this.classObject = classObject;
@@ -93,6 +96,18 @@ namespace SportsFestivalManagement.Entities
             set
             {
                 this.gender = value;
+            }
+        }
+
+        public string Street
+        {
+            get
+            {
+                return this.street;
+            }
+            set
+            {
+                this.street = value;
             }
         }
 

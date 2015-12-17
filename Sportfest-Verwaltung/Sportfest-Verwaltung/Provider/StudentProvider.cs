@@ -13,6 +13,7 @@ namespace SportsFestivalManagement.Provider
         public const string field_lastName = "lastName";
         public const string field_birthday = "birthday";
         public const string field_gender = "gender";
+        public const string field_street = "street";
         public const string field_zip = "zip";
         public const string field_city = "city";
         public const string field_classId = "classId";
@@ -37,6 +38,27 @@ namespace SportsFestivalManagement.Provider
             return students;
         }
 
+        public static List<Student> getAllStudentsOrderedByAscendingLastName()
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "ORDER BY "
+                    + "`" + field_lastName + "` ASC"
+            );
+
+            List<Student> students = new List<Student>();
+
+            foreach (var row in results)
+            {
+                students.Add(getStudentById(Convert.ToInt32(row[field_studentId])));
+            }
+
+            return students;
+        }
+        
         public static Student getStudentById(int studentId)
         {
             Dictionary<string, object> result = querySingleSql(""
@@ -61,6 +83,7 @@ namespace SportsFestivalManagement.Provider
                     Convert.ToString(result[field_lastName]),
                     Convert.ToDateTime(result[field_birthday]),
                     Convert.ToChar(result[field_gender]),
+                    Convert.ToString(result[field_street]),
                     Convert.ToInt32(result[field_zip]),
                     Convert.ToString(result[field_city]),
                     classObject,
@@ -75,6 +98,7 @@ namespace SportsFestivalManagement.Provider
             string lastName,
             DateTime birthday,
             char gender,
+            string street,
             int zip,
             string city,
             Class classObject,
@@ -88,15 +112,17 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_lastName + "`, "
                     + "`" + field_birthday + "`, "
                     + "`" + field_gender + "`, "
+                    + "`" + field_street + "`, "
                     + "`" + field_zip + "`, "
                     + "`" + field_city + "`, "
-                    + "'" + field_classId + "', "
-                    + "'" + field_active + "', "
+                    + "`" + field_classId + "`, "
+                    + "`" + field_active + "`"
                 + ") VALUES ("
                     + "'" + firstName + "', "
                     + "'" + lastName + "', "
                     + "'" + birthday.ToString("yyyy-MM-dd") + "', "
                     + "'" + gender + "', "
+                    + "'" + street + "', "
                     + zip + ", "
                     + "'" + city + "', "
                     + classObject.ClassId + ", "
@@ -121,6 +147,7 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_lastName + "` = '" + student.LastName + "', "
                     + "`" + field_birthday + "` = '" + student.Birthday.ToString("yyyy-MM-dd") + "', "
                     + "`" + field_gender + "` = " + student.Gender + ", "
+                    + "`" + field_street + "` = " + student.Street + ", "
                     + "`" + field_zip + "` = " + student.Zip + ", "
                     + "`" + field_city + "` = '" + student.City + "', "
                     + "`" + field_classId + "` = " + student.ClassObject.ClassId + ", "

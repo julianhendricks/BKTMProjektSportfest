@@ -7,112 +7,70 @@ using SportsFestivalManagement;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using SportsFestivalManagement.View;
+using SportsFestivalManagement.Entities;
+using SportsFestivalManagement.Provider;
 
 namespace SportsFestivalManagement.Controller
 {
     class StudentsAndClassesController
     {
-        SqlConnection StudentsAndClassesConnection;
+        /*
+         * Instance constructor
+         */
+        private StudentsAndClassesController() { }
 
-        public static void OpenStudentsAndClassesGUI()
+        private static readonly StudentsAndClassesController _instance = new StudentsAndClassesController();
+
+        public static StudentsAndClassesController getInstance
         {
-            StudentsAndClassesGUI StudentsAndClassesGUIForm;
-            StudentsAndClassesGUIForm = new StudentsAndClassesGUI();
-            StudentsAndClassesGUIForm.ShowDialog();
+            get { return _instance; }
+        }
+        /*
+         * End of Instance constructor
+         */
+
+        private StudentsAndClassesGUI view = null;
+
+        public void OpenStudentsAndClassesGUI()
+        {
+            this.getView().ShowDialog();
         }
 
-        public StudentsAndClassesController()
+        public List<Student> getAllStudentsOrderedByAscendingLastName()
         {
-            /*int currentClassId;
-            string currentClassName;
-            SqlDataReader ClassDS;
+            return StudentProvider.getAllStudentsOrderedByAscendingLastName();
+        }
 
-            ClassesCollection = new List<Classes>();
-            StudentsAndClassesConnection = SQL.GetConnection();
+        public List<Class> getAllClassesOrderedByAscendingShortcut()
+        {
+            return ClassProvider.getAllClassesOrderedByAscendingShortcut();
+        }
 
-            //Reader erstellen und durchlaufen
-            String SQLStatement = "SELECT * FROM class";
-            ClassDS = SQL.GetReader(SQLStatement, StudentsAndClassesConnection);
-            while (ClassDS.Read())
-            {
-                currentClassId = Convert.ToInt32(ClassDS["classId"]);
-                currentClassName = Convert.ToString(ClassDS["shortcut"]);
+        public void openNewStudentForm()
+        {
+            NewStudentController.getInstance.OpenNewStudentGUI();
+            this.getView().renderStudentsGrid();
+        }
 
-                Classes CurrentItem = new Classes(currentClassId, currentClassName);
-                ClassesCollection.Add(CurrentItem);
+        public void openNewClassForm()
+        {
+            NewStudentController.getInstance.OpenNewStudentGUI();
+        }
+
+        private StudentsAndClassesGUI getView()
+        {
+            if (this.view == null) {
+                this.view = new StudentsAndClassesGUI();
+
+                FormClosedEventHandler handler = (sender, e) =>
+                {
+                    this.view = null;
+                };
+
+                this.view.FormClosed += handler;
             }
-            ClassDS.Close();*/
-        }
 
-        public void LoadClassesListView(ListView iListView)
-        {
-            /*foreach (Classes CurrentClass in ClassesCollection)
-            {
-                string[] row = { CurrentClass.ClassId.ToString(), CurrentClass.getShortcut().ToString() };
-                iListView.Items.Add(new ListViewItem(row));
-            }*/
-        }
-
-        public void AddNewClass(ListView iListView)
-        {
-            /*Classes newClass;            
-
-            newClass = new Classes(iListView.Items.Count + 1, "Kürzel");
-            newClass.newFlag = true;
-            ClassesCollection.Add(newClass);
-
-            string[] row = { Convert.ToString(iListView.Items.Count + 1), "Kürzel" };
-            iListView.Items.Add(new ListViewItem(row));*/
-        }
-
-        public void UpdateClassShortcut(string iNewShortCut, int iClassID, ListView iListView)
-        {
-            /*Classes ChangedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassID);
-            ChangedClass.setShortcut(iNewShortCut);
-            ChangedClass.changedFlag = true;
-
-            int Index = iListView.FindItemWithText(Convert.ToString(iClassID)).Index;
-            iListView.Items[Index].SubItems[1].Text = iNewShortCut;*/
-        }
-
-        public void DeleteClass(int iClassId, ListView iListView)
-        {
-            /*Classes DeletedClass = ClassesCollection.First(ClassCol => ClassCol.ClassId == iClassId);
-            DeletedClass.deletedFlag = true;
-
-            int Index = iListView.FindItemWithText(Convert.ToString(iClassId)).Index;
-            iListView.Items[Index].Remove();*/
-        }
-
-        public void UpdateClassTable()
-        {
-            /*string SQLStatement;
-            foreach (Classes Class in ClassesCollection)
-            {
-                SQLStatement = "";
-                if (Class.newFlag == true)
-                {
-                    SQLStatement = "INSERT INTO class (classId, shortcut) VALUES (" + Convert.ToString(Class.ClassId)
-                        + ", '" + Class.getShortcut() + "')";
-                }
-                else if (Class.changedFlag == true)
-                {
-                    SQLStatement = "UPDATE class SET shortcut = '" + Class.getShortcut() + "' WHERE classId = "
-                        + Convert.ToString(Class.ClassId);
-                }
-                if (Class.deletedFlag == true)
-                {
-                    SQLStatement = "DELETE FROM class WHERE classId = " + Convert.ToString(Class.ClassId);
-                }
-
-                if (SQLStatement != "")
-                {
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = SQLStatement;
-                    cmd.Connection = StudentsAndClassesConnection;
-                    cmd.ExecuteNonQuery();
-                }
-            }*/
+            return this.view;
         }
     }
 }

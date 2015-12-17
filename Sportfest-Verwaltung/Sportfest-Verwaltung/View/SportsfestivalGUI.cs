@@ -61,7 +61,7 @@ namespace SportsFestivalManagement.View
         
         private void btnStudentsAndClasses_Click_1(object sender, EventArgs e)
         {
-            StudentsAndClassesController.OpenStudentsAndClassesGUI();
+            StudentsAndClassesController.getInstance.OpenStudentsAndClassesGUI();
         }
 
         private void btnDisciplines_Click(object sender, EventArgs e)

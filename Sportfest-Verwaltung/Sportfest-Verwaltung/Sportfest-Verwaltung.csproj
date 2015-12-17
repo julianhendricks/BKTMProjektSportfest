@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DisciplinesController.cs" />
+    <Compile Include="Controller\NewStudentController.cs" />
     <Compile Include="Controller\NewSportsFestivalController.cs" />
     <Compile Include="Entities\Measure.cs" />
     <Compile Include="Controller\ConnectionSetupController.cs" />
@@ -119,6 +120,12 @@
     <Compile Include="Provider\ConfigurationProvider.cs" />
     <Compile Include="Provider\MySQLProvider.cs" />
     <Compile Include="Controller\ResultsController.cs" />
+    <Compile Include="View\NewStudentGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\NewStudentGUI.Designer.cs">
+      <DependentUpon>NewStudentGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\NewSportsFestivalGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +181,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\NewStudentGUI.resx">
+      <DependentUpon>NewStudentGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\NewSportsFestivalGUI.resx">
       <DependentUpon>NewSportsFestivalGUI.cs</DependentUpon>
     </EmbeddedResource>

@@ -30,6 +30,27 @@ namespace SportsFestivalManagement.Provider
             return classes;
         }
 
+        public static List<Class> getAllClassesOrderedByAscendingShortcut()
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "ORDER BY "
+                    + "`" + field_shortcut + "` ASC"
+            );
+
+            List<Class> classes = new List<Class>();
+
+            foreach (var row in results)
+            {
+                classes.Add(getClassById(Convert.ToInt32(row[field_classId])));
+            }
+
+            return classes;
+        }
+
         public static Class getClassById(int classId) {
             Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "

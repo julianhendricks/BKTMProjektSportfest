@@ -34,7 +34,6 @@
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
             this.btnResults = new MetroFramework.Controls.MetroButton();
-            this.btnDelete = new MetroFramework.Controls.MetroButton();
             this.btnNew = new MetroFramework.Controls.MetroButton();
             this.btnDisciplines = new MetroFramework.Controls.MetroButton();
             this.btnStudentsAndClasses = new MetroFramework.Controls.MetroButton();
@@ -69,7 +68,6 @@
             // 
             this.pnlControls.BackColor = System.Drawing.Color.RoyalBlue;
             this.pnlControls.Controls.Add(this.btnResults);
-            this.pnlControls.Controls.Add(this.btnDelete);
             this.pnlControls.Controls.Add(this.btnNew);
             this.pnlControls.Controls.Add(this.btnDisciplines);
             this.pnlControls.Controls.Add(this.btnStudentsAndClasses);
@@ -91,7 +89,7 @@
             // btnResults
             // 
             this.btnResults.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnResults.Location = new System.Drawing.Point(0, 80);
+            this.btnResults.Location = new System.Drawing.Point(0, 40);
             this.btnResults.Name = "btnResults";
             this.btnResults.Size = new System.Drawing.Size(150, 40);
             this.btnResults.TabIndex = 6;
@@ -101,20 +99,6 @@
             this.btnResults.UseCustomForeColor = true;
             this.btnResults.UseSelectable = true;
             this.btnResults.Click += new System.EventHandler(this.btnResults_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDelete.Location = new System.Drawing.Point(0, 40);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(150, 40);
-            this.btnDelete.TabIndex = 5;
-            this.btnDelete.Text = "Löschen";
-            this.btnDelete.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnDelete.UseCustomBackColor = true;
-            this.btnDelete.UseCustomForeColor = true;
-            this.btnDelete.UseSelectable = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNew
             // 
@@ -199,7 +183,6 @@
         private MetroFramework.Controls.MetroPanel pnlControls;
         private MetroFramework.Controls.MetroButton btnStudentsAndClasses;
         private MetroFramework.Controls.MetroButton btnDisciplines;
-        private MetroFramework.Controls.MetroButton btnDelete;
         private MetroFramework.Controls.MetroButton btnNew;
         private MetroFramework.Controls.MetroButton btnResults;
         private System.Windows.Forms.DataGridView sportsFestivalGrid;
