@@ -66,7 +66,7 @@ namespace SportsFestivalManagement.View
 
         private void btnDisciplines_Click(object sender, EventArgs e)
         {
-            DisciplinesController.OpenDisciplinesGUI();
+            DisciplinesController.getInstance.OpenDisciplinesGUI();
         }
 
         private void btnNew_Click(object sender, EventArgs e)
