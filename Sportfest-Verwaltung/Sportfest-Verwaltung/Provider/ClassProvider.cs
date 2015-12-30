@@ -74,6 +74,30 @@ namespace SportsFestivalManagement.Provider
             return classElement;
         }
 
+        public static Class getClassByShortCut(string shortcut)
+        {
+            Dictionary<string, object> result = querySingleSql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_shortcut + "` = '" + shortcut + "'"
+            );
+
+            if (result == null)
+            {
+                return null;
+            }
+
+            Class classElement = new Class(
+                Convert.ToInt32(result[field_classId]),
+                Convert.ToString(result[field_shortcut])
+            );
+
+            return classElement;
+        }
+
         public static int createClass(string shortcut)
         {
             executeSql(""
