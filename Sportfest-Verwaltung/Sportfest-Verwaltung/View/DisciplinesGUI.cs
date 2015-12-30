@@ -25,7 +25,7 @@ namespace SportsFestivalManagement.View
             this.StyleManager = metroStyleManager;
         }
 
-        internal void updateDisciplines(List<Discipline> availableDisciplines, List<Discipline> selectedDisciplines)
+        internal void updateDisciplines(List<Discipline> availableDisciplines)
         {
             dgvDisciplines.Rows.Clear();
 
@@ -39,8 +39,11 @@ namespace SportsFestivalManagement.View
             comboBoxCategory.DisplayMember = "categoryName";
             dgvDisciplines.Columns.Add(comboBoxCategory);
 
+            List<Measure> allMeasures = MeasureProvider.getAllMeasures();
+            allMeasures.Insert(0, new Measure(0, "", ""));
+
             DataGridViewComboBoxColumn comboBoxMeasure = new DataGridViewComboBoxColumn();
-            comboBoxMeasure.DataSource = MeasureProvider.getAllMeasures();
+            comboBoxMeasure.DataSource = allMeasures;
             comboBoxMeasure.DataPropertyName = "name";
             comboBoxMeasure.ValueMember = "measureId";
             comboBoxMeasure.DisplayMember = "name";

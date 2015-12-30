@@ -50,7 +50,18 @@ namespace SportsFestivalManagement.Controller
                 competitions.Add(competition);
             }
 
-            SportsFestivalProvider.createSportsFestival(sportsFestivalDate, competitions);
+            int sportsFestivalId = SportsFestivalProvider.createSportsFestival(sportsFestivalDate, competitions);
+
+            SportsFestival sportsFestival = SportsFestivalProvider.getSportsFestivalById(sportsFestivalId);
+            List<Student> students = StudentProvider.getAllActiveStudents();
+
+            foreach (Student student in students)
+            {
+                SportsFestivalSubscriptionProvider.createSportsFestivalSubscription(
+                    sportsFestival,
+                    student
+                );
+            }
         }
 
     }

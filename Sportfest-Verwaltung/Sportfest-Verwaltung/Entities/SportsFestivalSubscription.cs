@@ -9,19 +9,19 @@ namespace SportsFestivalManagement.Entities
     class SportsFestivalSubscription
     {
         private int sportsFestivalSubscriptionId;
-        private int sportsFestivalId;
-        private int studentId;
+        private SportsFestival sportsFestival;
+        private Student student;
         private string classShortcut;
 
         public SportsFestivalSubscription(
             int sportsFestivalSubscriptionId,
-            int sportsFestivalId,
-            int studentId,
+            SportsFestival sportsFestival,
+            Student student,
             string classShortcut
         ) {
             this.sportsFestivalSubscriptionId = sportsFestivalSubscriptionId;
-            this.sportsFestivalId = sportsFestivalId;
-            this.studentId = studentId;
+            this.sportsFestival = sportsFestival;
+            this.student = student;
             this.classShortcut = classShortcut;
         }
 
@@ -33,27 +33,27 @@ namespace SportsFestivalManagement.Entities
             }
         }
 
-        public int SportsFestivalId
+        public SportsFestival SportsFestival
         {
             get
             {
-                return this.sportsFestivalId;
+                return this.sportsFestival;
             }
             set
             {
-                this.sportsFestivalId = value;
+                this.sportsFestival = value;
             }
         }
 
-        public int StudentId
+        public Student Student
         {
             get
             {
-                return this.studentId;
+                return this.student;
             }
             set
             {
-                this.studentId = value;
+                this.student = value;
             }
         }
 

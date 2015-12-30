@@ -55,14 +55,18 @@ namespace SportsFestivalManagement.Provider
         ) {
             Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
-                    + "* "
+                    + "`" + field_ageFrom + "`, "
+                    + "`" + field_ageUntil + "`, "
+                    + "`" + field_gender + "`, "
+                    + "`" + field_rank + "`, "
+                    + "`" + field_benchmark + "` "
                 + "FROM "
                     + "`" + tableName + "` "
                 + "WHERE "
                     + "`" + field_disciplineId + "` = " + discipline.DisciplineId + " "
                     + "AND `" + field_ageFrom + "` = " + ageFrom + " "
                     + "AND `" + field_ageUntil + "` = " + ageUntil + " "
-                    + "AND `" + field_gender + "` = '" + ageFrom + "' "
+                    + "AND `" + field_gender + "` = '" + gender + "' "
                     + "AND `" + field_rank + "` = '" + rank + "'"
             );
 
@@ -87,7 +91,11 @@ namespace SportsFestivalManagement.Provider
         {
             List<Dictionary<string, object>> results = querySql(""
                 + "SELECT "
-                    + "* "
+                    + "`" + field_ageFrom + "`, "
+                    + "`" + field_ageUntil + "`, "
+                    + "`" + field_gender + "`, "
+                    + "`" + field_rank + "`, "
+                    + "`" + field_benchmark + "` "
                 + "FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

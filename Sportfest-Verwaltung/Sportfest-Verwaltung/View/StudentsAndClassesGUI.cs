@@ -128,12 +128,20 @@ namespace SportsFestivalManagement.View
             TabPage selectedTab = tcStudentsAndClasses.SelectedTab;
             if (selectedTab == pagStudents)
             {
-                btnImport.Enabled = true;
+                btnUpgrade.Visible = false;
             }
             else if (selectedTab == pagClasses)
             {
-                btnImport.Enabled = false;
+                btnUpgrade.Visible = true;
             }
+        }
+
+        private void btnUpgrade_Click(object sender, EventArgs e)
+        {
+            StudentsAndClassesController.getInstance.rotateClasses();
+            MessageBox.Show("Alle Klassen wurden hochgestuft.");
+            this.renderClassesGrid();
+            this.renderStudentsGrid();
         }
     }
 }

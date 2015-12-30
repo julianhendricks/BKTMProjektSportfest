@@ -33,6 +33,34 @@ namespace SportsFestivalManagement.Provider
             return variants;
         }
 
+        public static List<Variant> getVariantsByDiscipline(Discipline discipline)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_disciplineId + "` = " + discipline.DisciplineId
+            );
+
+            List<Variant> variants = new List<Variant>();
+
+            foreach (var row in results)
+            {
+                variants.Add(
+                    new Variant(
+                        Convert.ToInt32(row[field_variantId]),
+                        Convert.ToString(row[field_variantName]),
+                        Convert.ToInt32(row[field_ageFrom]),
+                        Convert.ToInt32(row[field_ageUntil])
+                    )
+                );
+            }
+
+            return variants;
+        }
+
         public static Variant getVariantById(int variantId) {
             Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "

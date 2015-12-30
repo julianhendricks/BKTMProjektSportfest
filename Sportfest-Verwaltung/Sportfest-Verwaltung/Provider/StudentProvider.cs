@@ -37,6 +37,27 @@ namespace SportsFestivalManagement.Provider
 
             return students;
         }
+        
+        public static List<Student> getAllActiveStudents()
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_active + "` = 1"
+            );
+
+            List<Student> students = new List<Student>();
+
+            foreach (var row in results)
+            {
+                students.Add(getStudentById(Convert.ToInt32(row[field_studentId])));
+            }
+
+            return students;
+        }
 
         public static List<Student> getAllStudentsOrderedByAscendingLastName()
         {

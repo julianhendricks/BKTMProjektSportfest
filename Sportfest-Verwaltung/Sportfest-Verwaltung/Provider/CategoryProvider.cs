@@ -33,7 +33,8 @@ namespace SportsFestivalManagement.Provider
         public static Category getCategoryById(int categoryId) {
             Dictionary<string, object> result = querySingleSql(""
                 + "SELECT "
-                    + "* "
+                    + "`" + field_categoryId + "`, "
+                    + "`" + field_categoryName + "` "
                 + "FROM "
                     + "`" + tableName + "` "
                 + "WHERE "

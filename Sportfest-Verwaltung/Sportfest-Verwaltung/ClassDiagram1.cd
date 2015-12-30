@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SportsFestivalManagement.Controller.ConnectionSetupController">
+    <Position X="19.5" Y="2.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAACAAAAIA=</HashCode>
+      <FileName>Controller\ConnectionSetupController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.DisciplinesController">
+    <Position X="16.75" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAIAAAAAAAAAAAAAACAAAAAAAEAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\DisciplinesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.NewSportsFestivalController">
+    <Position X="26.75" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAIAAAAgAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\NewSportsFestivalController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.NewStudentController">
+    <Position X="23.5" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAgAAAAAAAAAAAAQAAAAEAAAAAAE=</HashCode>
+      <FileName>Controller\NewStudentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.ResultsController">
+    <Position X="10.25" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ResultsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.SportCertificateController">
+    <Position X="7.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\SportCertificateController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.SportsFestivalController">
+    <Position X="3.5" Y="2.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAACAAAAAIgAAAAQAAAAAQAQCAQAAAAAAAAA=</HashCode>
+      <FileName>Controller\SportsFestivalController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Controller.StudentsAndClassesController">
+    <Position X="12.75" Y="2.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAEAIAAAAAAEAAAAAAAAUAAQEAAgAgAAA=</HashCode>
+      <FileName>Controller\StudentsAndClassesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Benchmark">
+    <Position X="13" Y="27.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAoABAYIAAQCAAAAAgAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Benchmark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Category">
+    <Position X="18.5" Y="27.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAgAAAAAAIAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Class">
+    <Position X="22.25" Y="27.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAgBAAAIAAAAAAAAAACBAAAAgAAACAAAAAgAAA=</HashCode>
+      <FileName>Entities\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Competition">
+    <Position X="32" Y="27.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAEAIAgAACAICAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Competition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Discipline">
+    <Position X="0.75" Y="27.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAFAAQAAAAAAEIAAQAAAAGABAAEQAIAJAACAA=</HashCode>
+      <FileName>Entities\Discipline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.DisciplineSet">
+    <Position X="15.5" Y="27.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAPAAAAAQAAAAIAMAAAAIAAAAAAQACAAAABAA=</HashCode>
+      <FileName>Entities\DisciplineSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.DisciplineSetDisciplineMapping">
+    <Position X="6.5" Y="27.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAABCIAAAQCAAAAAAAAAAAAAAAAAEAAAABAAAAA=</HashCode>
+      <FileName>Entities\DisciplineSetDisciplineMapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Measure">
+    <Position X="20.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAABEAAQABAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Measure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.MySQL">
+    <Position X="47.5" Y="27.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAARAkAAEAAEAAABgAAgAAIgoAgAAAAA=</HashCode>
+      <FileName>Entities\MySQL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.SportsFestival">
+    <Position X="34.75" Y="27.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAIAAAAAAAAAAAAMAAAAIAAAABAAAAAQABAAA=</HashCode>
+      <FileName>Entities\SportsFestival.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.SportsFestivalSubscription">
+    <Position X="41.25" Y="27.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAACAYAAAgEAAAAAAAAAAABAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\SportsFestivalSubscription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Student">
+    <Position X="37.75" Y="27.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAMAAEAAAABAAACIAAAAiAgAAAAIAgAgAAIAKAADAAg=</HashCode>
+      <FileName>Entities\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Subscription">
+    <Position X="3.75" Y="27.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAIAgAAABAAAAIQAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Subscription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Entities.Variant">
+    <Position X="11" Y="27.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAFgIIABYCAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Variant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Program">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.AbstractEntityProvider">
+    <Position X="16.25" Y="20.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Provider\AbstractEntityProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.BenchmarkProvider">
+    <Position X="13" Y="22.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>oAAAAAAQAAAAIAAACAAAIAQAAAAAAAEBAADAAAAACgA=</HashCode>
+      <FileName>Provider\BenchmarkProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.CategoryProvider">
+    <Position X="18.5" Y="22.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAQAAAACAAAAAAACoCAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Provider\CategoryProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.ClassProvider">
+    <Position X="22.25" Y="22.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>BAIAQABAAAAAAAAAAgAAAEAAAABAACADKAEAAAAAAAA=</HashCode>
+      <FileName>Provider\ClassProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.CompetitionDisciplineSetProvider">
+    <Position X="25.5" Y="22.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAAABAAgAAAAAAAAAAAABABAAAAgEAAA=</HashCode>
+      <FileName>Provider\CompetitionDisciplineSetProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.CompetitionProvider">
+    <Position X="32" Y="22.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAEAgAAAAAAAAgACAAAIAAAABABAAEAAIAAA=</HashCode>
+      <FileName>Provider\CompetitionProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.ConfigurationProvider">
+    <Position X="45" Y="22.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEEAAEAAAAAAAAMAAgAAAgAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Provider\ConfigurationProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.DisciplineProvider">
+    <Position X="0.75" Y="22.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAgQAAAAAAAAIAAAAiAAAABAACCAAACAQA=</HashCode>
+      <FileName>Provider\DisciplineProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.DisciplineSetDisciplineMappingProvider">
+    <Position X="6.5" Y="22.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>MEAAAAAAAAAAAAAAAAgAAACAAAAAIQAJIADAAACADCA=</HashCode>
+      <FileName>Provider\DisciplineSetDisciplineMappingProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.DisciplineSetProvider">
+    <Position X="15.5" Y="22.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAACQAAEAAAAAAABAAAAABAAAABAgAAAA=</HashCode>
+      <FileName>Provider\DisciplineSetProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.MeasureProvider">
+    <Position X="20.5" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAgAAAAAAAACAAAAAAAAAAAAAABAAACCCACAEA=</HashCode>
+      <FileName>Provider\MeasureProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.MySQLProvider">
+    <Position X="47.5" Y="22.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAABAEAAAAAAAAAAA=</HashCode>
+      <FileName>Provider\MySQLProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.SportsFestivalCompetitionProvider">
+    <Position X="28.75" Y="22.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAgAAAAAAAAAgAgAAAAAAACAABAAAAAEAAAAA=</HashCode>
+      <FileName>Provider\SportsFestivalCompetitionProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.SportsFestivalProvider">
+    <Position X="34.75" Y="22.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAEAAAAAQAABAAAAIACAABAAAAAEAAQAA=</HashCode>
+      <FileName>Provider\SportsFestivalProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.StudentProvider">
+    <Position X="37.75" Y="22.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>QAAACADQAAAABAJEEQEIEAAAAAEAAAABAAAAAAQAAAQ=</HashCode>
+      <FileName>Provider\StudentProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.SubscriptionProvider">
+    <Position X="3.75" Y="22.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAAAARAACAAAAAAoACAAAABAACAAAAAAAA=</HashCode>
+      <FileName>Provider\SubscriptionProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.VariantProvider">
+    <Position X="11" Y="22.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAgAAAAABAAAAAAACAEAAACBAADAIABACAA=</HashCode>
+      <FileName>Provider\VariantProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.ConnectionSetupGUI">
+    <Position X="19.5" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAECAQAAAAgACAAhgCIGCBAFAAAgABAhIAEEA=</HashCode>
+      <FileName>View\ConnectionSetupGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.DisciplinesGUI">
+    <Position X="16.75" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAEAACAAGAAAADAACJQBgCQIAAAAIAASU=</HashCode>
+      <FileName>View\DisciplinesGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.NewSportsFestivalGUI">
+    <Position X="26.75" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACAAABEAAAGCAMASBACBAEAAAAAAAABAAAE=</HashCode>
+      <FileName>View\NewSportsFestivalGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.NewStudentGUI">
+    <Position X="23.5" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAkAAAACAQABEIAACCAOACJACBAEgBACLAAAAAAAE=</HashCode>
+      <FileName>View\NewStudentGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.ResultsGUI">
+    <Position X="10.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAAACAAAACAACBQBAAAIAAAAAAAAA=</HashCode>
+      <FileName>View\ResultsGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.SportCertificateGUI">
+    <Position X="7.5" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiAAAAAAAACAAgACAAABQAgAAIAAAAAAAAQ=</HashCode>
+      <FileName>View\SportCertificateGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.SportsFestivalGUI">
+    <Position X="3.5" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AQIgAAAQACAAIAAAAACADAACEACJIggEAAEAACAAAIE=</HashCode>
+      <FileName>View\SportsfestivalGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.View.StudentsAndClassesGUI">
+    <Position X="12.75" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQSIAAACAAAAEgIEDChAACEASJQAgAAIEAADAAAQE=</HashCode>
+      <FileName>View\StudentsAndClassesGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SportsFestivalManagement.Provider.SportsFestivalSubscriptionProvider" Collapsed="true">
+    <Position X="41.25" Y="22.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAQAGAAACAIAAEAACAABAAAAAAAAAAA=</HashCode>
+      <FileName>Provider\SportsFestivalSubscriptionProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

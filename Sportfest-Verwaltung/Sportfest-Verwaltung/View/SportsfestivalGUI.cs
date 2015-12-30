@@ -24,22 +24,6 @@ namespace SportsFestivalManagement.View
             InitializeComponent();
 
             this.StyleManager = metroStyleManager;
-
-            DataGridViewTextBoxColumn sportsFestivalIdColumn = new DataGridViewTextBoxColumn();
-            sportsFestivalIdColumn.HeaderText = "Sportfest-ID";
-            sportsFestivalIdColumn.Name = sportsFestivalGridColumn0Name;
-            sportsFestivalIdColumn.Visible = false;
-
-            DataGridViewTextBoxColumn sportsFestivalNameColumn = new DataGridViewTextBoxColumn();
-            sportsFestivalNameColumn.HeaderText = "Sportfest";
-            sportsFestivalNameColumn.Name = sportsFestivalGridColumn1Name;
-            sportsFestivalNameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            sportsFestivalNameColumn.ReadOnly = true;
-
-            sportsFestivalGrid.Columns.Add(sportsFestivalIdColumn);
-            sportsFestivalGrid.Columns.Add(sportsFestivalNameColumn);
-
-            this.renderSportsFestivalsGrid();
         }
 
         public void renderSportsFestivalsGrid()
@@ -72,11 +56,7 @@ namespace SportsFestivalManagement.View
         private void btnNew_Click(object sender, EventArgs e)
         {
             SportsFestivalController.getInstance.openNewSportsFestivalForm();
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-
+            renderSportsFestivalsGrid();
         }
 
         private void btnResults_Click(object sender, EventArgs e)
@@ -86,40 +66,38 @@ namespace SportsFestivalManagement.View
 
         private void Sportsfestival_Load(object sender, EventArgs e)
         {
+            sportsFestivalGrid.Focus();
+
             while (SportsFestivalController.getConnectionStateByConfigurationValues().Item1 == false)
             {
                 ConnectionSetupController.OpenSetupConnectionGUI();
             }
 
-            MySQL mySql = MySQLProvider.getMySQLInstance();
-            mySql.connect();
-            var result = mySql.query("SELECT * FROM sportsFestival");
+            DataGridViewTextBoxColumn sportsFestivalIdColumn = new DataGridViewTextBoxColumn();
+            sportsFestivalIdColumn.HeaderText = "Sportfest-ID";
+            sportsFestivalIdColumn.Name = sportsFestivalGridColumn0Name;
+            sportsFestivalIdColumn.Visible = false;
 
-            
+            DataGridViewTextBoxColumn sportsFestivalNameColumn = new DataGridViewTextBoxColumn();
+            sportsFestivalNameColumn.HeaderText = "Sportfest";
+            sportsFestivalNameColumn.Name = sportsFestivalGridColumn1Name;
+            sportsFestivalNameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            sportsFestivalNameColumn.ReadOnly = true;
 
-            /*while (reader.Read())
-            {
-                MessageBox.Show(reader.ToString());
-                reader.GetType();
-            }*/
+            sportsFestivalGrid.Columns.Add(sportsFestivalIdColumn);
+            sportsFestivalGrid.Columns.Add(sportsFestivalNameColumn);
 
-            
-
-            /*foreach (SportsFestival sportsFestival in SportsFestivalController.getAllSportsFestivals())
-            {
-                string[] row = {
-                    sportsFestival.SportsFestivalId.ToString(),
-                    "Sportfest " + sportsFestival.Date.Year.ToString()
-                };
-                lvSportsfestivals.Items.Add(new ListViewItem(row));
-            }*/
-
-            //SportsfestivalController.LoadSportsFestivalListView(lvSportsfestivals);
+            this.renderSportsFestivalsGrid();
         }
 
         private void sportsFestivalGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             SportsFestivalController.getInstance.openSportsFestivalDetailsForm();
+        }
+
+        private void btSportsFestivalData_Click(object sender, EventArgs e)
+        {
+            SportsFestivalController.getInstance.openSportsFestivalManagementForm();
         }
     }
 }

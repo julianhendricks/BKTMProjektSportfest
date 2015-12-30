@@ -12,7 +12,19 @@ namespace SportsFestivalManagement.Entities
         private string variantName;
         private int ageFrom;
         private int ageUntil;
-        private Discipline discipline;
+        private Discipline discipline = null;
+
+        public Variant(
+            int variantId,
+            string variantName,
+            int ageFrom,
+            int ageUntil
+        ) {
+            this.variantId = variantId;
+            this.variantName = variantName;
+            this.ageFrom = ageFrom;
+            this.ageUntil = ageUntil;
+        }
 
         public Variant(
             int variantId,

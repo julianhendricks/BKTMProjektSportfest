@@ -9,14 +9,20 @@ namespace SportsFestivalManagement.Entities
     class Class
     {
         private int classId;
-        private string shortcut;
+        private string prefix;
+        private int year;
+        private string suffix;
 
         public Class(
             int classId,
-            string shortcut
+            string prefix,
+            int year,
+            string suffix
         ) {
             this.classId = classId;
-            this.shortcut = shortcut;
+            this.prefix = prefix;
+            this.year = year;
+            this.suffix = suffix;
         }
 
         public int ClassId
@@ -27,15 +33,45 @@ namespace SportsFestivalManagement.Entities
             }
         }
 
-        public string Shortcut
+        public string Prefix
         {
             get
             {
-                return this.shortcut;
+                return this.prefix;
             }
             set
             {
-                this.shortcut = value;
+                this.prefix = value;
+            }
+        }
+
+        public int Year
+        {
+            get
+            {
+                return this.year;
+            }
+            set
+            {
+                this.year = value;
+            }
+        }
+
+        public string Suffix
+        {
+            get
+            {
+                return this.suffix;
+            }
+            set
+            {
+                this.suffix = value;
+            }
+        }
+
+        public string Shortcut {
+            get {
+                return this.Prefix + this.Year.ToString() + this.Suffix;
             }
         }
     }

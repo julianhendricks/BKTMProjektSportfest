@@ -80,13 +80,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DisciplinesController.cs" />
+    <Compile Include="Controller\NewClassController.cs" />
     <Compile Include="Controller\NewStudentController.cs" />
     <Compile Include="Controller\NewSportsFestivalController.cs" />
+    <Compile Include="Controller\SportsFestivalManagementController.cs" />
     <Compile Include="Entities\Measure.cs" />
     <Compile Include="Controller\ConnectionSetupController.cs" />
     <Compile Include="Provider\AbstractEntityProvider.cs" />
     <Compile Include="Provider\BenchmarkProvider.cs" />
     <Compile Include="Provider\CompetitionDisciplineSetProvider.cs" />
+    <Compile Include="Provider\SportsFestivalSubscriptionProvider.cs" />
     <Compile Include="Provider\SportsFestivalCompetitionProvider.cs" />
     <Compile Include="Provider\VariantProvider.cs" />
     <Compile Include="Provider\SportsFestivalProvider.cs" />
@@ -120,6 +123,12 @@
     <Compile Include="Provider\ConfigurationProvider.cs" />
     <Compile Include="Provider\MySQLProvider.cs" />
     <Compile Include="Controller\ResultsController.cs" />
+    <Compile Include="View\NewClassGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\NewClassGUI.Designer.cs">
+      <DependentUpon>NewClassGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\NewStudentGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +160,12 @@
     <Compile Include="View\SportCertificateGUI.Designer.cs">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SportsFestivalManagementGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SportsFestivalManagementGUI.Designer.cs">
+      <DependentUpon>SportsFestivalManagementGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SportsfestivalGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +196,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\NewClassGUI.resx">
+      <DependentUpon>NewClassGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\NewStudentGUI.resx">
       <DependentUpon>NewStudentGUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,12 +214,16 @@
     <EmbeddedResource Include="View\SportCertificateGUI.resx">
       <DependentUpon>SportCertificateGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\SportsFestivalManagementGUI.resx">
+      <DependentUpon>SportsFestivalManagementGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\SportsfestivalGUI.resx">
       <DependentUpon>SportsfestivalGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\StudentsAndClassesGUI.resx">
       <DependentUpon>StudentsAndClassesGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

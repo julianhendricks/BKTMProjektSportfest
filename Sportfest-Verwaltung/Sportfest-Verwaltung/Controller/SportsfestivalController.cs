@@ -46,6 +46,11 @@ namespace SportsFestivalManagement.Controller
 
         }
 
+        public void openSportsFestivalManagementForm()
+        {
+            SportsFestivalManagementController.getInstance.openSportsFestivalManagementForm();
+        }
+
         public List<SportsFestival> getAllSportsFestivalsOrderedByDescendingDate()
         {
             return SportsFestivalProvider.getAllSportsFestivalsByDescendingDate();

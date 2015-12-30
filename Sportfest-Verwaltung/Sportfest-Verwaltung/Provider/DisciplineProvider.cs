@@ -60,6 +60,12 @@ namespace SportsFestivalManagement.Provider
                 discipline.addDisciplineSetDisciplineMapping(disciplineSetDisciplineMapping);
             }
 
+            List<Variant> variants = VariantProvider.getVariantsByDiscipline(discipline);
+            foreach (Variant variant in variants)
+            {
+                discipline.addVariant(variant);
+            }
+
             return discipline;
         }
 
@@ -81,7 +87,7 @@ namespace SportsFestivalManagement.Provider
                     + "`" + field_categoryId + "`"
                 + ") VALUES ("
                     + "'" + name + "', "
-                    + measure.MeasureId + ", "
+                    + (measure == null ? "NULL" : measure.MeasureId.ToString()) + ", "
                     + category.CategoryId
                 + ")"
             );

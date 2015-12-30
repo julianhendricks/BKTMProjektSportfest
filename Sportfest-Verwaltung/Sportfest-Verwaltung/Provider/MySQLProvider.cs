@@ -5,15 +5,23 @@ namespace SportsFestivalManagement.Provider
 {
     class MySQLProvider
     {
+        private static MySQL mySqlInstance = null;
+
         public static MySQL getMySQLInstance()
         {
-            return new MySQL(
-                ConfigurationProvider.loadConfigurationValue("mySql_host"),
-                ConfigurationProvider.loadConfigurationValue("mySql_username"),
-                ConfigurationProvider.loadConfigurationValue("mySql_password"),
-                ConfigurationProvider.loadConfigurationValue("mySql_database"),
-                Convert.ToInt32(ConfigurationProvider.loadConfigurationValue("mySql_port"))
-            );
+            if (mySqlInstance == null)
+            {
+                mySqlInstance = new MySQL(
+                    ConfigurationProvider.loadConfigurationValue("mySql_host"),
+                    ConfigurationProvider.loadConfigurationValue("mySql_username"),
+                    ConfigurationProvider.loadConfigurationValue("mySql_password"),
+                    ConfigurationProvider.loadConfigurationValue("mySql_database"),
+                    Convert.ToInt32(ConfigurationProvider.loadConfigurationValue("mySql_port"))
+                );
+                mySqlInstance.connect();
+            }
+
+            return mySqlInstance;
         }
 
         public static Tuple<bool, string> testConnection(
@@ -23,7 +31,7 @@ namespace SportsFestivalManagement.Provider
             string database,
             int port
         ) {
-            MySQL mySqlInstance = new MySQL(
+            MySQL mySqlTestInstance = new MySQL(
                 host,
                 username,
                 password,
@@ -33,8 +41,8 @@ namespace SportsFestivalManagement.Provider
 
             try
             {
-                mySqlInstance.connect();
-                mySqlInstance.close();
+                mySqlTestInstance.connect();
+                mySqlTestInstance.close();
 
                 return Tuple.Create(true, "");
             }

@@ -109,7 +109,7 @@ namespace SportsFestivalManagement.Entities
                             + "`" + log_field_timestamp + "`, "
                             + "`" + log_field_executedSql + "`"
                         + ") VALUES ("
-                            + "'" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', "
+                            + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', "
                             + "'" + MySqlHelper.EscapeString(sql) + "'"
                         + ")"
                     ;

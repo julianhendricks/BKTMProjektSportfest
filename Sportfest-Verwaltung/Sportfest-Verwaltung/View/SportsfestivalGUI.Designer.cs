@@ -32,16 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SportsFestivalGUI));
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
+            this.sportsFestivalGrid = new System.Windows.Forms.DataGridView();
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
+            this.btSportsFestivalData = new MetroFramework.Controls.MetroButton();
             this.btnResults = new MetroFramework.Controls.MetroButton();
             this.btnNew = new MetroFramework.Controls.MetroButton();
             this.btnDisciplines = new MetroFramework.Controls.MetroButton();
             this.btnStudentsAndClasses = new MetroFramework.Controls.MetroButton();
-            this.sportsFestivalGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             this.pnlClient.SuspendLayout();
-            this.pnlControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sportsFestivalGrid)).BeginInit();
+            this.pnlControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroStyleManager
@@ -64,9 +65,25 @@
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClient.VerticalScrollbarSize = 10;
             // 
+            // sportsFestivalGrid
+            // 
+            this.sportsFestivalGrid.AllowUserToAddRows = false;
+            this.sportsFestivalGrid.AllowUserToDeleteRows = false;
+            this.sportsFestivalGrid.AllowUserToResizeRows = false;
+            this.sportsFestivalGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sportsFestivalGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sportsFestivalGrid.Location = new System.Drawing.Point(150, 0);
+            this.sportsFestivalGrid.MultiSelect = false;
+            this.sportsFestivalGrid.Name = "sportsFestivalGrid";
+            this.sportsFestivalGrid.RowHeadersVisible = false;
+            this.sportsFestivalGrid.Size = new System.Drawing.Size(594, 482);
+            this.sportsFestivalGrid.TabIndex = 5;
+            this.sportsFestivalGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.sportsFestivalGrid_CellContentDoubleClick);
+            // 
             // pnlControls
             // 
             this.pnlControls.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pnlControls.Controls.Add(this.btSportsFestivalData);
             this.pnlControls.Controls.Add(this.btnResults);
             this.pnlControls.Controls.Add(this.btnNew);
             this.pnlControls.Controls.Add(this.btnDisciplines);
@@ -85,6 +102,20 @@
             this.pnlControls.VerticalScrollbarBarColor = true;
             this.pnlControls.VerticalScrollbarHighlightOnWheel = false;
             this.pnlControls.VerticalScrollbarSize = 10;
+            // 
+            // btSportsFestivalData
+            // 
+            this.btSportsFestivalData.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btSportsFestivalData.Location = new System.Drawing.Point(0, 362);
+            this.btSportsFestivalData.Name = "btSportsFestivalData";
+            this.btSportsFestivalData.Size = new System.Drawing.Size(150, 40);
+            this.btSportsFestivalData.TabIndex = 7;
+            this.btSportsFestivalData.Text = "Grunddaten bearbeiten";
+            this.btSportsFestivalData.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btSportsFestivalData.UseCustomBackColor = true;
+            this.btSportsFestivalData.UseCustomForeColor = true;
+            this.btSportsFestivalData.UseSelectable = true;
+            this.btSportsFestivalData.Click += new System.EventHandler(this.btSportsFestivalData_Click);
             // 
             // btnResults
             // 
@@ -126,6 +157,7 @@
             this.btnDisciplines.UseCustomBackColor = true;
             this.btnDisciplines.UseCustomForeColor = true;
             this.btnDisciplines.UseSelectable = true;
+            this.btnDisciplines.Visible = false;
             this.btnDisciplines.Click += new System.EventHandler(this.btnDisciplines_Click);
             // 
             // btnStudentsAndClasses
@@ -142,25 +174,11 @@
             this.btnStudentsAndClasses.UseSelectable = true;
             this.btnStudentsAndClasses.Click += new System.EventHandler(this.btnStudentsAndClasses_Click_1);
             // 
-            // sportsFestivalGrid
-            // 
-            this.sportsFestivalGrid.AllowUserToAddRows = false;
-            this.sportsFestivalGrid.AllowUserToDeleteRows = false;
-            this.sportsFestivalGrid.AllowUserToResizeRows = false;
-            this.sportsFestivalGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.sportsFestivalGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sportsFestivalGrid.Location = new System.Drawing.Point(150, 0);
-            this.sportsFestivalGrid.MultiSelect = false;
-            this.sportsFestivalGrid.Name = "sportsFestivalGrid";
-            this.sportsFestivalGrid.RowHeadersVisible = false;
-            this.sportsFestivalGrid.Size = new System.Drawing.Size(594, 482);
-            this.sportsFestivalGrid.TabIndex = 5;
-            this.sportsFestivalGrid.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.sportsFestivalGrid_CellContentDoubleClick);
-            // 
             // SportsFestivalGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.pnlClient);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -170,8 +188,8 @@
             this.Load += new System.EventHandler(this.Sportsfestival_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
             this.pnlClient.ResumeLayout(false);
-            this.pnlControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sportsFestivalGrid)).EndInit();
+            this.pnlControls.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -186,6 +204,7 @@
         private MetroFramework.Controls.MetroButton btnNew;
         private MetroFramework.Controls.MetroButton btnResults;
         private System.Windows.Forms.DataGridView sportsFestivalGrid;
+        private MetroFramework.Controls.MetroButton btSportsFestivalData;
     }
 }
 

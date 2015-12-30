@@ -54,7 +54,13 @@ namespace SportsFestivalManagement.Controller
 
         public void openNewClassForm()
         {
-            NewStudentController.getInstance.OpenNewStudentGUI();
+            NewClassController.getInstance.OpenNewClassGUI();
+            this.getView().renderClassesGrid();
+        }
+
+        public void rotateClasses()
+        {
+            ClassProvider.rotateClasses();
         }
 
         private StudentsAndClassesGUI getView()

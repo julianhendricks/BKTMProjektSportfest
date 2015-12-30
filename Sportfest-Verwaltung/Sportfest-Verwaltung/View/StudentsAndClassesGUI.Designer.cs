@@ -36,13 +36,13 @@
             this.studentsGrid = new System.Windows.Forms.DataGridView();
             this.pagClasses = new System.Windows.Forms.TabPage();
             this.pnlClasses = new MetroFramework.Controls.MetroPanel();
+            this.classesGrid = new System.Windows.Forms.DataGridView();
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
             this.btnClose = new MetroFramework.Controls.MetroButton();
             this.btnImport = new MetroFramework.Controls.MetroButton();
             this.btnUpgrade = new MetroFramework.Controls.MetroButton();
             this.btnNew = new MetroFramework.Controls.MetroButton();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
-            this.classesGrid = new System.Windows.Forms.DataGridView();
             this.pnlClient.SuspendLayout();
             this.tcStudentsAndClasses.SuspendLayout();
             this.pagStudents.SuspendLayout();
@@ -50,9 +50,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.studentsGrid)).BeginInit();
             this.pagClasses.SuspendLayout();
             this.pnlClasses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.classesGrid)).BeginInit();
             this.pnlControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.classesGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlClient
@@ -120,6 +120,7 @@
             this.studentsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.studentsGrid.Location = new System.Drawing.Point(0, 0);
             this.studentsGrid.Name = "studentsGrid";
+            this.studentsGrid.ReadOnly = true;
             this.studentsGrid.RowHeadersVisible = false;
             this.studentsGrid.Size = new System.Drawing.Size(586, 440);
             this.studentsGrid.TabIndex = 2;
@@ -148,6 +149,20 @@
             this.pnlClasses.VerticalScrollbarBarColor = true;
             this.pnlClasses.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClasses.VerticalScrollbarSize = 10;
+            // 
+            // classesGrid
+            // 
+            this.classesGrid.AllowUserToAddRows = false;
+            this.classesGrid.AllowUserToDeleteRows = false;
+            this.classesGrid.AllowUserToResizeRows = false;
+            this.classesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.classesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.classesGrid.Location = new System.Drawing.Point(0, 0);
+            this.classesGrid.Name = "classesGrid";
+            this.classesGrid.ReadOnly = true;
+            this.classesGrid.RowHeadersVisible = false;
+            this.classesGrid.Size = new System.Drawing.Size(586, 440);
+            this.classesGrid.TabIndex = 2;
             // 
             // pnlControls
             // 
@@ -199,6 +214,7 @@
             this.btnImport.UseCustomBackColor = true;
             this.btnImport.UseCustomForeColor = true;
             this.btnImport.UseSelectable = true;
+            this.btnImport.Visible = false;
             // 
             // btnUpgrade
             // 
@@ -213,6 +229,8 @@
             this.btnUpgrade.UseCustomBackColor = true;
             this.btnUpgrade.UseCustomForeColor = true;
             this.btnUpgrade.UseSelectable = true;
+            this.btnUpgrade.Visible = false;
+            this.btnUpgrade.Click += new System.EventHandler(this.btnUpgrade_Click);
             // 
             // btnNew
             // 
@@ -233,20 +251,6 @@
             // 
             this.metroStyleManager.Owner = this;
             // 
-            // classesGrid
-            // 
-            this.classesGrid.AllowUserToAddRows = false;
-            this.classesGrid.AllowUserToDeleteRows = false;
-            this.classesGrid.AllowUserToResizeRows = false;
-            this.classesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.classesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.classesGrid.Location = new System.Drawing.Point(0, 0);
-            this.classesGrid.Name = "classesGrid";
-            this.classesGrid.ReadOnly = true;
-            this.classesGrid.RowHeadersVisible = false;
-            this.classesGrid.Size = new System.Drawing.Size(586, 440);
-            this.classesGrid.TabIndex = 2;
-            // 
             // StudentsAndClassesGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,9 +267,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.studentsGrid)).EndInit();
             this.pagClasses.ResumeLayout(false);
             this.pnlClasses.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.classesGrid)).EndInit();
             this.pnlControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.classesGrid)).EndInit();
             this.ResumeLayout(false);
 
         }

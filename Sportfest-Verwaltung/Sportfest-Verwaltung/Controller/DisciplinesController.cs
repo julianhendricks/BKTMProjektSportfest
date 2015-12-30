@@ -30,10 +30,7 @@ namespace SportsFestivalManagement.Controller
 
             DisciplinesGUIForm = new DisciplinesGUI(this);
 
-            DisciplinesGUIForm.updateDisciplines(
-                disciplines, // Available disciplines
-                new List<Discipline>()                  // Selected disciplines
-            );
+            DisciplinesGUIForm.updateDisciplines(disciplines);
             
             DisciplinesGUIForm.ShowDialog();
         }
@@ -45,8 +42,8 @@ namespace SportsFestivalManagement.Controller
                 DisciplineProvider.createDiscipline
                 (
                     saveObject[0].ToString(),
-                    MeasureProvider.getMeasureById(Convert.ToInt32(saveObject[1])),
-                    CategoryProvider.getCategoryById(Convert.ToInt32(saveObject[2]))
+                    MeasureProvider.getMeasureById(Convert.ToInt32(saveObject[2])),
+                    CategoryProvider.getCategoryById(Convert.ToInt32(saveObject[1]))
                 );
             }
             DisciplinesGUIForm.renderDisciplinesGrid(DisciplineProvider.getAllDisciplines());

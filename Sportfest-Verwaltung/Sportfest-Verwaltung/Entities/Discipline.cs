@@ -12,6 +12,7 @@ namespace SportsFestivalManagement.Entities
         private string name;
         private Measure measure;
         private Category category;
+        private List<Variant> variants = new List<Variant>();
         private List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings = new List<DisciplineSetDisciplineMapping>();
 
 
@@ -32,13 +33,15 @@ namespace SportsFestivalManagement.Entities
             string name,
             Measure measure,
             Category category,
-            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings
+            List<DisciplineSetDisciplineMapping> disciplineSetDisciplineMappings,
+            List<Variant> variants
         ) {
             this.disciplineId = disciplineId;
             this.name = name;
             this.measure = measure;
             this.category = category;
             this.disciplineSetDisciplineMappings = disciplineSetDisciplineMappings;
+            this.variants = variants;
         }
 
         public int DisciplineId
@@ -101,6 +104,22 @@ namespace SportsFestivalManagement.Entities
         public void removeDisciplineSetDisciplineMapping(DisciplineSetDisciplineMapping disciplineSetDisciplineMapping)
         {
             this.disciplineSetDisciplineMappings.Remove(disciplineSetDisciplineMapping);
+        }
+
+
+        public List<Variant> getVariants()
+        {
+            return this.variants;
+        }
+
+        public void addVariant(Variant variant)
+        {
+            this.variants.Add(variant);
+        }
+
+        public void removeVariant(Variant variant)
+        {
+            this.variants.Remove(variant);
         }
     }
 }
