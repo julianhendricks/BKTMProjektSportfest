@@ -28,22 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlClient = new MetroFramework.Controls.MetroPanel();
+            this.cbStudent = new System.Windows.Forms.ComboBox();
+            this.lblPupil = new System.Windows.Forms.Label();
+            this.cbClass = new System.Windows.Forms.ComboBox();
+            this.lblClass = new System.Windows.Forms.Label();
+            this.dgvDisciplines = new System.Windows.Forms.DataGridView();
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
-            this.btnPrint = new MetroFramework.Controls.MetroButton();
             this.btnClose = new MetroFramework.Controls.MetroButton();
-            this.GridResults = new MetroFramework.Controls.MetroGrid();
+            this.btnPrint = new MetroFramework.Controls.MetroButton();
             this.pnlClient.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisciplines)).BeginInit();
             this.pnlControls.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GridResults)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlClient
             // 
-            this.pnlClient.Controls.Add(this.GridResults);
+            this.pnlClient.Controls.Add(this.cbStudent);
+            this.pnlClient.Controls.Add(this.lblPupil);
+            this.pnlClient.Controls.Add(this.cbClass);
+            this.pnlClient.Controls.Add(this.lblClass);
+            this.pnlClient.Controls.Add(this.dgvDisciplines);
             this.pnlClient.Controls.Add(this.pnlControls);
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.HorizontalScrollbarBarColor = true;
@@ -56,6 +61,61 @@
             this.pnlClient.VerticalScrollbarBarColor = true;
             this.pnlClient.VerticalScrollbarHighlightOnWheel = false;
             this.pnlClient.VerticalScrollbarSize = 10;
+            // 
+            // cbStudent
+            // 
+            this.cbStudent.FormattingEnabled = true;
+            this.cbStudent.Location = new System.Drawing.Point(355, 8);
+            this.cbStudent.Name = "cbStudent";
+            this.cbStudent.Size = new System.Drawing.Size(191, 21);
+            this.cbStudent.TabIndex = 9;
+            this.cbStudent.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbStudent_Format);
+            // 
+            // lblPupil
+            // 
+            this.lblPupil.AutoSize = true;
+            this.lblPupil.Location = new System.Drawing.Point(303, 11);
+            this.lblPupil.Name = "lblPupil";
+            this.lblPupil.Size = new System.Drawing.Size(46, 13);
+            this.lblPupil.TabIndex = 8;
+            this.lblPupil.Text = "Schüler:";
+            // 
+            // cbClass
+            // 
+            this.cbClass.FormattingEnabled = true;
+            this.cbClass.Location = new System.Drawing.Point(200, 8);
+            this.cbClass.Name = "cbClass";
+            this.cbClass.Size = new System.Drawing.Size(85, 21);
+            this.cbClass.TabIndex = 7;
+            this.cbClass.SelectionChangeCommitted += new System.EventHandler(this.cbClass_SelectionChangeCommitted);
+            // 
+            // lblClass
+            // 
+            this.lblClass.AutoSize = true;
+            this.lblClass.Location = new System.Drawing.Point(153, 11);
+            this.lblClass.Name = "lblClass";
+            this.lblClass.Size = new System.Drawing.Size(41, 13);
+            this.lblClass.TabIndex = 6;
+            this.lblClass.Text = "Klasse:";
+            // 
+            // dgvDisciplines
+            // 
+            this.dgvDisciplines.AllowUserToAddRows = false;
+            this.dgvDisciplines.AllowUserToDeleteRows = false;
+            this.dgvDisciplines.AllowUserToOrderColumns = true;
+            this.dgvDisciplines.AllowUserToResizeColumns = false;
+            this.dgvDisciplines.AllowUserToResizeRows = false;
+            this.dgvDisciplines.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDisciplines.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dgvDisciplines.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            this.dgvDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDisciplines.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvDisciplines.Location = new System.Drawing.Point(156, 38);
+            this.dgvDisciplines.Name = "dgvDisciplines";
+            this.dgvDisciplines.RowHeadersVisible = false;
+            this.dgvDisciplines.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvDisciplines.Size = new System.Drawing.Size(600, 482);
+            this.dgvDisciplines.TabIndex = 5;
             // 
             // pnlControls
             // 
@@ -77,19 +137,6 @@
             this.pnlControls.VerticalScrollbarHighlightOnWheel = false;
             this.pnlControls.VerticalScrollbarSize = 10;
             // 
-            // btnPrint
-            // 
-            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPrint.Location = new System.Drawing.Point(0, 0);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(150, 40);
-            this.btnPrint.TabIndex = 2;
-            this.btnPrint.Text = "Drucken";
-            this.btnPrint.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnPrint.UseCustomBackColor = true;
-            this.btnPrint.UseCustomForeColor = true;
-            this.btnPrint.UseSelectable = true;
-            // 
             // btnClose
             // 
             this.btnClose.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -104,51 +151,18 @@
             this.btnClose.UseSelectable = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // GridResults
+            // btnPrint
             // 
-            this.GridResults.AllowUserToAddRows = false;
-            this.GridResults.AllowUserToDeleteRows = false;
-            this.GridResults.AllowUserToResizeRows = false;
-            this.GridResults.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridResults.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GridResults.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.GridResults.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridResults.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.GridResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridResults.DefaultCellStyle = dataGridViewCellStyle2;
-            this.GridResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GridResults.EnableHeadersVisualStyles = false;
-            this.GridResults.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.GridResults.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.GridResults.Location = new System.Drawing.Point(150, 0);
-            this.GridResults.Name = "GridResults";
-            this.GridResults.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.GridResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.GridResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.GridResults.Size = new System.Drawing.Size(610, 520);
-            this.GridResults.TabIndex = 3;
+            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPrint.Location = new System.Drawing.Point(0, 0);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(150, 40);
+            this.btnPrint.TabIndex = 2;
+            this.btnPrint.Text = "Drucken";
+            this.btnPrint.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnPrint.UseCustomBackColor = true;
+            this.btnPrint.UseCustomForeColor = true;
+            this.btnPrint.UseSelectable = true;
             // 
             // ResultsGUI
             // 
@@ -159,8 +173,9 @@
             this.Name = "ResultsGUI";
             this.Text = "Ergebnisse";
             this.pnlClient.ResumeLayout(false);
+            this.pnlClient.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisciplines)).EndInit();
             this.pnlControls.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.GridResults)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -171,6 +186,10 @@
         private MetroFramework.Controls.MetroPanel pnlControls;
         private MetroFramework.Controls.MetroButton btnClose;
         private MetroFramework.Controls.MetroButton btnPrint;
-        private MetroFramework.Controls.MetroGrid GridResults;
+        private System.Windows.Forms.DataGridView dgvDisciplines;
+        private System.Windows.Forms.Label lblPupil;
+        private System.Windows.Forms.ComboBox cbClass;
+        private System.Windows.Forms.Label lblClass;
+        private System.Windows.Forms.ComboBox cbStudent;
     }
 }

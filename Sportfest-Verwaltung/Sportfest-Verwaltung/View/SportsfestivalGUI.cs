@@ -61,7 +61,11 @@ namespace SportsFestivalManagement.View
 
         private void btnResults_Click(object sender, EventArgs e)
         {
-            ResultsController.OpenResultsGUI();
+            if (sportsFestivalGrid.CurrentRow != null)
+            {
+                int curSportsFestivalId = (int)sportsFestivalGrid.CurrentRow.Cells[0].Value;
+                ResultsController.getInstance.OpenResultsGUI(SportsFestivalProvider.getSportsFestivalById(curSportsFestivalId));
+            }            
         }
 
         private void Sportsfestival_Load(object sender, EventArgs e)

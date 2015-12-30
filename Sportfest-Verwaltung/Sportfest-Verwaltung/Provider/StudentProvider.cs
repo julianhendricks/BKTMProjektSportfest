@@ -1,7 +1,15 @@
-﻿using SportsFestivalManagement.Entities;
+﻿using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
-using System;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using SportsFestivalManagement.Provider;
+using SportsFestivalManagement.Entities;
+using SportsFestivalManagement.Controller;
 
 namespace SportsFestivalManagement.Provider
 {
@@ -9,14 +17,14 @@ namespace SportsFestivalManagement.Provider
     {
         public const string tableName = "student";
         public const string field_studentId = "studentId";
-        public const string field_firstName = "firstName";
-        public const string field_lastName = "lastName";
+        public const string field_firstName = "firstname";
+        public const string field_lastName = "lastname";
         public const string field_birthday = "birthday";
         public const string field_gender = "gender";
         public const string field_street = "street";
         public const string field_zip = "zip";
         public const string field_city = "city";
-        public const string field_classId = "classId";
+        public const string field_classId = "class_id";
         public const string field_active = "active";
 
         public static List<Student> getAllStudents()
@@ -79,7 +87,28 @@ namespace SportsFestivalManagement.Provider
 
             return students;
         }
-        
+
+        public static List<Student> getAllStudentsByClassId(int classId)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "`" + field_classId + "` = " + classId
+            );
+
+            List<Student> students = new List<Student>();
+
+            foreach (var row in results)
+            {
+                students.Add(getStudentById(Convert.ToInt32(row[field_studentId])));
+            }
+
+            return students;
+        }
+
         public static Student getStudentById(int studentId)
         {
             Dictionary<string, object> result = querySingleSql(""

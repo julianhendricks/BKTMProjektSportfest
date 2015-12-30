@@ -66,5 +66,7 @@ namespace SportsFestivalManagement.Controller
                 Convert.ToInt32(ConfigurationProvider.loadConfigurationValue(ConfigurationProvider.mySql_port))
             );
         }
+
+
     }
 }

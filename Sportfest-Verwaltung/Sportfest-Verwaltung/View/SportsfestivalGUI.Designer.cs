@@ -123,7 +123,7 @@
             this.btnResults.Location = new System.Drawing.Point(0, 40);
             this.btnResults.Name = "btnResults";
             this.btnResults.Size = new System.Drawing.Size(150, 40);
-            this.btnResults.TabIndex = 6;
+            this.btnResults.TabIndex = 8;
             this.btnResults.Text = "Ergebnisse";
             this.btnResults.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnResults.UseCustomBackColor = true;
@@ -198,13 +198,13 @@
 
         private MetroFramework.Components.MetroStyleManager metroStyleManager;
         private MetroFramework.Controls.MetroPanel pnlClient;
-        private MetroFramework.Controls.MetroPanel pnlControls;
         private MetroFramework.Controls.MetroButton btnStudentsAndClasses;
         private MetroFramework.Controls.MetroButton btnDisciplines;
         private MetroFramework.Controls.MetroButton btnNew;
-        private MetroFramework.Controls.MetroButton btnResults;
         private System.Windows.Forms.DataGridView sportsFestivalGrid;
         private MetroFramework.Controls.MetroButton btSportsFestivalData;
+        private MetroFramework.Controls.MetroPanel pnlControls;
+        private MetroFramework.Controls.MetroButton btnResults;
     }
 }
 
