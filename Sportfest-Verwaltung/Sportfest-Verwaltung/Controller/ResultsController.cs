@@ -23,13 +23,14 @@ namespace SportsFestivalManagement.Controller
             get { return _instance; }
         } 
 
-        public void OpenResultsGUI(SportsFestival curSportsFestival)
+        public void OpenResultsGUI(SportsFestival pSportsFestival)
         {
-            ResultsGUIForm = new ResultsGUI(this);
+            ResultsGUIForm = new ResultsGUI(this, pSportsFestival);
 
-            ResultsGUIForm.updateSubscriptions(curSportsFestival);
+            ResultsGUIForm.updateSubscriptions();
 
             ResultsGUIForm.ShowDialog();
         }
+
     }
 }

@@ -33,12 +33,12 @@
             this.lblPupil = new System.Windows.Forms.Label();
             this.cbClass = new System.Windows.Forms.ComboBox();
             this.lblClass = new System.Windows.Forms.Label();
-            this.dgvDisciplines = new System.Windows.Forms.DataGridView();
+            this.dgvResults = new System.Windows.Forms.DataGridView();
             this.pnlControls = new MetroFramework.Controls.MetroPanel();
             this.btnClose = new MetroFramework.Controls.MetroButton();
             this.btnPrint = new MetroFramework.Controls.MetroButton();
             this.pnlClient.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDisciplines)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.pnlControls.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +48,7 @@
             this.pnlClient.Controls.Add(this.lblPupil);
             this.pnlClient.Controls.Add(this.cbClass);
             this.pnlClient.Controls.Add(this.lblClass);
-            this.pnlClient.Controls.Add(this.dgvDisciplines);
+            this.pnlClient.Controls.Add(this.dgvResults);
             this.pnlClient.Controls.Add(this.pnlControls);
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.HorizontalScrollbarBarColor = true;
@@ -65,16 +65,17 @@
             // cbStudent
             // 
             this.cbStudent.FormattingEnabled = true;
-            this.cbStudent.Location = new System.Drawing.Point(355, 8);
+            this.cbStudent.Location = new System.Drawing.Point(381, 8);
             this.cbStudent.Name = "cbStudent";
-            this.cbStudent.Size = new System.Drawing.Size(191, 21);
+            this.cbStudent.Size = new System.Drawing.Size(375, 21);
             this.cbStudent.TabIndex = 9;
+            this.cbStudent.SelectionChangeCommitted += new System.EventHandler(this.cbStudent_SelectionChangeCommitted);
             this.cbStudent.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbStudent_Format);
             // 
             // lblPupil
             // 
             this.lblPupil.AutoSize = true;
-            this.lblPupil.Location = new System.Drawing.Point(303, 11);
+            this.lblPupil.Location = new System.Drawing.Point(329, 11);
             this.lblPupil.Name = "lblPupil";
             this.lblPupil.Size = new System.Drawing.Size(46, 13);
             this.lblPupil.TabIndex = 8;
@@ -85,9 +86,10 @@
             this.cbClass.FormattingEnabled = true;
             this.cbClass.Location = new System.Drawing.Point(200, 8);
             this.cbClass.Name = "cbClass";
-            this.cbClass.Size = new System.Drawing.Size(85, 21);
+            this.cbClass.Size = new System.Drawing.Size(108, 21);
             this.cbClass.TabIndex = 7;
             this.cbClass.SelectionChangeCommitted += new System.EventHandler(this.cbClass_SelectionChangeCommitted);
+            this.cbClass.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbClass_Format);
             // 
             // lblClass
             // 
@@ -98,24 +100,24 @@
             this.lblClass.TabIndex = 6;
             this.lblClass.Text = "Klasse:";
             // 
-            // dgvDisciplines
+            // dgvResults
             // 
-            this.dgvDisciplines.AllowUserToAddRows = false;
-            this.dgvDisciplines.AllowUserToDeleteRows = false;
-            this.dgvDisciplines.AllowUserToOrderColumns = true;
-            this.dgvDisciplines.AllowUserToResizeColumns = false;
-            this.dgvDisciplines.AllowUserToResizeRows = false;
-            this.dgvDisciplines.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDisciplines.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dgvDisciplines.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            this.dgvDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDisciplines.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvDisciplines.Location = new System.Drawing.Point(156, 38);
-            this.dgvDisciplines.Name = "dgvDisciplines";
-            this.dgvDisciplines.RowHeadersVisible = false;
-            this.dgvDisciplines.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvDisciplines.Size = new System.Drawing.Size(600, 482);
-            this.dgvDisciplines.TabIndex = 5;
+            this.dgvResults.AllowUserToAddRows = false;
+            this.dgvResults.AllowUserToDeleteRows = false;
+            this.dgvResults.AllowUserToOrderColumns = true;
+            this.dgvResults.AllowUserToResizeColumns = false;
+            this.dgvResults.AllowUserToResizeRows = false;
+            this.dgvResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvResults.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dgvResults.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResults.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvResults.Location = new System.Drawing.Point(156, 38);
+            this.dgvResults.Name = "dgvResults";
+            this.dgvResults.RowHeadersVisible = false;
+            this.dgvResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvResults.Size = new System.Drawing.Size(600, 482);
+            this.dgvResults.TabIndex = 5;
             // 
             // pnlControls
             // 
@@ -174,7 +176,7 @@
             this.Text = "Ergebnisse";
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDisciplines)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.pnlControls.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -186,7 +188,7 @@
         private MetroFramework.Controls.MetroPanel pnlControls;
         private MetroFramework.Controls.MetroButton btnClose;
         private MetroFramework.Controls.MetroButton btnPrint;
-        private System.Windows.Forms.DataGridView dgvDisciplines;
+        private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.Label lblPupil;
         private System.Windows.Forms.ComboBox cbClass;
         private System.Windows.Forms.Label lblClass;

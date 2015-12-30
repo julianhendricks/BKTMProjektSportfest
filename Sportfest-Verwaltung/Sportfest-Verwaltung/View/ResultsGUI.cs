@@ -15,8 +15,11 @@ namespace SportsFestivalManagement.View
 {
     public partial class ResultsGUI : MetroFramework.Forms.MetroForm
     {
-        internal ResultsGUI(ResultsController controller)
+        private SportsFestival m_SportsFestivalRef = null;
+
+        internal ResultsGUI(ResultsController controller, SportsFestival curSportsFestival)
         {
+            m_SportsFestivalRef = curSportsFestival;
             InitializeComponent();
         }
 
@@ -30,16 +33,17 @@ namespace SportsFestivalManagement.View
 
         }
 
-        internal void updateSubscriptions(SportsFestival curSportsFestival)
+        internal void updateSubscriptions()
         {
-            cbClass.DataSource = SportsFestivalSubscriptionProvider.getClassesBySportsFestival(curSportsFestival);
+            cbClass.DataSource = ClassProvider.getClassesBySportsFestival(m_SportsFestivalRef);
             cbClass.ValueMember = "classId";
-            cbClass.DisplayMember = "Shortcut";
+            cbClass.DisplayMember = "classId";
             cbClass.SelectedItem = null;
-
-            cbStudent.DataSource = SportsFestivalSubscriptionProvider.getStudentsBySportsFestival(curSportsFestival);
+            /*
+            cbStudent.DataSource = StudentProvider.getStudentsBySportsFestival(curSportsFestival);
             cbStudent.ValueMember = "studentId";
             cbStudent.SelectedItem = null;
+            */
         }
 
         private void cbStudent_Format(object sender, ListControlConvertEventArgs e)
@@ -53,6 +57,59 @@ namespace SportsFestivalManagement.View
         {
             cbStudent.DataSource = StudentProvider.getAllStudentsByClassId((int)cbClass.SelectedValue);
             cbStudent.SelectedItem = null;
+        }
+
+        private void cbClass_Format(object sender, ListControlConvertEventArgs e)
+        {
+            string prefix = ((Class)e.ListItem).Prefix;
+            string suffix = ((Class)e.ListItem).Suffix;
+            e.Value = prefix + suffix;
+        }
+
+        private void cbStudent_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            this.renderResultsGrid();
+        }
+
+        internal void renderResultsGrid()
+        {
+            dgvResults.Rows.Clear();
+            
+            DataGridViewTextBoxColumn textBoxCompetition = new DataGridViewTextBoxColumn();
+            textBoxCompetition.ReadOnly = true;
+            dgvResults.Columns.Add(textBoxCompetition);
+            
+       
+            DataGridViewTextBoxColumn textBoxDiscipline = new DataGridViewTextBoxColumn();
+            textBoxCompetition.ReadOnly = true;
+            dgvResults.Columns.Add(textBoxDiscipline);
+
+            DataGridViewTextBoxColumn textBoxResult = new DataGridViewTextBoxColumn();
+            dgvResults.Columns.Add(textBoxResult);         
+
+            foreach (Competition competition in CompetitionProvider.getCompetitionsBySportsFestival(m_SportsFestivalRef))
+            {
+                if (competition == null)
+                {
+                    continue;
+                }
+
+                List<DisciplineSet> disciplineSetsList = CompetitionDisciplineSetProvider.getDisciplineSetsByCompetition(competition);
+                
+                foreach(DisciplineSet disciplineSet in disciplineSetsList)
+                {
+                    foreach(Discipline discipline in DisciplineProvider.getDisciplinesByDisciplineSetId(disciplineSet))
+                    {
+                        object[] rowData = new object[]
+                        {
+                            competition.CompetitionName,
+                            discipline.Name,
+                            ""
+                        };
+                        dgvResults.Rows.Add(rowData);
+                    }
+                }                                
+            }
         }
     }
 }

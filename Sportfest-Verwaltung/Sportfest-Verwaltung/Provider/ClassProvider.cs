@@ -12,6 +12,7 @@ namespace SportsFestivalManagement.Provider
         public const string field_prefix = "prefix";
         public const string field_year = "year";
         public const string field_suffix = "suffix";
+        public const string field_sportsFestivalId = "sportsFestivalId";
 
         public static List<Class> getAllClasses()
         {
@@ -127,6 +128,48 @@ namespace SportsFestivalManagement.Provider
             }
 
             return getClassById(Convert.ToInt32(result[field_classId]));
+        }
+
+        public static Class getClassByShortcutSimplified(
+            string shortcut
+        )
+        {
+            Dictionary<string, object> result = querySingleSql(
+                 "SELECT "
+                    + "`" + field_classId + "` "
+                + "FROM "
+                    + "`" + tableName + "` "
+                + "WHERE "
+                    + "concat(" + field_prefix + "," +field_suffix + ") = '" + shortcut + "' "
+            );
+
+            if (result == null)
+            {
+                return null;
+            }
+
+            return getClassById(Convert.ToInt32(result[field_classId]));
+        }
+
+        public static List<Class> getClassesBySportsFestival(SportsFestival sportsFestival)
+        {
+            List<Dictionary<string, object>> results = querySql(""
+                + "SELECT "
+                    + "* "
+                + "FROM "
+                    + "`sportsfestivalSubscription` "
+                + "WHERE "
+                    + "`" + field_sportsFestivalId + "` = " + sportsFestival.SportsFestivalId
+            );
+
+            List<Class> classes = new List<Class>();
+
+            foreach (var row in results)
+            {
+                classes.Add(ClassProvider.getClassByShortcutSimplified(row["classShortcut"].ToString()));
+            }
+
+            return classes;
         }
 
         public static int createClass(
